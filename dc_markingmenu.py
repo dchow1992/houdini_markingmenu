@@ -1,6 +1,5 @@
-import hou
+import hou, time, json
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
-import time
 
 class NE_MarkingMenu(QtWidgets.QWidget):
     def __init__(self):
@@ -23,7 +22,13 @@ class NE_MarkingMenu(QtWidgets.QWidget):
     def initUI(self):
         #self.setWindowTitle("test")
         self.setGeometry(self.center[0], self.center[1], self.width, self.height)
+
         self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
+
+        #these are blocked by parenting to houdini window stylesheet
+        #self.setAttribute(QtCore.Qt.WA_TranslucentBackground)        
+        #self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+
         self.cursor = QtCore.QPoint(0,0)
         self.grabMouse()
         QtTest.QTest.mousePress(self, QtCore.Qt.RightButton)        
@@ -41,9 +46,11 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         self.update()
         
     def paintEvent(self, e):
+        print 'painting'
         qp = QtGui.QPainter(self)
-        self.drawMouseLine(qp)
-        self.drawCenterCircle(qp)
+        qp.setRenderHint(QtGui.QPainter.Antialiasing, True)
+        self.drawMouseLine(qp, self.pos, self.cursor)
+        self.drawCenterCircle(qp, self.cursor)
         qp.end()
 
     def mouseReleaseEvent(self, e):
@@ -63,22 +70,22 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         node = ne.pwd().createNode('null')
         node.move(position)
 
-    def drawMouseLine(self, painter):
-        pen = QtGui.QPen(QtCore.Qt.black, 6, QtCore.Qt.SolidLine)
+    def drawMouseLine(self, painter, start, end):
+        pen = QtGui.QPen(QtCore.Qt.black, 3, QtCore.Qt.SolidLine)
         brush = QtGui.QBrush(QtCore.Qt.lightGray)
         brush.setColor(QtGui.QColor(35,37,40))        
         pen.setBrush(brush)
         painter.setPen(pen)
-        painter.drawLine(self.pos, self.cursor)
+        painter.drawLine(start, end)
 
-    def drawCenterCircle(self, painter):
+    def drawCenterCircle(self, painter, center):
         pen = QtGui.QPen()
-        pen.setStyle(QtCore.Qt.PenStyle(0))
+        #pen.setStyle(QtCore.Qt.PenStyle(0))
         painter.setPen(pen)
         brush = QtGui.QBrush(QtCore.Qt.SolidPattern)
         brush.setColor(QtGui.QColor(225,225,225))
         painter.setBrush(brush)
-        painter.drawEllipse(self.cursor, 10, 10)
+        painter.drawEllipse(center, 7, 7)
 
     def run(self):
         self.show()
