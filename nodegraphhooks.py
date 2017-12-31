@@ -1,11 +1,8 @@
 import hou
-
-#pyside gui
-from PySide2 import QtWidgets, QtCore, QtGui
-import dc_markingmenu as mm
+import NE_markingMenu_ui as nemm
 
 #for houdini event handling
-import mynodegraph as nodegraph
+import NE_markingMenu_nodegraph as nodegraph
 from canvaseventtypes import *
 
 class NE_MarkingMenuMouseHandler(nodegraph.NodeMouseHandler):
@@ -20,9 +17,9 @@ class NE_MarkingMenuMouseHandler(nodegraph.NodeMouseHandler):
                     entry.close()'''
 
             #generate window, parent to houdini main window
-            markingMenu = mm.NE_MarkingMenu()
-            markingMenu.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
-
+            #markingMenu = mm.NE_MarkingMenu()
+            markingMenu = nemm.TestWindow()
+            
             #end custom event handling, return None, otherwise return traditional nodegraph rmb handling
             return None
 
