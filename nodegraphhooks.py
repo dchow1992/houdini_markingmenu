@@ -1,8 +1,5 @@
 import hou
-import NE_markingMenu_ui as nemm
-
-#for houdini event handling
-import NE_markingMenu_nodegraph as nodegraph
+from ne_mm_libs import NE_markingMenu_ui as mm, NE_markingMenu_nodegraph as nodegraph
 from canvaseventtypes import *
 
 class NE_MarkingMenuMouseHandler(nodegraph.NodeMouseHandler):
@@ -18,7 +15,8 @@ class NE_MarkingMenuMouseHandler(nodegraph.NodeMouseHandler):
 
             #generate window, parent to houdini main window
             #markingMenu = mm.NE_MarkingMenu()
-            markingMenu = nemm.TestWindow()
+            reload(mm)
+            markingMenu = mm.NE_MarkingMenu()
             
             #end custom event handling, return None, otherwise return traditional nodegraph rmb handling
             return None
