@@ -1,63 +1,63 @@
 {
     "collectionItem0": {
         "activeWire": false, 
-        "command": "cmds.createPointWrangle()", 
+        "command": "cmds.createPointVOP()", 
         "commandType": "customFunction", 
         "context": "SOP", 
-        "icon": "SOP_attribwrangle", 
+        "icon": "SOP_attribvop", 
         "index": 0, 
         "isMenu": false, 
-        "label": "Point Wrangle", 
+        "label": "Point VOP", 
         "menuCollection": "", 
-        "nodetype": "createPointWrangle()"
+        "nodetype": "createPointVOP()"
     }, 
     "collectionItem1": {
         "activeWire": false, 
-        "command": "cmds.createPrimitiveWrangle()", 
+        "command": "cmds.createPrimitiveVOP()", 
         "commandType": "customFunction", 
         "context": "SOP", 
-        "icon": "SOP_attribwrangle", 
+        "icon": "SOP_attribvop", 
         "index": 1, 
         "isMenu": false, 
-        "label": "Primitive Wrangle", 
+        "label": "Primitive VOP", 
         "menuCollection": "", 
-        "nodetype": "createPrimitiveWrangle()"
+        "nodetype": "createPrimitiveVOP()"
     }, 
     "collectionItem2": {
         "activeWire": false, 
-        "command": "cmds.createDetailWrangle()", 
+        "command": "cmds.createDetailVOP()", 
         "commandType": "customFunction", 
         "context": "SOP", 
-        "icon": "SOP_attribwrangle", 
+        "icon": "SOP_attribvop", 
         "index": 2, 
         "isMenu": false, 
-        "label": "Detail Wrangle", 
+        "label": "Detail VOP", 
         "menuCollection": "", 
-        "nodetype": "createDetailWrangle()"
+        "nodetype": "createDetailVOP()"
     }, 
     "collectionItem3": {
         "activeWire": false, 
-        "command": "cmds.createVolumeWrangle()", 
+        "command": "cmds.createVolumeVOP()", 
         "commandType": "customFunction", 
         "context": "SOP", 
-        "icon": "SOP_attribwrangle", 
+        "icon": "SOP_attribvop", 
         "index": 3, 
         "isMenu": false, 
-        "label": "Volume Wrangle", 
+        "label": "Volume VOP", 
         "menuCollection": "", 
-        "nodetype": "createVolumeWrangle()"
+        "nodetype": "createVolumeVOP()"
     }, 
     "collectionItem4": {
         "activeWire": false, 
-        "command": "cmds.createVertexWrangle()", 
+        "command": "cmds.createVertexVOP()", 
         "commandType": "customFunction", 
         "context": "SOP", 
-        "icon": "SOP_attribwrangle", 
+        "icon": "SOP_attribvop", 
         "index": 4, 
         "isMenu": false, 
-        "label": "Vertex Wrangle", 
+        "label": "Vertex VOP", 
         "menuCollection": "", 
-        "nodetype": "createVertexWrangle()"
+        "nodetype": "createVertexVOP()"
     }, 
     "collectionItem5": null, 
     "collectionItem6": null, 

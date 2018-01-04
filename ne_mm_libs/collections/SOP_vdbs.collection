@@ -1,98 +1,98 @@
 {
     "collectionItem0": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"vdbfrompolygons\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "OBJ_geo", 
+        "icon": "COMMON_openvdb", 
         "index": 0, 
         "isMenu": false, 
-        "label": "Method Geo Cache", 
+        "label": "VDB From Polygons", 
         "menuCollection": "", 
-        "nodetype": "null"
+        "nodetype": "vdbfrompolygons"
     }, 
     "collectionItem1": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"convertvdb\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "SOP_attribwrangle", 
+        "icon": "COMMON_openvdb", 
         "index": 1, 
-        "isMenu": true, 
-        "label": "Wrangles", 
-        "menuCollection": "SOP_wrangles.collection", 
-        "nodetype": "null"
+        "isMenu": false, 
+        "label": "Convert VDB", 
+        "menuCollection": "", 
+        "nodetype": "convertvdb"
     }, 
     "collectionItem2": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"vdbfromparticles\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "MISC_python", 
+        "icon": "COMMON_openvdb", 
         "index": 2, 
         "isMenu": false, 
-        "label": "", 
+        "label": "VDB From Particles", 
         "menuCollection": "", 
-        "nodetype": "null"
+        "nodetype": "vdbfromparticles"
     }, 
     "collectionItem3": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"vdbreshapesdf\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "SOP_attribvop", 
+        "icon": "COMMON_openvdb", 
         "index": 3, 
-        "isMenu": true, 
-        "label": "VOPs", 
-        "menuCollection": "SOP_vops.collection", 
-        "nodetype": "null"
+        "isMenu": false, 
+        "label": "VDB Reshape SDF", 
+        "menuCollection": "", 
+        "nodetype": "vdbreshapesdf"
     }, 
     "collectionItem4": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"vdbsmooth\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "MISC_python", 
+        "icon": "COMMON_openvdb", 
         "index": 4, 
         "isMenu": false, 
-        "label": "", 
+        "label": "VDB Smooth", 
         "menuCollection": "", 
-        "nodetype": "null"
+        "nodetype": "vdbsmooth"
     }, 
     "collectionItem5": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"vdbsmoothsdf\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "MISC_python", 
+        "icon": "COMMON_openvdb", 
         "index": 5, 
         "isMenu": false, 
-        "label": "", 
+        "label": "VDB Smooth SDF", 
         "menuCollection": "", 
-        "nodetype": "null"
+        "nodetype": "vdbsmoothsdf"
     }, 
     "collectionItem6": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"vdbvectormerge\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "MISC_python", 
+        "icon": "COMMON_openvdb", 
         "index": 6, 
         "isMenu": false, 
-        "label": "", 
+        "label": "VDB Vector Merge", 
         "menuCollection": "", 
-        "nodetype": "null"
+        "nodetype": "vdbvectormerge"
     }, 
     "collectionItem7": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"vdbvectorsplit\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
         "icon": "COMMON_openvdb", 
         "index": 7, 
-        "isMenu": true, 
-        "label": "Open VDB", 
-        "menuCollection": "SOP_vdbs.collection", 
-        "nodetype": "null"
+        "isMenu": false, 
+        "label": "VDB Vector Split", 
+        "menuCollection": "", 
+        "nodetype": "vdbvectorsplit"
     }
 }
