@@ -1,0 +1,98 @@
+{
+    "collectionItem0": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "OBJ_geo", 
+        "index": 0, 
+        "isMenu": false, 
+        "label": "Method Geo Cache", 
+        "menuCollection": "", 
+        "nodetype": "null"
+    }, 
+    "collectionItem1": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_attribwrangle", 
+        "index": 1, 
+        "isMenu": true, 
+        "label": "Wrangles", 
+        "menuCollection": "SOP_wrangles.collection", 
+        "nodetype": "null"
+    }, 
+    "collectionItem2": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "MISC_python", 
+        "index": 2, 
+        "isMenu": false, 
+        "label": "", 
+        "menuCollection": "", 
+        "nodetype": "null"
+    }, 
+    "collectionItem3": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_attribvop", 
+        "index": 3, 
+        "isMenu": true, 
+        "label": "VOPs", 
+        "menuCollection": "SOP_vops.collection", 
+        "nodetype": "null"
+    }, 
+    "collectionItem4": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "MISC_python", 
+        "index": 4, 
+        "isMenu": false, 
+        "label": "", 
+        "menuCollection": "", 
+        "nodetype": "null"
+    }, 
+    "collectionItem5": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "MISC_python", 
+        "index": 5, 
+        "isMenu": false, 
+        "label": "", 
+        "menuCollection": "", 
+        "nodetype": "null"
+    }, 
+    "collectionItem6": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "MISC_python", 
+        "index": 6, 
+        "isMenu": false, 
+        "label": "", 
+        "menuCollection": "", 
+        "nodetype": "null"
+    }, 
+    "collectionItem7": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"null\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 7, 
+        "isMenu": true, 
+        "label": "Open VDB", 
+        "menuCollection": "SOP_vdbs.collection", 
+        "nodetype": "null"
+    }
+}

@@ -114,10 +114,10 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         
         #setup initial config file
         self.context = self.getContext()
-        self.inputFile = 'NE_markingMenu_%s.json' % self.context
+        self.inputFile = '%s_baseCollection.collection' % self.context
         self.inputConfigFile = {}
-        self.menuItemDescriptions = []        
-        self.processConfigFile(self.inputFile)
+        self.collectionItemDescriptions = []        
+        self.loadCollection(self.inputFile)
 
         self.initUI()
         
@@ -166,19 +166,19 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         elif hou_context == 'CopNet':
             return 'COP'
 
-    def processConfigFile(self, filename):
-        dirpath = hou.getenv('HOUDINI_USER_PREF_DIR')+'/python2.7libs/ne_mm_libs/'
+    def loadCollection(self, collectionFile):
+        self.collectionsDir = hou.getenv('HOUDINI_USER_PREF_DIR')+'/python2.7libs/ne_mm_libs/collections/'
         
         #close if config file not found
-        if not os.path.isfile(dirpath+filename):
-            print 'marking menu config file missing in this context'
+        if not os.path.isfile(self.collectionsDir+collectionFile):
+            print 'collections missing in this context'
             self.close()
         else:
-            with open(dirpath+filename, 'r') as f:
+            with open(self.collectionsDir+collectionFile, 'r') as f:
                 self.inputConfigFile = json.load(f)        
 
             for a in range(len(self.inputConfigFile)):
-                self.menuItemDescriptions.append(self.inputConfigFile['menuItem%s'%a])
+                self.collectionItemDescriptions.append(self.inputConfigFile['collectionItem%s'%a])
 
     def createMenuButtons(self, anchorIndex):
         #generate initial menu
@@ -187,17 +187,18 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         #center = QtCore.QPoint(self.size().width()/2, self.size().height()/2)
         center = self.mouseAnchorPositions[anchorIndex]
 
-        for i in range(len(self.menuItemDescriptions)):
-            item = self.menuItemDescriptions[i]
-            index = item['index']
+        for i in range(len(self.collectionItemDescriptions)):
+            item = self.collectionItemDescriptions[i]            
             if item != None:
+                index = item['index']
                 btn = MenuItemButton(item['label'] + '  ', self)
 
                 if item['isMenu']:
                     btn.setMenu(dummyMenu)
                     btn.menu()
-                    btn.isMenu = True
-                    btn.menuObjects = item['menuObjects']
+                    btn.isMenu = True                    
+                    with open(self.collectionsDir + item['menuCollection'], 'r') as f:                    
+                        btn.menuObjects = json.load(f)
                 
                 #button size, icon, icon size, position
                 minx = 110
@@ -276,14 +277,14 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         #reset targetWidget and prepare to draw new buttons    
         self.targetWidget = 0
         self.menuItemWidgets = []
-        self.menuItemDescriptions = descriptionList
+        self.collectionItemDescriptions = descriptionList
         time.sleep(.025)
         self.createMenuButtons(len(self.mouseAnchorPositions)-1)
 
     def propagateMenu(self, e):        
         if self.targetWidget != 0 and self.targetWidget.underMouse and self.targetWidget.isMenu:
             #store current configuration in case user wants to go back
-            self.mousePathGraphicsWidget.previousMenu = self.menuItemDescriptions
+            self.mousePathGraphicsWidget.previousMenu = self.collectionItemDescriptions
 
             #add new position for mouse path
             self.mouseAnchorPositions.append(e.pos())
@@ -324,7 +325,7 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         self.setParent(None)
         self.deleteLater()
 
-        if self.targetWidget != 0:
+        if self.targetWidget != 0 and not self.targetWidget.isMenu:
             self.executeCommand()       
 
     def pointRectDist(self, pos, rect):

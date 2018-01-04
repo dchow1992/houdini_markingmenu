@@ -1,0 +1,98 @@
+{
+    "collectionItem0": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"vdbfrompolygons\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 0, 
+        "isMenu": false, 
+        "label": "VDB From Polygons", 
+        "menuCollection": "", 
+        "nodetype": "vdbfrompolygons"
+    }, 
+    "collectionItem1": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"convertvdb\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 1, 
+        "isMenu": false, 
+        "label": "Convert VDB", 
+        "menuCollection": "", 
+        "nodetype": "convertvdb"
+    }, 
+    "collectionItem2": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"vdbfromparticles\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 2, 
+        "isMenu": false, 
+        "label": "VDB From Particles", 
+        "menuCollection": "", 
+        "nodetype": "vdbfromparticles"
+    }, 
+    "collectionItem3": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"vdbreshapesdf\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 3, 
+        "isMenu": false, 
+        "label": "VDB Reshape SDF", 
+        "menuCollection": "", 
+        "nodetype": "vdbreshapesdf"
+    }, 
+    "collectionItem4": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"vdbsmooth\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 4, 
+        "isMenu": false, 
+        "label": "VDB Smooth", 
+        "menuCollection": "", 
+        "nodetype": "vdbsmooth"
+    }, 
+    "collectionItem5": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"vdbsmoothsdf\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 5, 
+        "isMenu": false, 
+        "label": "VDB Smooth SDF", 
+        "menuCollection": "", 
+        "nodetype": "vdbsmoothsdf"
+    }, 
+    "collectionItem6": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"vdbvectormerge\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 6, 
+        "isMenu": false, 
+        "label": "VDB Vector Merge", 
+        "menuCollection": "", 
+        "nodetype": "vdbvectormerge"
+    }, 
+    "collectionItem7": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"vdbvectorsplit\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 7, 
+        "isMenu": false, 
+        "label": "VDB Vector Split", 
+        "menuCollection": "", 
+        "nodetype": "vdbvectorsplit"
+    }
+}
