@@ -1,16 +1,5 @@
 {
-    "collectionItem0": {
-        "activeWire": false, 
-        "command": "cmds.createNode(\"vdbfrompolygons\", False)", 
-        "commandType": "createnode", 
-        "context": "SOP", 
-        "icon": "COMMON_openvdb", 
-        "index": 0, 
-        "isMenu": false, 
-        "label": "VDB From Polygons", 
-        "menuCollection": "", 
-        "nodetype": "vdbfrompolygons"
-    }, 
+    "collectionItem0": null, 
     "collectionItem1": {
         "activeWire": false, 
         "command": "cmds.createNode(\"convertvdb\", False)", 
@@ -49,15 +38,15 @@
     }, 
     "collectionItem4": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"vdbsmooth\", False)", 
+        "command": "cmds.createNode(\"vdbfrompolygons\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
         "icon": "COMMON_openvdb", 
         "index": 4, 
         "isMenu": false, 
-        "label": "VDB Smooth", 
+        "label": "VDB From Polygons", 
         "menuCollection": "", 
-        "nodetype": "vdbsmooth"
+        "nodetype": "vdbfrompolygons"
     }, 
     "collectionItem5": {
         "activeWire": false, 
@@ -73,15 +62,15 @@
     }, 
     "collectionItem6": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"vdbvectormerge\", False)", 
+        "command": "cmds.createNode(\"vdbsmooth\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
         "icon": "COMMON_openvdb", 
         "index": 6, 
         "isMenu": false, 
-        "label": "VDB Vector Merge", 
+        "label": "VDB Smooth", 
         "menuCollection": "", 
-        "nodetype": "vdbvectormerge"
+        "nodetype": "vdbsmooth"
     }, 
     "collectionItem7": {
         "activeWire": false, 

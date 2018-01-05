@@ -1,7 +1,7 @@
 {
     "collectionItem0": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
+        "command": "cmds.createNode(\"rop_geometry\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
         "icon": "OBJ_geo", 
@@ -9,12 +9,12 @@
         "isMenu": false, 
         "label": "Method Geo Cache", 
         "menuCollection": "", 
-        "nodetype": "null"
+        "nodetype": "rop_geometry"
     }, 
     "collectionItem1": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
-        "commandType": "createnode", 
+        "command": "", 
+        "commandType": "None", 
         "context": "SOP", 
         "icon": "SOP_attribwrangle", 
         "index": 1, 
@@ -25,62 +25,62 @@
     }, 
     "collectionItem2": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
-        "commandType": "createnode", 
+        "command": "cmds.openEditor()", 
+        "commandType": "customFunction", 
         "context": "SOP", 
-        "icon": "MISC_python", 
+        "icon": "COMMON_null", 
         "index": 2, 
         "isMenu": false, 
-        "label": "", 
-        "menuCollection": "", 
-        "nodetype": "null"
+        "label": "Config", 
+        "menuCollection": "SOP_attributes.collection", 
+        "nodetype": "openEditor()"
     }, 
     "collectionItem3": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
-        "commandType": "createnode", 
+        "command": "cmds.openEditor()", 
+        "commandType": "customFunction", 
+        "context": "SOP", 
+        "icon": "SOP_attribute", 
+        "index": 3, 
+        "isMenu": true, 
+        "label": "Attributes", 
+        "menuCollection": "SOP_attributes.collection", 
+        "nodetype": "openEditor()"
+    }, 
+    "collectionItem4": {
+        "activeWire": false, 
+        "command": "", 
+        "commandType": "None", 
+        "context": "SOP", 
+        "icon": "COMMON_openvdb", 
+        "index": 4, 
+        "isMenu": true, 
+        "label": "Open VDB", 
+        "menuCollection": "SOP_vdbs.collection", 
+        "nodetype": "null"
+    }, 
+    "collectionItem5": {
+        "activeWire": false, 
+        "command": "", 
+        "commandType": "None", 
         "context": "SOP", 
         "icon": "SOP_attribvop", 
-        "index": 3, 
+        "index": 5, 
         "isMenu": true, 
         "label": "VOPs", 
         "menuCollection": "SOP_vops.collection", 
         "nodetype": "null"
     }, 
-    "collectionItem4": {
-        "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
-        "commandType": "createnode", 
-        "context": "SOP", 
-        "icon": "MISC_python", 
-        "index": 4, 
-        "isMenu": false, 
-        "label": "", 
-        "menuCollection": "", 
-        "nodetype": "null"
-    }, 
-    "collectionItem5": {
-        "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
-        "commandType": "createnode", 
-        "context": "SOP", 
-        "icon": "MISC_python", 
-        "index": 5, 
-        "isMenu": false, 
-        "label": "", 
-        "menuCollection": "", 
-        "nodetype": "null"
-    }, 
     "collectionItem6": {
         "activeWire": false, 
-        "command": "cmds.createNode(\"null\", False)", 
-        "commandType": "createnode", 
+        "command": "", 
+        "commandType": "None", 
         "context": "SOP", 
-        "icon": "MISC_python", 
+        "icon": "SOP_object_merge", 
         "index": 6, 
-        "isMenu": false, 
-        "label": "", 
-        "menuCollection": "", 
+        "isMenu": true, 
+        "label": "Utilities", 
+        "menuCollection": "SOP_soputils.collection", 
         "nodetype": "null"
     }, 
     "collectionItem7": {
@@ -88,11 +88,11 @@
         "command": "cmds.createNode(\"null\", False)", 
         "commandType": "createnode", 
         "context": "SOP", 
-        "icon": "COMMON_openvdb", 
+        "icon": "COMMON_null", 
         "index": 7, 
-        "isMenu": true, 
-        "label": "Open VDB", 
-        "menuCollection": "SOP_vdbs.collection", 
+        "isMenu": false, 
+        "label": "Null", 
+        "menuCollection": "", 
         "nodetype": "null"
     }
 }

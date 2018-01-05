@@ -1,0 +1,65 @@
+{
+    "collectionItem0": null, 
+    "collectionItem1": null, 
+    "collectionItem2": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"attribcopy\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_attribcopy", 
+        "index": 2, 
+        "isMenu": false, 
+        "label": "Attribute Copy", 
+        "menuCollection": "", 
+        "nodetype": "attribcopy"
+    }, 
+    "collectionItem3": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"attribtransfer\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_attribtransfer", 
+        "index": 3, 
+        "isMenu": false, 
+        "label": "Attribute Transfer", 
+        "menuCollection": "", 
+        "nodetype": "attribtransfer"
+    }, 
+    "collectionItem4": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"attribpromote\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_attribpromote", 
+        "index": 4, 
+        "isMenu": false, 
+        "label": "Attribute Promote", 
+        "menuCollection": "", 
+        "nodetype": "attribpromote"
+    }, 
+    "collectionItem5": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"attribdelete\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_attribdelete", 
+        "index": 5, 
+        "isMenu": false, 
+        "label": "Attribute Delete", 
+        "menuCollection": "", 
+        "nodetype": "attribdelete"
+    }, 
+    "collectionItem6": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"attribute\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_attribute", 
+        "index": 6, 
+        "isMenu": false, 
+        "label": "Attribute Rename", 
+        "menuCollection": "", 
+        "nodetype": "attribute"
+    }, 
+    "collectionItem7": null
+}
