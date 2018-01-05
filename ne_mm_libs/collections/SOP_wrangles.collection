@@ -1,65 +1,65 @@
 {
     "collectionItem0": {
         "activeWire": false, 
-        "command": "cmds.createPointWrangle()", 
+        "command": "cmds.createDetailWrangle()", 
         "commandType": "customFunction", 
         "context": "SOP", 
         "icon": "SOP_attribwrangle", 
         "index": 0, 
         "isMenu": false, 
-        "label": "Point Wrangle", 
+        "label": "Detail Wrangle", 
         "menuCollection": "", 
-        "nodetype": "createPointWrangle()"
+        "nodetype": "createDetailWrangle()"
     }, 
     "collectionItem1": {
         "activeWire": false, 
-        "command": "cmds.createPrimitiveWrangle()", 
+        "command": "cmds.createPointWrangle()", 
         "commandType": "customFunction", 
         "context": "SOP", 
         "icon": "SOP_attribwrangle", 
         "index": 1, 
         "isMenu": false, 
-        "label": "Primitive Wrangle", 
+        "label": "Point Wrangle", 
         "menuCollection": "", 
-        "nodetype": "createPrimitiveWrangle()"
+        "nodetype": "createPointWrangle()"
     }, 
     "collectionItem2": {
         "activeWire": false, 
-        "command": "cmds.createDetailWrangle()", 
+        "command": "cmds.createPrimitiveWrangle()", 
         "commandType": "customFunction", 
         "context": "SOP", 
         "icon": "SOP_attribwrangle", 
         "index": 2, 
         "isMenu": false, 
-        "label": "Detail Wrangle", 
+        "label": "Primitive Wrangle", 
         "menuCollection": "", 
-        "nodetype": "createDetailWrangle()"
+        "nodetype": "createPrimitiveWrangle()"
     }, 
-    "collectionItem3": {
-        "activeWire": false, 
-        "command": "cmds.createVolumeWrangle()", 
-        "commandType": "customFunction", 
-        "context": "SOP", 
-        "icon": "SOP_attribwrangle", 
-        "index": 3, 
-        "isMenu": false, 
-        "label": "Volume Wrangle", 
-        "menuCollection": "", 
-        "nodetype": "createVolumeWrangle()"
-    }, 
-    "collectionItem4": {
+    "collectionItem3": null, 
+    "collectionItem4": null, 
+    "collectionItem5": null, 
+    "collectionItem6": {
         "activeWire": false, 
         "command": "cmds.createVertexWrangle()", 
         "commandType": "customFunction", 
         "context": "SOP", 
         "icon": "SOP_attribwrangle", 
-        "index": 4, 
+        "index": 6, 
         "isMenu": false, 
         "label": "Vertex Wrangle", 
         "menuCollection": "", 
         "nodetype": "createVertexWrangle()"
     }, 
-    "collectionItem5": null, 
-    "collectionItem6": null, 
-    "collectionItem7": null
+    "collectionItem7": {
+        "activeWire": false, 
+        "command": "cmds.createVolumeWrangle()", 
+        "commandType": "customFunction", 
+        "context": "SOP", 
+        "icon": "SOP_attribwrangle", 
+        "index": 7, 
+        "isMenu": false, 
+        "label": "Volume Wrangle", 
+        "menuCollection": "", 
+        "nodetype": "createVolumeWrangle()"
+    }
 }

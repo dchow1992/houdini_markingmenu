@@ -1,0 +1,43 @@
+{
+    "collectionItem0": null, 
+    "collectionItem1": null, 
+    "collectionItem2": null, 
+    "collectionItem3": null, 
+    "collectionItem4": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"torus\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_torus", 
+        "index": 4, 
+        "isMenu": false, 
+        "label": "Torus", 
+        "menuCollection": "", 
+        "nodetype": "torus"
+    }, 
+    "collectionItem5": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"circle\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_circle", 
+        "index": 5, 
+        "isMenu": false, 
+        "label": "Circle", 
+        "menuCollection": "", 
+        "nodetype": "circle"
+    }, 
+    "collectionItem6": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"platonic\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_platonic", 
+        "index": 6, 
+        "isMenu": false, 
+        "label": "Platonic Solid", 
+        "menuCollection": "", 
+        "nodetype": "platonic"
+    }, 
+    "collectionItem7": null
+}

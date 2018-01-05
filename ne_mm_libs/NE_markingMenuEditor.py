@@ -34,6 +34,8 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
             if type(entry).__name__ == 'NE_MarkingMenuEditor':
                 print 'found an editor'
 
+        self.defaultCollection = 'SOP_baseCollection.collection'
+
         #get names of collections on disk
         self.updateCollections()
         self.initUI()
@@ -56,43 +58,24 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
 
         #spacer
         self.vlayout0.addSpacing(10)
-        
+        self.modifierUI()
+
         #collection tree widget
         self.hlayout0 = QtWidgets.QHBoxLayout()
         self.vlayout0.addLayout(self.hlayout0)
 
         self.treeWidgetUI()
         self.hlayout0.addWidget(self.treeWidget)
+
         self.hlayout0.addStretch(1)
-        
-        self.glayout1 = QtWidgets.QGridLayout()
-        self.glayout1.setSpacing(10)
-        self.hlayout0.addLayout(self.glayout1)
 
-        self.btn0 = QtWidgets.QPushButton('Item Slot 0', self)
-        self.btn0.setStyleSheet(hou.qt.styleSheet())
-        self.btn0.setFixedSize(110,24)
-        self.glayout1.addWidget(self.btn0, 0, 4, 1, 1)
+        self.vv = QtWidgets.QVBoxLayout()
+        self.hlayout0.addLayout(self.vv)
 
-        self.btn1 = QtWidgets.QPushButton('Item Slot 1', self)
-        self.btn1.setStyleSheet(hou.qt.styleSheet())
-        self.btn1.setFixedSize(110,24)
-        self.glayout1.addWidget(self.btn1, 1, 4, 1, 1)
+        v = QtWidgets.QVBoxLayout()
+        self.vv.addLayout(v)
 
-        self.btn2 = QtWidgets.QPushButton('Item Slot 2', self)
-        self.btn2.setStyleSheet(hou.qt.styleSheet())
-        self.btn2.setFixedSize(110,24)
-        self.glayout1.addWidget(self.btn2, 2, 4, 1, 1)
-
-        self.btn3 = QtWidgets.QPushButton('Item Slot 3', self)
-        self.btn3.setStyleSheet(hou.qt.styleSheet())
-        self.btn3.setFixedSize(110,24)
-        self.glayout1.addWidget(self.btn3, 3, 4, 1, 1)
-
-        self.btn4 = QtWidgets.QPushButton('Item Slot 4', self)
-        self.btn4.setStyleSheet(hou.qt.styleSheet())
-        self.btn4.setFixedSize(110,24)
-        self.glayout1.addWidget(self.btn4, 4, 4, 1, 1)
+        self.legendUI()
 
         self.hlayout0.addStretch(1)
 
@@ -110,9 +93,36 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
         self.saveCloseUI()
 
         #draw default collection, SOP_baseCollection.collection in this case
-        self.updateTree(self.treeWidget, 'SOP_baseCollection.collection')
+        self.updateTree(self.treeWidget, self.defaultCollection)
 
         self.run()
+
+    def modifierUI(self):
+        h5 = QtWidgets.QHBoxLayout()
+        h6 = QtWidgets.QHBoxLayout()
+        self.vlayout0.addLayout(h5)
+        self.vlayout0.addLayout(h6)
+
+        self.shiftLabel = QtWidgets.QLabel('SHIFT Modifier: Base Collection       ')
+        self.shiftComboWidget = QtWidgets.QComboBox()
+        self.shiftComboWidget.setMinimumSize(303, 0)
+        h5.addWidget(self.shiftLabel)
+        h5.addSpacing(5)
+        h5.addWidget(self.shiftComboWidget)
+        h5.addStretch(1)
+
+        self.ctrlLabel = QtWidgets.QLabel('CONTROL Modifier: Base Collection')
+        self.ctrlComboWidget = QtWidgets.QComboBox()
+        self.ctrlComboWidget.setMinimumSize(302, 0)
+        h6.addWidget(self.ctrlLabel)
+        h6.addSpacing(5)
+        h6.addWidget(self.ctrlComboWidget)
+        h6.addStretch(1)
+
+
+        self.shiftComboWidget.activated.connect(self.updatePreferences)
+        self.ctrlComboWidget.activated.connect(self.updatePreferences)
+        self.reloadModifierMenus()
 
     def saveCloseUI(self):
         self.hlayout2 = QtWidgets.QHBoxLayout()
@@ -270,9 +280,8 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
         self.collectCombo = QtWidgets.QComboBox(self)
         self.collectCombo.setMinimumContentsLength(35)
 
-        self.defaultCollection = 'SOP_baseCollection.collection'
         self.loadCollectionComboUI()
-        
+
         #new / delete / rename collection buttons
         self.newCollectionWidget = QtWidgets.QPushButton('New Collection')
         self.delCollectionWidget = QtWidgets.QPushButton('Delete Collection')
@@ -289,7 +298,7 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
         self.delCollectionWidget.clicked.connect(self.deleteCollection)
         self.renameCollectionWidget.clicked.connect(self.renameCollection)
 
-        #layout widgets        
+        #layout widgets
         self.hlayout1.addWidget(self.reloadCollectionWidget)
 
         self.hlayout1.addSpacing(10)
@@ -297,7 +306,7 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
         self.hlayout1.addWidget(self.collectCombo)
 
         self.hlayout1.addSpacing(10)
-        
+
         self.hlayout1.addWidget(self.newCollectionWidget)
 
         self.hlayout1.addSpacing(10)
@@ -352,8 +361,145 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
         self.treeWidget.setHeaderLabel('Marking Menu Collection Overview')
         self.treeWidget.setItemsExpandable(False)
         self.treeWidget.setMinimumSize(500,0)
-        self.treeWidget.setMaximumSize(500, 99999)
         self.treeWidget.setStyleSheet('QTreeView::branch:open { image: url(none.png); } ')
+
+    def legendUI(self):
+        self.vv.addSpacing(80)
+
+        h0 = QtWidgets.QHBoxLayout()
+        self.vv.addLayout(h0)
+        self.btn0 = QtWidgets.QPushButton('Item Slot 0', self)
+        self.btn0.setStyleSheet(hou.qt.styleSheet())
+        self.btn0.setFixedSize(110,24)
+        h0.addWidget(self.btn0)
+
+        h1 = QtWidgets.QHBoxLayout()
+        self.vv.addLayout(h1)
+        self.btn1 = QtWidgets.QPushButton('Item Slot 7', self)
+        self.btn1.setStyleSheet(hou.qt.styleSheet())
+        self.btn1.setFixedSize(110,24)
+        h1.addWidget(self.btn1)
+        h1.addSpacing(60)
+
+        h2 = QtWidgets.QHBoxLayout()
+        self.vv.addLayout(h2)
+        self.btn2 = QtWidgets.QPushButton('Item Slot 6', self)
+        self.btn2.setStyleSheet(hou.qt.styleSheet())
+        self.btn2.setFixedSize(110,24)
+        h2.addWidget(self.btn2)
+
+        h2.addSpacing(35)
+        ref = QtWidgets.QLabel('REFERENCE')
+        font = QtGui.QFont()
+        font.setBold(True)
+        ref.setFont(font)
+        h2.addWidget(ref)
+        h2.addSpacing(35)
+
+        h3 = QtWidgets.QHBoxLayout()
+        self.vv.addLayout(h3)
+        self.btn3 = QtWidgets.QPushButton('Item Slot 5', self)
+        self.btn3.setStyleSheet(hou.qt.styleSheet())
+        self.btn3.setFixedSize(110,24)
+        h3.addWidget(self.btn3)
+        h3.addSpacing(60)
+
+        h4 = QtWidgets.QHBoxLayout()
+        self.vv.addLayout(h4)
+        self.btn4 = QtWidgets.QPushButton('Item Slot 4', self)
+        self.btn4.setStyleSheet(hou.qt.styleSheet())
+        self.btn4.setFixedSize(110,24)
+        h4.addWidget(self.btn4)
+
+        self.btn5 = QtWidgets.QPushButton('Item Slot 3', self)
+        self.btn5.setStyleSheet(hou.qt.styleSheet())
+        self.btn5.setFixedSize(110,24)
+        h3.addWidget(self.btn5)
+
+        self.btn6 = QtWidgets.QPushButton('Item Slot 2', self)
+        self.btn6.setStyleSheet(hou.qt.styleSheet())
+        self.btn6.setFixedSize(110,24)
+        h2.addWidget(self.btn6)
+
+        self.btn7 = QtWidgets.QPushButton('Item Slot 1', self)
+        self.btn7.setStyleSheet(hou.qt.styleSheet())
+        self.btn7.setFixedSize(110,24)
+        h1.addWidget(self.btn7)
+
+        btns = [self.btn0, self.btn1, self.btn2, self.btn3, self.btn4, self.btn5, self.btn6, self.btn7]
+        for b in btns:
+            b.setStyleSheet("""
+                QPushButton
+                {
+                    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                                stop: 0.0 rgb(86, 86, 86), 
+                                                stop: 1.0 rgb(58, 58, 58));
+                    border-top: 1px solid rgba(0, 0, 0, 40%);
+                    border-right: 1px solid rgba(0, 0, 0, 40%);
+                    border-bottom: 1px solid rgba(0, 0, 0, 62%);
+                    border-left: 1px solid rgba(0, 0, 0, 40%);
+                    border-radius: 1px;
+                    color: rgb(203, 203, 203);
+                    padding-top: 3px;
+                    padding-right: 15px;
+                    padding-bottom: 3px;
+                    padding-left: 15px;
+                }
+                """)
+        self.vv.addSpacing(80)
+
+    def reloadModifierMenus(self):
+        #open prefs
+        prefs = {}
+        with open(self.collectionsDir.split('collections/')[0] + 'menuprefs.prefs', 'r') as f:
+            prefs = json.load(f)
+
+        a = [self.shiftComboWidget, self.ctrlComboWidget]
+
+        for box in a:
+            self.contexts = ['SOP', 'OBJ', 'DOP', 'VOP', 'SHOP', 'MAT', 'CHOP', 'COP']
+            current_context = self.contexts[self.contexts.index(self.collectCombo.currentText().split('_')[0])]
+            idx = a.index(box)
+            box.insertItem(0, self.collections[0])
+
+            for i in range(1, box.count()):
+                box.removeItem(i)
+
+            for i in range(1, len(self.collections)):
+                box.insertItem(i, self.collections[i])
+
+            if idx == 0:
+                if prefs.has_key(current_context):
+                    x = prefs[current_context]['Shift']
+                    if x in self.collections:
+                        box.setCurrentIndex(box.findText(x))
+                else:
+                    box.setCurrentIndex(box.findText(current_context+'_baseCollection.collection'))
+            else:
+                if prefs.has_key(current_context):
+                    x = prefs[current_context]['Control']
+                    if x in self.collections:
+                        box.setCurrentIndex(box.findText(x))
+                    else:
+                        box.setCurrentIndex(box.findText(current_context+'_baseCollection.collection'))
+
+    def updatePreferences(self):
+        self.contexts = ['SOP', 'OBJ', 'DOP', 'VOP', 'SHOP', 'MAT', 'CHOP', 'COP']
+        current_context = self.contexts[self.contexts.index(self.collectCombo.currentText().split('_')[0])]
+
+        #open prefs
+        prefs = {}
+        with open(self.collectionsDir.split('collections/')[0] + 'menuprefs.prefs', 'r') as f:
+            prefs = json.load(f)
+
+        prefs[current_context] = {
+            'Default': current_context + '_baseCollection.collection',
+            'Shift': self.shiftComboWidget.currentText(),
+            'Control': self.ctrlComboWidget.currentText()
+        }
+
+        with open(self.collectionsDir.split('collections/')[0] + 'menuprefs.prefs', 'w') as f:
+            json.dump(prefs, f, indent=4, sort_keys=True)
 
     def refreshLinkMenus(self, widgets):
         for a in widgets:
@@ -409,13 +555,13 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
                     a = a.split('.collection')[0]
 
                 newname = x.split('_')[0] + '_' + a + '.collection'
-                contexts = ['SOP', 'OBJ', 'DOP', 'VOP', 'SHOP', 'MAT', 'CHOP', 'COP']
+                self.contexts = ['SOP', 'OBJ', 'DOP', 'VOP', 'SHOP', 'MAT', 'CHOP', 'COP']
                 doRename = True
-                for c in contexts:
+                for c in self.contexts:
                     if newname == c+'_baseCollection.collection':
                         hou.ui.displayMessage('Base Collections cannot be overwritten', severity=hou.severityType.Warning, buttons=('OK',))
                         doRename = False
-                        break                
+                        break
                 if doRename:
                     for c in self.collections:
                         if newname == c:
@@ -480,7 +626,7 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
 
                 with open(iconsjson, 'r') as f:
                     iconsDict = json.load(f)
-                for a in iconsDict.values():                    
+                for a in iconsDict.values():
                     if icon in a:
                         validIcon = True
                         break
@@ -488,7 +634,7 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
                 icon = 'MISC_python' if validIcon == False else icon
 
                 if self.commandComboWidgets[i].currentIndex() == 0:
-                    commandType = 'None'                    
+                    commandType = 'None'
 
                 if self.commandComboWidgets[i].currentIndex() == 2:
                     commandType = 'customFunction'
@@ -503,7 +649,7 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
             json.dump(jsonDict, f, indent=4, sort_keys=True)
 
         #reload saved collection and display
-        self.drawCurrentCollection()        
+        self.drawCurrentCollection()
 
     def fadeText(self):
         self.textOpac -= .015
@@ -605,6 +751,8 @@ class NE_MarkingMenuEditor(QtWidgets.QWidget):
 
     def drawCurrentCollection(self):
         self.updateTree(self.treeWidget, self.collectCombo.currentText())
+        self.reloadModifierMenus()
+        self.updatePreferences()
 
     def allEnabled(self):
         for cb in self.activeCheckWidgets:

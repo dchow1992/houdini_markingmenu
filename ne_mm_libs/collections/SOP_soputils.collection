@@ -1,0 +1,54 @@
+{
+    "collectionItem0": {
+        "activeWire": false, 
+        "command": "cmds.objMergeSelection()", 
+        "commandType": "customFunction", 
+        "context": "SOP", 
+        "icon": "SOP_merge", 
+        "index": 0, 
+        "isMenu": false, 
+        "label": "Object Merge Selection", 
+        "menuCollection": "", 
+        "nodetype": "objMergeSelection()"
+    }, 
+    "collectionItem1": null, 
+    "collectionItem2": null, 
+    "collectionItem3": null, 
+    "collectionItem4": null, 
+    "collectionItem5": {
+        "activeWire": false, 
+        "command": "", 
+        "commandType": "None", 
+        "context": "SOP", 
+        "icon": "SOP_attribcreate", 
+        "index": 5, 
+        "isMenu": true, 
+        "label": "Attributes", 
+        "menuCollection": "SOP_attributes.collection", 
+        "nodetype": "null"
+    }, 
+    "collectionItem6": {
+        "activeWire": false, 
+        "command": "cmds.mergeSelection()", 
+        "commandType": "customFunction", 
+        "context": "SOP", 
+        "icon": "SOP_merge", 
+        "index": 6, 
+        "isMenu": false, 
+        "label": "Merge Selection", 
+        "menuCollection": "", 
+        "nodetype": "mergeSelection()"
+    }, 
+    "collectionItem7": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"normal\", False)", 
+        "commandType": "createnode", 
+        "context": "SOP", 
+        "icon": "SOP_normal", 
+        "index": 7, 
+        "isMenu": false, 
+        "label": "Normal", 
+        "menuCollection": "", 
+        "nodetype": "normal"
+    }
+}
