@@ -5,19 +5,8 @@ from canvaseventtypes import *
 class NE_MarkingMenuMouseHandler(nodegraph.NodeMouseHandler):
     def handleEvent(self, uievent, pending_actions):
         if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedrag':
-            #hou.ui.displayMessage("I ran! I ran so far away!")
-            #delete if a marking menu already exists
-
-            '''
-            for entry in QtWidgets.qApp.allWidgets():
-                if type(entry).__name__ == 'NE_MarkingMenu':
-                    entry.close()'''
-
-            #generate window, parent to houdini main window
-            #markingMenu = mm.NE_MarkingMenu()
             reload(mm)
             markingMenu = mm.NE_MarkingMenu()
-            
             #end custom event handling, return None, otherwise return traditional nodegraph rmb handling
             return None
 
@@ -36,6 +25,7 @@ def createEventHandler(uievent, pending_actions):
 
     
     if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedown':
-        print 'houdini mousedown detected'
+        None
+        #print 'houdini mousedown detected'
 
     return None, False
