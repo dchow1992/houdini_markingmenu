@@ -1,0 +1,65 @@
+{
+    "collectionItem0": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"pow\", False)", 
+        "commandType": "createnode", 
+        "context": "VOP", 
+        "icon": "VOP_pow", 
+        "index": 0, 
+        "isMenu": false, 
+        "label": "Power", 
+        "menuCollection": "", 
+        "nodetype": "pow"
+    }, 
+    "collectionItem1": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"compare\", False)", 
+        "commandType": "createnode", 
+        "context": "VOP", 
+        "icon": "VOP_compare", 
+        "index": 1, 
+        "isMenu": false, 
+        "label": "Compare", 
+        "menuCollection": "", 
+        "nodetype": "compare"
+    }, 
+    "collectionItem2": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"twoway\", False)", 
+        "commandType": "createnode", 
+        "context": "VOP", 
+        "icon": "VOP_twoway", 
+        "index": 2, 
+        "isMenu": false, 
+        "label": "Two Way Switch", 
+        "menuCollection": "", 
+        "nodetype": "twoway"
+    }, 
+    "collectionItem3": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"random\", False)", 
+        "commandType": "createnode", 
+        "context": "VOP", 
+        "icon": "VOP_random", 
+        "index": 3, 
+        "isMenu": false, 
+        "label": "Random", 
+        "menuCollection": "", 
+        "nodetype": "random"
+    }, 
+    "collectionItem4": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"fit\", False)", 
+        "commandType": "createnode", 
+        "context": "VOP", 
+        "icon": "VOP_fit", 
+        "index": 4, 
+        "isMenu": false, 
+        "label": "Fit", 
+        "menuCollection": "", 
+        "nodetype": "fit"
+    }, 
+    "collectionItem5": null, 
+    "collectionItem6": null, 
+    "collectionItem7": null
+}

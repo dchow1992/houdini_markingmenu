@@ -1,0 +1,65 @@
+{
+    "collectionItem0": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"bind\", False)", 
+        "commandType": "createnode", 
+        "context": "VOP", 
+        "icon": "VOP_bind", 
+        "index": 0, 
+        "isMenu": false, 
+        "label": "Bind", 
+        "menuCollection": "", 
+        "nodetype": "bind"
+    }, 
+    "collectionItem1": {
+        "activeWire": false, 
+        "command": "", 
+        "commandType": "None", 
+        "context": "VOP", 
+        "icon": "VOP_divide", 
+        "index": 1, 
+        "isMenu": true, 
+        "label": "Math", 
+        "menuCollection": "VOP_basicmath.collection", 
+        "nodetype": "null"
+    }, 
+    "collectionItem2": {
+        "activeWire": false, 
+        "command": "cmds.openEditor()", 
+        "commandType": "customFunction", 
+        "context": "VOP", 
+        "icon": "COMMON_null", 
+        "index": 2, 
+        "isMenu": false, 
+        "label": "Config", 
+        "menuCollection": "", 
+        "nodetype": "openEditor()"
+    }, 
+    "collectionItem3": {
+        "activeWire": false, 
+        "command": "", 
+        "commandType": "None", 
+        "context": "VOP", 
+        "icon": "VOP_compare", 
+        "index": 3, 
+        "isMenu": true, 
+        "label": "Functions", 
+        "menuCollection": "VOP_mathfunctions.collection", 
+        "nodetype": "null"
+    }, 
+    "collectionItem4": {
+        "activeWire": false, 
+        "command": "cmds.createNode(\"createBindExport\", False)", 
+        "commandType": "createnode", 
+        "context": "VOP", 
+        "icon": "VOP_bind", 
+        "index": 4, 
+        "isMenu": false, 
+        "label": "Bind Export", 
+        "menuCollection": "", 
+        "nodetype": "createBindExport"
+    }, 
+    "collectionItem5": null, 
+    "collectionItem6": null, 
+    "collectionItem7": null
+}
