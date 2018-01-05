@@ -1,0 +1,12 @@
+{
+    "OBJ": {
+        "Control": "OBJ_baseCollection.collection", 
+        "Default": "OBJ_baseCollection.collection", 
+        "Shift": "OBJ_baseCollection.collection"
+    }, 
+    "SOP": {
+        "Control": "SOP_baseCollection.collection", 
+        "Default": "SOP_baseCollection.collection", 
+        "Shift": "SOP_geometry.collection"
+    }
+}
