@@ -1,0 +1,89 @@
+{
+    "menu": [
+        {
+            "activeWire": false, 
+            "command": "cmds.createNode(\"rop_geometry\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "OBJ_geo", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Method Geo Cache", 
+            "menuCollection": "", 
+            "nodetype": "rop_geometry"
+        }, 
+        {
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "None", 
+            "context": "SOP", 
+            "icon": "SOP_attribwrangle", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Wrangles", 
+            "menuCollection": "SOP_testCollection1.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "activeWire": false, 
+            "command": "cmds.openEditor()", 
+            "commandType": "customFunction", 
+            "context": "SOP", 
+            "icon": "COMMON_null", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Config", 
+            "menuCollection": "", 
+            "nodetype": "openEditor()"
+        }, 
+        null, 
+        {
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "None", 
+            "context": "SOP", 
+            "icon": "COMMON_openvdb", 
+            "index": 4, 
+            "isMenu": true, 
+            "label": "Open VDB", 
+            "menuCollection": "SOP_testCollection2.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "None", 
+            "context": "SOP", 
+            "icon": "SOP_attribvop", 
+            "index": 5, 
+            "isMenu": true, 
+            "label": "VOPs", 
+            "menuCollection": "SOP_testCollection1.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "None", 
+            "context": "SOP", 
+            "icon": "SOP_object_merge", 
+            "index": 6, 
+            "isMenu": true, 
+            "label": "Utilities", 
+            "menuCollection": "SOP_testCollection2.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "COMMON_null", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Null", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}
