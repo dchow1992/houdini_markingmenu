@@ -1,5 +1,5 @@
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
-import jsonutils as utils
+import utils
 reload(utils)
 import hou
 import os
@@ -20,7 +20,9 @@ class markingMenuEditor(QtWidgets.QWidget):
         self.collectionDir = self.rootpath + 'json/' + self.currentContext + '/'
         self.fullcpath = '' # full path to the current collection on disk
         self.menuPrefs = utils.loadMenuPreferences(self.rootpath + '/json/')
-        self.loadedCollection = {}
+        self.detailIndices = []
+        self.loadedCollection = []
+        self.virtualCollection = []
 
         self.initUI()
 
@@ -45,7 +47,7 @@ class markingMenuEditor(QtWidgets.QWidget):
 
         self.saveCloseUI = self.saveCloseUI()
 
-        self.comboBoxDefaults()
+        # self.comboBoxDefaults()
 
         self.connectWidgetActions()
 
@@ -379,18 +381,49 @@ class markingMenuEditor(QtWidgets.QWidget):
         primaryLayout.addWidget(self.saveButtonWidget)
         primaryLayout.addWidget(self.closeButtonWidget)
 
-    def comboBoxDefaults(self):
+    def detailDefaults(self):
+        self.detailIndices = []
         for idx, c in enumerate((self.indexComboBoxes)):
-            for i in range(8):
+            c.clear()            
+            for i in range(8):                
                 c.insertItem(i, '%d' % i)
                 c.setCurrentIndex(c.findText('%d' % idx))
+            self.detailIndices.append(idx) 
+            self.menuToggles[idx].setCheckState(QtCore.Qt.Unchecked)
+            self.menuComboBoxes[idx].setDisabled(True)
+            self.labelEdits[idx].clear()
+            self.iconEdits[idx].setText('MISC_python')
+            self.cmdEdits[idx].setText('null')
+            self.activeToggles[idx].setCheckState(QtCore.Qt.Unchecked)
+
         for menu, cmd in zip(self.menuComboBoxes, self.cmdComboBoxes):
+            menu.clear()
             menu.insertItem(0, '< Not Linked >')            
+            cmd.clear()
             cmd.insertItems(0, ('Create Node', 'Custom Function'))
 
     def connectWidgetActions(self):
         self.contextComboBox.currentIndexChanged.connect(self.contextAction)
         self.collectionComboBox.currentIndexChanged.connect(self.collectionAction)
+        
+        for idx, item in enumerate(self.activeToggles):
+            # connect active toggles and menu toggles
+            item.stateChanged.connect(self.toggleDetailRows)
+            self.menuToggles[idx].stateChanged.connect(self.toggleMenuRows)
+
+            # connect index combo boxes
+            self.indexComboBoxes[idx].activated.connect(self.swapDetailRows)
+
+            # connect all detail widgets to update virtual collection
+            #self.indexComboBoxes[idx].currentIndexChanged.connect(self.updateVirtualCollection)
+            self.activeToggles[idx].stateChanged.connect(self.updateVirtualCollection)
+            self.menuToggles[idx].stateChanged.connect(self.updateVirtualCollection)
+            self.labelEdits[idx].textChanged.connect(self.updateVirtualCollection)
+            self.iconEdits[idx].textChanged.connect(self.updateVirtualCollection)
+            self.menuComboBoxes[idx].currentIndexChanged.connect(self.updateVirtualCollection)
+            self.cmdComboBoxes[idx].currentIndexChanged.connect(self.updateVirtualCollection)
+            self.cmdEdits[idx].textChanged.connect(self.updateVirtualCollection)
+            self.wireToggles[idx].stateChanged.connect(self.updateVirtualCollection)            
 
     def contextAction(self):
         print 'context changed'
@@ -403,53 +436,25 @@ class markingMenuEditor(QtWidgets.QWidget):
         
         # modifier combo boxes
         shiftItem = self.menuPrefs[self.currentContext]['Shift']
+        self.shiftComboBox.clear()
         self.shiftComboBox.insertItems(0, self.collections)
         self.shiftComboBox.setCurrentIndex(self.collections.index(shiftItem))
         
         controlItem = self.menuPrefs[self.currentContext]['Control']
+        self.ctrlComboBox.clear()
         self.ctrlComboBox.insertItems(0, self.collections)
         self.ctrlComboBox.setCurrentIndex(self.collections.index(controlItem))
 
     def collectionAction(self):
         print 'collection changed'
-        # if the collection is changed, update the treeview & details 
+        # if the collection is changed, update the details 
         if self.collectionComboBox.currentText():
             self.fullcpath = self.collectionDir + self.collectionComboBox.currentText()            
             self.loadedCollection = utils.loadCollection(self.fullcpath)
-            self.updateTree(self.treeWidget)
+            #self.updateTree(self.treeWidget)
 
             # populate detail widgets
-            #self.updateDetails()
-
-    def setDefaultValues(self):
-        # context combo box
-        self.contextComboBox.insertItems(0, self.contexts)
-        self.currentContext = self.contextComboBox.currentText()
-
-        # collection combo box
-        self.collections = utils.filterCollections(self.collectionDir, self.currentContext)
-        self.collectionComboBox.insertItems(0, self.collections)
-
-        # modifier combo boxes
-        shiftItem = self.menuPrefs[self.currentContext]['Shift']
-        self.shiftComboBox.insertItems(0, self.collections)
-        self.shiftComboBox.setCurrentIndex(self.collections.index(shiftItem))
-        
-        controlItem = self.menuPrefs[self.currentContext]['Control']
-        self.ctrlComboBox.insertItems(0, self.collections)
-        self.ctrlComboBox.setCurrentIndex(self.collections.index(controlItem))
-
-        # tree widget, load initial collection
-        self.fullcpath = self.collectionDir + self.collectionComboBox.currentText()        
-        self.loadedCollection = utils.loadCollection(self.fullcpath)
-        self.updateTree(self.treeWidget)
-
-        # populate detail widgets        
-        for menu, cmd in zip(self.menuComboBoxes, self.cmdComboBoxes):
-            menu.insertItem(0, '< Not Linked >')
-            menu.insertItems(1, self.collections)
-            cmd.insertItems(0, ('Create Node', 'Custom Function'))
-        self.updateDetails()
+            self.updateDetails()
 
     def updateTree(self, parentItem):
         self.treeWidget.clear()
@@ -465,7 +470,7 @@ class markingMenuEditor(QtWidgets.QWidget):
         rootItem.setForeground(0, brush)
 
         # for each item dict in current collection        
-        for idx, item in enumerate(self.loadedCollection):
+        for idx, item in enumerate(self.virtualCollection):
             if item is not None:
                 # tree display button label
                 treeItem = QtWidgets.QTreeWidgetItem(rootItem)
@@ -481,8 +486,7 @@ class markingMenuEditor(QtWidgets.QWidget):
                     brush.setColor(QtGui.QColor(153, 255, 45))
                     treeItem.setForeground(0, brush)
 
-                    if not (item['menuCollection'] or 
-                                item['menuCollection'] not in self.collections):
+                    if not item['menuCollection'] or item['menuCollection'] not in self.collections:
                         treeItemChild = QtWidgets.QTreeWidgetItem(treeItem)
                         treeItemChild.setText(0, 'No Collection Linked')
                         treeItemChild.setIcon(0, hou.qt.createIcon('SOP_delete'))
@@ -506,33 +510,139 @@ class markingMenuEditor(QtWidgets.QWidget):
                 treeItem.setForeground(0, brush)
 
     def updateDetails(self):
-        # update checkboxes
+        self.detailDefaults()
+        # fill in combo boxes with current linkable collections
+        linkToThese = [a for a in self.collections if self.collectionComboBox.currentText() != a]                 
+        for h in self.menuComboBoxes:
+            h.insertItems(1, linkToThese)
+        
         for idx, item in enumerate(self.loadedCollection):
             if item is not None:                
                 self.activeToggles[idx].setCheckState(QtCore.Qt.Checked)
+                self.indexComboBoxes[idx].setCurrentIndex(item['index'])
 
                 if item['isMenu']:
                     self.menuToggles[idx].setCheckState(QtCore.Qt.Checked)
                     if item['menuCollection']:
+
                         linkCollection = self.menuComboBoxes[idx].findText(item['menuCollection'])
                         self.menuComboBoxes[idx].setCurrentIndex(linkCollection)
                     else:
                         self.menuComboBoxes[idx].setCurrentIndex(0)
                 else:
                     self.menuToggles[idx].setCheckState(QtCore.Qt.Unchecked)
+                    cmdIndex = item['commandType'] == 'createnode'
+                    self.cmdComboBoxes[idx].setCurrentIndex(cmdIndex)
+                    cmdTxt = ''
+                    if item['commandType'] == 'createnode':
+                        cmdTxt = item['nodetype']  
+                    else:
+                        cmdTxt = item['command'].split('.')[1]
+                    self.cmdEdits[idx].setText(cmdTxt)
 
                 self.labelEdits[idx].setText(item['label'])
                 self.iconEdits[idx].setText(item['icon'])
-
             else:
                 self.activeToggles[idx].setCheckState(QtCore.Qt.Unchecked)
 
-    # def collectComboOverwrite(self, newItems):
-    #     # oldItems = [self.collectionComboBox.itemText(i) for i in range(self.collectionComboBox.count())]
-    #     self.collectionComboBox.insertItem(0, newItems[0])
-    #     self.collectionComboBox.insertItem(0, newItems[0])
-    #     for i in range(1, self.collectionComboBox.count() - 1):
-    #         self.collectionComboBox.removeItem(i)
+    def toggleDetailRows(self):
+        for idx, item in enumerate(self.activeToggles):        
+            self.menuToggles[idx].setDisabled(not item.isChecked())
+            self.labelEdits[idx].setDisabled(not item.isChecked())
+            self.iconEdits[idx].setDisabled(not item.isChecked())
+            self.menuComboBoxes[idx].setDisabled(not item.isChecked())
+            self.cmdLabels[idx].setDisabled(not item.isChecked())
+            self.cmdComboBoxes[idx].setDisabled(not item.isChecked())
+            self.cmdEdits[idx].setDisabled(not item.isChecked())
+            self.wireToggles[idx].setDisabled(not item.isChecked())
+            self.toggleMenuRows()
+
+    def swapDetailRows(self):
+        if len(self.detailIndices) == 8:
+            currentOrder = []
+            for item in self.indexComboBoxes:
+                currentOrder.append(item.currentIndex())
+            print 'current: '
+            print currentOrder
+
+            print 'past: '
+            print self.detailIndices
+            print '###################################'
+            for current, prev in zip(currentOrder, self.detailIndices):
+                if current != prev:
+                    changedIndex = currentOrder.index(current)
+            print 'index %d changed' % changedIndex
+
+            self.detailIndices[changedIndex] = currentOrder[changedIndex]
+            self.detailIndices[self.detailIndices[changedIndex]] = self.detailIndices[changedIndex]
+            self.indexComboBoxes[currentOrder[changedIndex]].setCurrentIndex(changedIndex)
+            print 'new past:'
+            print self.detailIndices
+            print '###################################'
+            #         print 'control %d swapped with control %d' % (currentOrder.index(current), self.detailIndices.index(current))
+            #         self.detailIndices[current] = self.detailIndices[currentOrder.index(current)]                    
+            #         self.indexComboBoxes[current].setCurrentIndex(self.detailIndices[currentOrder.index(current)])
+            #         self.detailIndices[currentOrder.index(current)] = current
+
+
+
+
+    def toggleMenuRows(self):
+        for idx, item in enumerate(self.menuToggles):
+            if item.isEnabled():
+                self.menuComboBoxes[idx].setDisabled(not item.isChecked())
+                self.cmdLabels[idx].setDisabled(item.isChecked())
+                self.cmdComboBoxes[idx].setDisabled(item.isChecked())
+                self.cmdEdits[idx].setDisabled(item.isChecked())
+                self.wireToggles[idx].setDisabled(item.isChecked())
+
+    def updateVirtualCollection(self):
+        temp = []
+        for idx in range(8):
+            if not self.activeToggles[idx].isChecked():
+                temp.append(None)
+            else:
+                newEntry = {}
+                index = self.indexComboBoxes[idx].currentIndex()
+                isMenu = self.menuToggles[idx].isChecked()
+                if not len(self.labelEdits[idx].text()):
+                    label = 'Label'
+                else:
+                    label = self.labelEdits[idx].text()
+                if not len(self.iconEdits[idx].text()):
+                    icon = 'MISC_python'
+                else:
+                    icon = self.iconEdits[idx].text()
+                if not self.menuComboBoxes[idx].currentIndex():
+                    menuCollection = ''
+                else:
+                    menuCollection = self.menuComboBoxes[idx].currentText()
+                if not self.cmdComboBoxes[idx].currentIndex():
+                    commandType = 'createnode'
+                    command = self.cmdEdits[idx].text()
+                    nodetype = self.cmdEdits[idx].text()
+                else:
+                    commandType = 'customfunction'
+                    command = 'cmds.' + self.cmdEdits[idx].text()
+                    nodetype = 'null'
+                wire = self.wireToggles[idx].isChecked()
+
+                newEntry = utils.ButtonConfig(
+                    self.currentContext,
+                    index,
+                    isMenu,
+                    label,
+                    icon,
+                    menuCollection,
+                    commandType,
+                    command,
+                    nodetype,
+                    wire
+                    )
+                temp.append(newEntry.config)
+        self.virtualCollection = temp
+        self.updateTree(self.treeWidget)
+
 
     def closeEvent(self, e):
         self.setParent(None)
