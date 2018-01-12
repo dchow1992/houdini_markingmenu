@@ -415,7 +415,7 @@ class markingMenuEditor(QtWidgets.QWidget):
             self.indexComboBoxes[idx].activated.connect(self.swapDetailRows)
 
             # connect all detail widgets to update virtual collection
-            #self.indexComboBoxes[idx].currentIndexChanged.connect(self.updateVirtualCollection)
+            self.indexComboBoxes[idx].currentIndexChanged.connect(self.updateVirtualCollection)
             self.activeToggles[idx].stateChanged.connect(self.updateVirtualCollection)
             self.menuToggles[idx].stateChanged.connect(self.updateVirtualCollection)
             self.labelEdits[idx].textChanged.connect(self.updateVirtualCollection)
@@ -562,30 +562,20 @@ class markingMenuEditor(QtWidgets.QWidget):
             currentOrder = []
             for item in self.indexComboBoxes:
                 currentOrder.append(item.currentIndex())
-            print 'current: '
-            print currentOrder
-
-            print 'past: '
-            print self.detailIndices
-            print '###################################'
+            changedIndex = -1
             for current, prev in zip(currentOrder, self.detailIndices):
                 if current != prev:
+                    val0 = current
+                    val1 = prev             
                     changedIndex = currentOrder.index(current)
-            print 'index %d changed' % changedIndex
+            if changedIndex != -1:
+                idx0 = self.detailIndices.index(val0)
+                idx1 = self.detailIndices.index(val1)                
 
-            self.detailIndices[changedIndex] = currentOrder[changedIndex]
-            self.detailIndices[self.detailIndices[changedIndex]] = self.detailIndices[changedIndex]
-            self.indexComboBoxes[currentOrder[changedIndex]].setCurrentIndex(changedIndex)
-            print 'new past:'
-            print self.detailIndices
-            print '###################################'
-            #         print 'control %d swapped with control %d' % (currentOrder.index(current), self.detailIndices.index(current))
-            #         self.detailIndices[current] = self.detailIndices[currentOrder.index(current)]                    
-            #         self.indexComboBoxes[current].setCurrentIndex(self.detailIndices[currentOrder.index(current)])
-            #         self.detailIndices[currentOrder.index(current)] = current
+                self.detailIndices[idx0], self.detailIndices[idx1] = self.detailIndices[idx1], self.detailIndices[idx0]
 
-
-
+                for idx, thing in enumerate(self.indexComboBoxes):
+                    thing.setCurrentIndex(self.detailIndices[idx])
 
     def toggleMenuRows(self):
         for idx, item in enumerate(self.menuToggles):
