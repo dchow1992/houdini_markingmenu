@@ -23,7 +23,7 @@
             "index": 1, 
             "isMenu": true, 
             "label": "Wrangles", 
-            "menuCollection": "", 
+            "menuCollection": "SOP_wrangles.json", 
             "nodetype": "null"
         }, 
         {
