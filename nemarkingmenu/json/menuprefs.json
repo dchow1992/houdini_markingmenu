@@ -1,0 +1,47 @@
+{
+    "CHOP": {
+        "Control": "CHOP_baseCollection.json", 
+        "Default": "CHOP_baseCollection.json", 
+        "Shift": "CHOP_baseCollection.json"
+    }, 
+    "COP": {
+        "Control": "COP_baseCollection.json", 
+        "Default": "COP_baseCollection.json", 
+        "Shift": "COP_baseCollection.json"
+    }, 
+    "DOP": {
+        "Control": "DOP_baseCollection.json", 
+        "Default": "DOP_baseCollection.json", 
+        "Shift": "DOP_baseCollection.json"
+    }, 
+    "MAT": {
+        "Control": "MAT_baseCollection.json", 
+        "Default": "MAT_baseCollection.json", 
+        "Shift": "MAT_baseCollection.json"
+    }, 
+    "OBJ": {
+        "Control": "OBJ_baseCollection.json", 
+        "Default": "OBJ_baseCollection.json", 
+        "Shift": "OBJ_baseCollection.json"
+    }, 
+    "ROP": {
+        "Control": "ROP_baseCollection.json", 
+        "Default": "ROP_baseCollection.json", 
+        "Shift": "ROP_baseCollection.json"
+    }, 
+    "SHOP": {
+        "Control": "SHOP_baseCollection.json", 
+        "Default": "SHOP_baseCollection.json", 
+        "Shift": "SHOP_baseCollection.json"
+    }, 
+    "SOP": {
+        "Control": "SOP_baseCollection.json", 
+        "Default": "SOP_baseCollection.json", 
+        "Shift": "SOP_baseCollection.json"
+    }, 
+    "VOP": {
+        "Control": "VOP_baseCollection.json", 
+        "Default": "VOP_baseCollection.json", 
+        "Shift": "VOP_baseCollection.json"
+    }
+}
