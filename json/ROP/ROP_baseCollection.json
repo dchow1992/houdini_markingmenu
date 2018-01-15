@@ -1,10 +1,108 @@
 {
-    "collectionItem0": null, 
-    "collectionItem1": null, 
-    "collectionItem2": null, 
-    "collectionItem3": null, 
-    "collectionItem4": null, 
-    "collectionItem5": null, 
-    "collectionItem6": null, 
-    "collectionItem7": null
+    "menu": [        
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "ROP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }        
+            ]
 }

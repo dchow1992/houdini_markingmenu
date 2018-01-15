@@ -358,7 +358,7 @@ class NE_MarkingMenu(QtWidgets.QWidget):
         if self.visible:
             self.close()
 
-    def closeEvent(self, e):        
+    def closeEvent(self, e):
         self.releaseMouse()
         self.setParent(None)
         self.deleteLater()
