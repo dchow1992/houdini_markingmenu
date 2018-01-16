@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"removevalue\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_removevalue", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Remove Value", 
+            "menuCollection": "", 
+            "nodetype": "removevalue"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"removeindex\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_removeindex", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Remove Index", 
+            "menuCollection": "", 
+            "nodetype": "removeindex"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"setelement\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_setelement", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Set Element", 
+            "menuCollection": "", 
+            "nodetype": "setelement"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"getelement\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_getelement", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Get Element", 
+            "menuCollection": "", 
+            "nodetype": "getelement"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"findsingle\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_findindex", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Find Index", 
+            "menuCollection": "", 
+            "nodetype": "findsingle"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"append\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_append", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Append", 
+            "menuCollection": "", 
+            "nodetype": "append"
+        }
+    ]
+}

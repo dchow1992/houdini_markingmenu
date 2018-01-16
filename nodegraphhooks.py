@@ -7,7 +7,7 @@ class MarkingMenuMouseHandler(nodegraph.NodeMouseHandler):
     def handleEvent(self, uievent, pending_actions):
         if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedrag':
             reload(mm)
-            markingMenu = mm.NEMarkingMenu()
+            markingMenu = mm.NEMarkingMenu(uievent.editor)
             # end custom event handling, return None
             # Otherwise return traditional nodegraph rmb handling
             return None

@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"dopnet\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "NETWORKS_dop", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Dopnet", 
+            "menuCollection": "", 
+            "nodetype": "dopnet"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"solver\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_solver", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Solver", 
+            "menuCollection": "", 
+            "nodetype": "solver"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"bound\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_bound", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Bound", 
+            "menuCollection": "", 
+            "nodetype": "bound"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"volumebound\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_volumebound", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Volume Bound", 
+            "menuCollection": "", 
+            "nodetype": "volumebound"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"volumevisualization\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_volumevisualization", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Volume Visualization", 
+            "menuCollection": "", 
+            "nodetype": "volumevisualization"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"dopio\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_dopimport", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "DOP Import", 
+            "menuCollection": "", 
+            "nodetype": "dopio"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"dopimportfield\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_dopimport", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "DOP Import Fields", 
+            "menuCollection": "", 
+            "nodetype": "dopimportfield"
+        }
+    ]
+}

@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"attribcopy\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribcopy", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Attribute Copy", 
+            "menuCollection": "", 
+            "nodetype": "attribcopy"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"attribtransfer\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribtransfer", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Attribute Transfer", 
+            "menuCollection": "", 
+            "nodetype": "attribtransfer"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"attribute\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribute", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Attribute Rename", 
+            "menuCollection": "", 
+            "nodetype": "attribute"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"attribdelete\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribdelete", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Attribute Delete", 
+            "menuCollection": "", 
+            "nodetype": "attribdelete"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"attribpromote\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribpromote", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Attribute Promote", 
+            "menuCollection": "", 
+            "nodetype": "attribpromote"
+        }
+    ]
+}

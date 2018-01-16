@@ -4,6 +4,7 @@ import time
 import json
 import os
 import utils
+from math import sqrt
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 import buttonfunctions as cmds
 reload(cmds)
@@ -16,7 +17,7 @@ class MousePathGraphics(QtWidgets.QWidget):
 
         self.anchors = anchors_QPointsList
         self.radius = 8.0
-        self.width = 5.0
+        self.width = 4.0
         self.cursor = QtCore.QPointF(QtGui.QCursor.pos())
         self.previousMenu = []
 
@@ -77,7 +78,7 @@ class MousePathGraphics(QtWidgets.QWidget):
             a = window_width - 380
             step = 5.0
             startval = 13
-            endval = 51 - startval
+            endval = 50 - startval
             count = a / step
             for i in range(int(count)):
                 val = startval + ((endval / count) * i)
@@ -115,6 +116,12 @@ class MenuItemButton(QtWidgets.QPushButton):
         self.menuObjects = []
         self.isTarget = False
 
+        # new variables to support passing the editor through
+        self.editor = 0
+        self.commandType = 'createnode'
+        self.nodetype = 'nodetype'
+        self.activeWire = False
+
     def isUnder(self, pos):
         if self.geometry().contains(pos):
             if not self.underMouse:
@@ -136,7 +143,7 @@ class MenuItemButton(QtWidgets.QPushButton):
 
 
 class NEMarkingMenu(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, editor):
         super(NEMarkingMenu, self).__init__()
 
         # for display offset
@@ -144,7 +151,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.startTime = time.time()
         self.origin = QtCore.QPoint(0, 0)
         self.windowSize = 1000
-
+        self.editor = editor
         # for storing widgets - mouse path
         self.mouseAnchorPositions = []
         self.mousePathGraphicsWidget = 0
@@ -167,7 +174,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.targetWidget = 0
 
         # setup initial config file
-        self.currentContext = utils.getContext()
+        self.currentContext = utils.getContext(self.editor)
         self.baseCollection = '{}_baseCollection.json'.format(self.currentContext)
 
         self.rootpath = os.path.join(
@@ -271,8 +278,13 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 # button size, icon, icon size, position
                 minx = 110
                 maxy = 24
-                btn.setIcon(hou.qt.createIcon(item['icon'], 20, 20))
-                btn.setIconSize(QtCore.QSize(12, 12))
+                try:
+                    btn.setIcon(hou.qt.createIcon(item['icon'], 20, 20))
+                    btn.setIconSize(QtCore.QSize(12, 12))
+                except hou.OperationFailed:
+                    btn.setIcon(hou.qt.createIcon('COMMON_null', 20, 20))
+                    btn.setIconSize(QtCore.QSize(12, 12))
+
                 s = btn.sizeHint()
                 if s.width() < minx:
                     s.setWidth(minx)
@@ -297,7 +309,15 @@ class NEMarkingMenu(QtWidgets.QWidget):
 
                 btn.move(center - btncenter)
                 btn.command = item['command']
-                btn.clicked.connect(btn.runCommand)
+                # new lines for passing the editor through for cmds
+                btn.nodetype = item['nodetype']
+                btn.commandType = item['commandType']
+                btn.activeWire = item['activeWire']
+                if item['commandType'] == 'createnode':
+                    btn.clicked.connect(self.testCmd)
+                else:
+                    # end new lines
+                    btn.clicked.connect(btn.runCommand)
                 btn.show()
                 self.menuItemWidgets.append(btn)
                 self.rectangles.append(btn.geometry())
@@ -313,7 +333,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         if not self.visible:
             if self.origin.x() == 0 and self.origin.y() == 0:
                 self.origin = e.pos()
-            if time.time() - self.startTime > .1:
+            if time.time() - self.startTime > .05:
                 self.visible = True
                 QtTest.QTest.mousePress(self, QtCore.Qt.RightButton)
                 self.show()
@@ -330,9 +350,10 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 if prd < distance:
                     distance = prd
                     idx = self.rectangles.index(i)
-            self.menuItemWidgets[idx].isTarget = True
-            self.targetWidget = self.menuItemWidgets[idx]
-            self.targetWidget.isUnder(e.pos())
+            if len(self.menuItemWidgets):
+                self.menuItemWidgets[idx].isTarget = True
+                self.targetWidget = self.menuItemWidgets[idx]
+                self.targetWidget.isUnder(e.pos())
         else:
             for i in self.rectangles:
                 self.menuItemWidgets[self.rectangles.index(i)].isTarget = False
@@ -349,7 +370,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.menuItemWidgets = []
         self.rectangles = []
         self.collectionItemDescriptions = descriptionList
-        time.sleep(.032)
+        time.sleep(.015)
         self.createMenuButtons(len(self.mouseAnchorPositions)-1)
 
     def propagateMenu(self, e):
@@ -357,7 +378,8 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 self.targetWidget.underMouse and
                 self.targetWidget.isMenu):
             # store current configuration in case user wants to go back
-            self.mousePathGraphicsWidget.previousMenu = self.collectionItemDescriptions
+            self.mousePathGraphicsWidget.previousMenu.append(
+                self.collectionItemDescriptions)
 
             # add new position for mouse path
             self.mouseAnchorPositions.append(e.pos())
@@ -374,12 +396,18 @@ class NEMarkingMenu(QtWidgets.QWidget):
         if len(self.mouseAnchorPositions) > 1:
             if utils.qpDist(self.mouseAnchorPositions[-2], e.pos()) < 10:
                 del self.mouseAnchorPositions[-1]
-                self.rebuildMenu(self.mousePathGraphicsWidget.previousMenu)
+                self.rebuildMenu(self.mousePathGraphicsWidget.previousMenu[-1])
+
+                # remove last item from list to track which menu we need to return to
+                self.mousePathGraphicsWidget.previousMenu = \
+                    self.mousePathGraphicsWidget.previousMenu[:-1]
+
+    def testCmd(self):
+        cmds.createNode(
+            self.targetWidget.nodetype, self.editor, self.targetWidget.activeWire)
 
     def executeCommand(self):
-        # run the targetWidget's command
         self.targetWidget.click()
-        # None
 
     def mouseMoveEvent(self, e):
         self.updateMousePathWidget(e)
@@ -389,8 +417,8 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.update()
 
     def mouseReleaseEvent(self, e):
-        if self.visible:
-            self.close()
+        # if self.visible:
+        self.close()
 
     def closeEvent(self, e):
         self.releaseMouse()

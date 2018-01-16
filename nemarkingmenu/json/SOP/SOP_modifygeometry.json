@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"subdivide\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_subdivide", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Subdivide", 
+            "menuCollection": "", 
+            "nodetype": "subdivide"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"remesh\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_remesh", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Remesh", 
+            "menuCollection": "", 
+            "nodetype": "remesh"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"assemble\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_assemble", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Assemble", 
+            "menuCollection": "", 
+            "nodetype": "assemble"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"polyreduce\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_polyreduce", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Poly Reduce", 
+            "menuCollection": "", 
+            "nodetype": "polyreduce"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"pack\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_pack", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Pack", 
+            "menuCollection": "", 
+            "nodetype": "pack"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"unpack\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_unpack", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Unpack", 
+            "menuCollection": "", 
+            "nodetype": "unpack"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"convert\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_convert", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Convert", 
+            "menuCollection": "", 
+            "nodetype": "convert"
+        }
+    ]
+}

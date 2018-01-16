@@ -6,11 +6,11 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_solver", 
+            "icon": "SOP_platonic", 
             "index": 0, 
             "isMenu": true, 
-            "label": "Solving", 
-            "menuCollection": "SOP_solvers.json", 
+            "label": "Primitives", 
+            "menuCollection": "SOP_primitives.json", 
             "nodetype": "null"
         }, 
         {
@@ -19,24 +19,11 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_attribwrangle", 
+            "icon": "SOP_copy", 
             "index": 1, 
             "isMenu": true, 
-            "label": "Wrangles", 
-            "menuCollection": "SOP_wrangles.json", 
-            "nodetype": "null"
-        }, 
-        {
-            "active": 1, 
-            "activeWire": false, 
-            "command": "cmds.openEditor()", 
-            "commandType": "customfunction", 
-            "context": "SOP", 
-            "icon": "COMMON_null", 
-            "index": 2, 
-            "isMenu": false, 
-            "label": "Menu Editor", 
-            "menuCollection": "< Not Linked >", 
+            "label": "Instancing", 
+            "menuCollection": "SOP_instancing.json", 
             "nodetype": "null"
         }, 
         {
@@ -45,11 +32,24 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_block_begin", 
+            "icon": "SOP_testgeometry_pighead", 
+            "index": 2, 
+            "isMenu": true, 
+            "label": "Test Geometry", 
+            "menuCollection": "SOP_testgeometry.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_group", 
             "index": 3, 
             "isMenu": true, 
-            "label": "Other", 
-            "menuCollection": "SOP_other.json", 
+            "label": "Groups", 
+            "menuCollection": "SOP_groups.json", 
             "nodetype": "null"
         }, 
         {
@@ -58,11 +58,11 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "COMMON_openvdb", 
+            "icon": "SOP_polywire", 
             "index": 4, 
             "isMenu": true, 
-            "label": "Open VDB", 
-            "menuCollection": "SOP_vdb.json", 
+            "label": "Graphs", 
+            "menuCollection": "SOP_graphs.json", 
             "nodetype": "null"
         }, 
         {
@@ -71,11 +71,11 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_attribvop", 
+            "icon": "SOP_texture", 
             "index": 5, 
             "isMenu": true, 
-            "label": "VOPs", 
-            "menuCollection": "SOP_vops.json", 
+            "label": "Materials", 
+            "menuCollection": "SOP_materials.json", 
             "nodetype": "null"
         }, 
         {
@@ -84,11 +84,11 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_object_merge", 
+            "icon": "SOP_pack", 
             "index": 6, 
             "isMenu": true, 
-            "label": "Utilities", 
-            "menuCollection": "SOP_utilities.json", 
+            "label": "Modify", 
+            "menuCollection": "SOP_modifygeometry.json", 
             "nodetype": "null"
         }, 
         {
@@ -97,11 +97,11 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "COMMON_null", 
+            "icon": "SOP_attribute", 
             "index": 7, 
-            "isMenu": false, 
-            "label": "Null", 
-            "menuCollection": "< Not Linked >", 
+            "isMenu": true, 
+            "label": "Attributes", 
+            "menuCollection": "SOP_attributes.json", 
             "nodetype": "null"
         }
     ]

@@ -36,7 +36,8 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             )
 
         self.fullcpath = ''  # full path to the current collection on disk
-        self.menuPrefs = utils.loadMenuPreferences(os.path.join(self.rootpath, 'json'))
+        self.menuPrefs = utils.loadMenuPreferences(os.path.join(
+            self.rootpath, 'json', 'menuprefs.json'))
         self.detailIndices = []
         self.loadedCollection = []
         self.virtualCollection = []
@@ -401,6 +402,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             cmd.clear()
             cmd.insertItems(0, ('Create Node', 'Custom Function'))
 
+
     def connectWidgetActions(self):
         self.contextComboBox.currentIndexChanged.connect(
             self.contextAction)
@@ -475,7 +477,6 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 box.setCheckState(self.allWireToggle.checkState())
 
     def contextAction(self):
-        print 'context updated'
         # build completer based on current context
         strlist = []
         jsondict = {}
@@ -502,19 +503,22 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self.collectionComboBox.insertItems(0, self.collections)
 
         # modifier combo boxes
-        shiftItem = self.menuPrefs[self.currentContext]['Shift']
-        self.shiftComboBox.clear()
-        self.shiftComboBox.insertItems(0, self.collections)
-        self.shiftComboBox.setCurrentIndex(self.collections.index(shiftItem))
+        self.menuPrefs = utils.loadMenuPreferences(os.path.join(
+            self.rootpath, 'json', 'menuprefs.json'))
+        try:
+            shiftItem = self.menuPrefs[self.currentContext]['Shift']
+            self.shiftComboBox.clear()
+            self.shiftComboBox.insertItems(0, self.collections)
+            self.shiftComboBox.setCurrentIndex(self.collections.index(shiftItem))
 
-        controlItem = self.menuPrefs[self.currentContext]['Control']
-        self.ctrlComboBox.clear()
-        self.ctrlComboBox.insertItems(0, self.collections)
-        self.ctrlComboBox.setCurrentIndex(self.collections.index(controlItem))
+            controlItem = self.menuPrefs[self.currentContext]['Control']
+            self.ctrlComboBox.clear()
+            self.ctrlComboBox.insertItems(0, self.collections)
+            self.ctrlComboBox.setCurrentIndex(self.collections.index(controlItem))
+        except ValueError:
+            pass
 
     def collectionAction(self):
-        print '     collection updated'
-
         # if the collection is changed, update the details
         if self.collectionComboBox.currentText():
             self.fullcpath = os.path.join(
@@ -702,14 +706,15 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             prefs = json.load(f)
         prefs[self.currentContext]['Shift'] = self.shiftComboBox.currentText()
         prefs[self.currentContext]['Control'] = self.ctrlComboBox.currentText()
+
+        self.menuPrefs[self.currentContext]['Shift'] = self.shiftComboBox.currentText()
+        self.menuPrefs[self.currentContext]['Control'] = self.ctrlComboBox.currentText()
+
         with open(path, 'w') as f:
             json.dump(prefs, f, indent=4, sort_keys=True)
 
     def updateTree(self, parentItem):
-        print '                 tree updated'
-        print '-------------------------------------------------'
         self.treeWidget.clear()
-
         # parent collection item
         rootItem = QtWidgets.QTreeWidgetItem(parentItem)
         rootItem.setText(0, os.path.split(self.fullcpath)[-1].split('.json')[0])
@@ -764,9 +769,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 treeItem.setForeground(0, brush)
 
     def updateDetails(self):
-        print '         details updated'
         self.detailDefaults()
-
         # fill in combo boxes with current linkable collections
         linkToThese = [
             a for a in self.collections if
@@ -866,8 +869,12 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 self.detailIndices[idx0], self.detailIndices[idx1] = \
                     self.detailIndices[idx1], self.detailIndices[idx0]
 
-                self.virtualCollection[idx0], self.virtualCollection[idx1] = \
-                    self.virtualCollection[idx1], self.virtualCollection[idx0]
+                # this is a[idx0][key],a[idx1][key] = a[idx1][key], a[idx][key]
+                # a typical list index swap
+                self.virtualCollection[idx0]['index'], \
+                    self.virtualCollection[idx1]['index'] = \
+                    self.virtualCollection[idx1]['index'], \
+                    self.virtualCollection[idx0]['index']
 
                 self.unfreezeVirtualUpdate = 0
                 self.unsavedChangesAlert()
@@ -887,7 +894,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                         '',
                         'MISC_python',
                         '',
-                        'creatnode',
+                        'createnode',
                         '',
                         'null',
                         False
@@ -906,18 +913,19 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                     else:
                         icon = self.iconEdits[idx].text()
                     if not self.menuComboBoxes[idx].currentIndex():
-                        menuCollection = ''
+                        menuCollection = self.menuComboBoxes[idx].currentText()
+                        isMenu = False
                     else:
                         menuCollection = self.menuComboBoxes[idx].currentText()
                     if not self.cmdComboBoxes[idx].currentIndex():
                         self.cmdEdits[idx].setCompleter(self.nodeCompleter)
                         commandType = 'createnode'
-                        command = self.cmdEdits[idx].text()
-                        nodetype = self.cmdEdits[idx].text()
+                        command = self.cmdEdits[idx].text().lstrip().rstrip()
+                        nodetype = self.cmdEdits[idx].text().lstrip().rstrip()
                     else:
                         self.cmdEdits[idx].setCompleter(QtWidgets.QCompleter())
                         commandType = 'customfunction'
-                        command = 'cmds.' + self.cmdEdits[idx].text()
+                        command = 'cmds.' + self.cmdEdits[idx].text().lstrip().rstrip()
                         nodetype = 'null'
                     wire = self.wireToggles[idx].isChecked()
 
