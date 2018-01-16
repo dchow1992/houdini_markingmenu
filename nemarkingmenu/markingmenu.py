@@ -4,7 +4,10 @@ import time
 import json
 import os
 import utils
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
 from math import sqrt
+=======
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 import buttonfunctions as cmds
 reload(cmds)
@@ -141,17 +144,29 @@ class MenuItemButton(QtWidgets.QPushButton):
     def runCommand(self):
         exec(self.command)
 
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
 
 class NEMarkingMenu(QtWidgets.QWidget):
     def __init__(self, editor):
         super(NEMarkingMenu, self).__init__()
 
+=======
+
+class NEMarkingMenu(QtWidgets.QWidget):
+    def __init__(self):
+        super(NEMarkingMenu, self).__init__()
+
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
         # for display offset
         self.visible = False
         self.startTime = time.time()
         self.origin = QtCore.QPoint(0, 0)
         self.windowSize = 1000
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
         self.editor = editor
+=======
+
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
         # for storing widgets - mouse path
         self.mouseAnchorPositions = []
         self.mousePathGraphicsWidget = 0
@@ -174,7 +189,11 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.targetWidget = 0
 
         # setup initial config file
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
         self.currentContext = utils.getContext(self.editor)
+=======
+        self.currentContext = utils.getContext()
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
         self.baseCollection = '{}_baseCollection.json'.format(self.currentContext)
 
         self.rootpath = os.path.join(
@@ -278,6 +297,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 # button size, icon, icon size, position
                 minx = 110
                 maxy = 24
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
                 try:
                     btn.setIcon(hou.qt.createIcon(item['icon'], 20, 20))
                     btn.setIconSize(QtCore.QSize(12, 12))
@@ -285,6 +305,10 @@ class NEMarkingMenu(QtWidgets.QWidget):
                     btn.setIcon(hou.qt.createIcon('COMMON_null', 20, 20))
                     btn.setIconSize(QtCore.QSize(12, 12))
 
+=======
+                btn.setIcon(hou.qt.createIcon(item['icon'], 20, 20))
+                btn.setIconSize(QtCore.QSize(12, 12))
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
                 s = btn.sizeHint()
                 if s.width() < minx:
                     s.setWidth(minx)
@@ -370,7 +394,11 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.menuItemWidgets = []
         self.rectangles = []
         self.collectionItemDescriptions = descriptionList
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
         time.sleep(.015)
+=======
+        time.sleep(.032)
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
         self.createMenuButtons(len(self.mouseAnchorPositions)-1)
 
     def propagateMenu(self, e):
@@ -378,8 +406,12 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 self.targetWidget.underMouse and
                 self.targetWidget.isMenu):
             # store current configuration in case user wants to go back
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
             self.mousePathGraphicsWidget.previousMenu.append(
                 self.collectionItemDescriptions)
+=======
+            self.mousePathGraphicsWidget.previousMenu = self.collectionItemDescriptions
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
 
             # add new position for mouse path
             self.mouseAnchorPositions.append(e.pos())
@@ -407,7 +439,13 @@ class NEMarkingMenu(QtWidgets.QWidget):
             self.targetWidget.nodetype, self.editor, self.targetWidget.activeWire)
 
     def executeCommand(self):
+<<<<<<< HEAD:nemarkingmenu/markingmenu.py
         self.targetWidget.click()
+=======
+        # run the targetWidget's command
+        self.targetWidget.click()
+        # None
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/markingmenu.py
 
     def mouseMoveEvent(self, e):
         self.updateMousePathWidget(e)

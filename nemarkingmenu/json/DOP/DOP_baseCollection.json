@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "menu": [
         {
             "active": 0, 
@@ -9,11 +10,24 @@
             "icon": "MISC_python", 
             "index": 0, 
             "isMenu": 0, 
+=======
+    "menu": [        
+        {
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 0, 
+            "isMenu": false, 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "label": "", 
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 0, 
             "activeWire": false, 
             "command": "", 
@@ -22,11 +36,22 @@
             "icon": "MISC_python", 
             "index": 1, 
             "isMenu": 0, 
+=======
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": false, 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "label": "", 
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 1, 
             "activeWire": false, 
             "command": "cmds.openEditor()", 
@@ -36,10 +61,22 @@
             "index": 2, 
             "isMenu": false, 
             "label": "Menu Editor", 
+=======
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 0, 
             "activeWire": false, 
             "command": "", 
@@ -48,11 +85,22 @@
             "icon": "MISC_python", 
             "index": 3, 
             "isMenu": 0, 
+=======
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": false, 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "label": "", 
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 0, 
             "activeWire": false, 
             "command": "", 
@@ -61,11 +109,22 @@
             "icon": "MISC_python", 
             "index": 4, 
             "isMenu": 0, 
+=======
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": false, 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "label": "", 
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 0, 
             "activeWire": false, 
             "command": "", 
@@ -74,11 +133,22 @@
             "icon": "MISC_python", 
             "index": 5, 
             "isMenu": 0, 
+=======
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": false, 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "label": "", 
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 0, 
             "activeWire": false, 
             "command": "", 
@@ -87,11 +157,22 @@
             "icon": "MISC_python", 
             "index": 6, 
             "isMenu": 0, 
+=======
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": false, 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "label": "", 
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 0, 
             "activeWire": false, 
             "command": "", 
@@ -105,4 +186,19 @@
             "nodetype": "null"
         }
     ]
+=======
+            "active": 0,
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "DOP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }        
+            ]
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
 }

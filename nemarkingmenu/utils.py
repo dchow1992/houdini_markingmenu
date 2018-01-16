@@ -57,7 +57,11 @@ def filterCollections(path, context):
 
 
 def loadMenuPreferences(path):
+<<<<<<< HEAD
     with open(path, 'r') as f:
+=======
+    with open(os.path.join(path, 'menuprefs.json'), 'r') as f:
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
         return json.load(f)
 
 
@@ -74,8 +78,14 @@ def saveCollection(collection, data):
         json.dump(a, f, indent=4, sort_keys=True)
 
 
+<<<<<<< HEAD
 def getContext(editor=hou.ui.paneTabOfType(hou.paneTabType.NetworkEditor)):
     hou_context = editor.pwd().childTypeCategory().name()
+=======
+def getContext():
+    hou_context = hou.ui.paneTabOfType(
+        hou.paneTabType.NetworkEditor).pwd().childTypeCategory().name()
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
     if hou_context == 'Sop':
         return 'SOP'
     elif hou_context == 'Object':

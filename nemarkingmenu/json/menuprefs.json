@@ -37,11 +37,19 @@
     "SOP": {
         "Control": "SOP_baseCollection.json", 
         "Default": "SOP_baseCollection.json", 
+<<<<<<< HEAD
         "Shift": "SOP_geometry.json"
+=======
+        "Shift": "SOP_baseCollection.json"
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
     }, 
     "VOP": {
         "Control": "VOP_baseCollection.json", 
         "Default": "VOP_baseCollection.json", 
+<<<<<<< HEAD
         "Shift": "VOP_shiftBaseCollection.json"
+=======
+        "Shift": "VOP_baseCollection.json"
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
     }
 }

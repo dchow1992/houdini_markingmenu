@@ -3,54 +3,90 @@
         {
             "active": 1, 
             "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.createDetailWrangle()", 
             "commandType": "customfunction", 
+=======
+            "command": "cmds.createNode(\"\", False)", 
+            "commandType": "createnode", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
             "index": 0, 
             "isMenu": false, 
             "label": "Detail Wrangle", 
             "menuCollection": "", 
+<<<<<<< HEAD
             "nodetype": "null"
+=======
+            "nodetype": ""
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
         }, 
         {
             "active": 1, 
             "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.createPointWrangle()", 
             "commandType": "customfunction", 
+=======
+            "command": "cmds.createNode(\"\", False)", 
+            "commandType": "createnode", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
             "index": 1, 
             "isMenu": false, 
             "label": "Point Wrangle", 
             "menuCollection": "", 
+<<<<<<< HEAD
             "nodetype": "null"
+=======
+            "nodetype": ""
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
         }, 
         {
             "active": 1, 
             "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.createPrimitiveWrangle()", 
             "commandType": "customfunction", 
+=======
+            "command": "cmds.createNode(\"\", False)", 
+            "commandType": "createnode", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
             "index": 2, 
             "isMenu": false, 
             "label": "Primitive Wrangle", 
             "menuCollection": "", 
+<<<<<<< HEAD
             "nodetype": "null"
+=======
+            "nodetype": ""
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
         }, 
         {
             "active": 1, 
             "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.createVertexWrangle()", 
             "commandType": "customfunction", 
+=======
+            "command": "cmds.createNode(\"\", False)", 
+            "commandType": "createnode", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
             "index": 3, 
             "isMenu": false, 
             "label": "Vertex Wrangle", 
             "menuCollection": "", 
+<<<<<<< HEAD
             "nodetype": "null"
+=======
+            "nodetype": ""
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
         }, 
         {
             "active": 0, 
@@ -94,15 +130,24 @@
         {
             "active": 1, 
             "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.createVolumeWrangle()", 
             "commandType": "customfunction", 
+=======
+            "command": "cmds.createNode(\"\", False)", 
+            "commandType": "createnode", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
             "index": 7, 
             "isMenu": false, 
             "label": "Volume Wrangle", 
             "menuCollection": "", 
+<<<<<<< HEAD
             "nodetype": "null"
+=======
+            "nodetype": ""
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
         }
     ]
 }

@@ -35,6 +35,7 @@
             "icon": "COMMON_null", 
             "index": 2, 
             "isMenu": false, 
+<<<<<<< HEAD:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "label": "Menu Editor", 
             "menuCollection": "< Not Linked >", 
             "nodetype": "null"
@@ -50,6 +51,23 @@
             "isMenu": true, 
             "label": "Other", 
             "menuCollection": "SOP_other.json", 
+=======
+            "label": "Config", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "creatnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "nodetype": "null"
         }, 
         {
@@ -60,9 +78,13 @@
             "context": "SOP", 
             "icon": "COMMON_openvdb", 
             "index": 4, 
-            "isMenu": true, 
+            "isMenu": false, 
             "label": "Open VDB", 
+<<<<<<< HEAD:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "menuCollection": "SOP_vdb.json", 
+=======
+            "menuCollection": "", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "nodetype": "null"
         }, 
         {
@@ -73,9 +95,13 @@
             "context": "SOP", 
             "icon": "SOP_attribvop", 
             "index": 5, 
-            "isMenu": true, 
+            "isMenu": false, 
             "label": "VOPs", 
+<<<<<<< HEAD:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "menuCollection": "SOP_vops.json", 
+=======
+            "menuCollection": "", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "nodetype": "null"
         }, 
         {
@@ -86,9 +112,13 @@
             "context": "SOP", 
             "icon": "SOP_object_merge", 
             "index": 6, 
-            "isMenu": true, 
+            "isMenu": false, 
             "label": "Utilities", 
+<<<<<<< HEAD:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "menuCollection": "SOP_utilities.json", 
+=======
+            "menuCollection": "", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70:nemarkingmenu/json/SOP/SOP_baseCollection.json
             "nodetype": "null"
         }, 
         {

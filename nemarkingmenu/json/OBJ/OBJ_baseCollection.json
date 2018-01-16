@@ -3,6 +3,7 @@
         {
             "active": 1, 
             "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.createNode(\"geo\", False)", 
             "commandType": "createnode", 
             "context": "OBJ", 
@@ -12,6 +13,17 @@
             "label": "Geometry", 
             "menuCollection": "", 
             "nodetype": "geo"
+=======
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Label", 
+            "menuCollection": "", 
+            "nodetype": "null"
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
         }, 
         {
             "active": 1, 
@@ -19,16 +31,25 @@
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
             "context": "OBJ", 
+<<<<<<< HEAD
             "icon": "OBJ_light", 
             "index": 1, 
             "isMenu": true, 
             "label": "Lights", 
             "menuCollection": "OBJ_lights.json", 
+=======
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Label", 
+            "menuCollection": "", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "nodetype": "null"
         }, 
         {
             "active": 1, 
             "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.openEditor()", 
             "commandType": "customfunction", 
             "context": "OBJ", 
@@ -36,10 +57,20 @@
             "index": 2, 
             "isMenu": false, 
             "label": "Menu Editor", 
+=======
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Label", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 1, 
             "activeWire": false, 
             "command": "cmds.createNode(\"null\", False)", 
@@ -64,12 +95,43 @@
             "label": "Camera", 
             "menuCollection": "", 
             "nodetype": "cam"
+=======
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "creatnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
         }, 
         {
             "active": 0, 
             "activeWire": false, 
+            "command": "", 
+            "commandType": "creatnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+<<<<<<< HEAD
             "command": "cmds.createNode(\"null\", False)", 
             "commandType": "createnode", 
+=======
+            "command": "", 
+            "commandType": "creatnode", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "context": "OBJ", 
             "icon": "MISC_python", 
             "index": 5, 
@@ -79,6 +141,7 @@
             "nodetype": "null"
         }, 
         {
+<<<<<<< HEAD
             "active": 1, 
             "activeWire": false, 
             "command": "cmds.createNode(\"null\", False)", 
@@ -101,6 +164,30 @@
             "index": 7, 
             "isMenu": false, 
             "label": "Null", 
+=======
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "creatnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "creatnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": 0, 
+            "label": "", 
+>>>>>>> a7a97274a979e752d3a9f885369fd7c2f0922b70
             "menuCollection": "", 
             "nodetype": "null"
         }
