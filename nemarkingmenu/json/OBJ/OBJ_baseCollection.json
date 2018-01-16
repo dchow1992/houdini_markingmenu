@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"geo\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_geo", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Geometry", 
+            "menuCollection": "", 
+            "nodetype": "geo"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_light", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Lights", 
+            "menuCollection": "OBJ_lights.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.openEditor()", 
+            "commandType": "customfunction", 
+            "context": "OBJ", 
+            "icon": "SOP_null", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Menu Editor", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_blend", 
+            "index": 3, 
+            "isMenu": true, 
+            "label": "Utilities", 
+            "menuCollection": "OBJ_utilities.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"cam\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_camera", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Camera", 
+            "menuCollection": "", 
+            "nodetype": "cam"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_rivet", 
+            "index": 6, 
+            "isMenu": true, 
+            "label": "Networks", 
+            "menuCollection": "OBJ_networks.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_null", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Null", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}

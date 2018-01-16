@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"grid\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_grid", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Grid", 
+            "menuCollection": "", 
+            "nodetype": "grid"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"sphere\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_sphere", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Sphere", 
+            "menuCollection": "", 
+            "nodetype": "sphere"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"box\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_box", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Box", 
+            "menuCollection": "", 
+            "nodetype": "box"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"curve\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_curve", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Curve", 
+            "menuCollection": "", 
+            "nodetype": "curve"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"tube\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_tube", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Tube", 
+            "menuCollection": "", 
+            "nodetype": "tube"
+        }
+    ]
+}

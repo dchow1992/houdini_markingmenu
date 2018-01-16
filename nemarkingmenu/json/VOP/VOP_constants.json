@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"addconst\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_addconst", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Add Const", 
+            "menuCollection": "", 
+            "nodetype": "addconst"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"divconst\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_divconst", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Divide Const", 
+            "menuCollection": "", 
+            "nodetype": "divconst"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"subconst\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_subconst", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Subtract Const", 
+            "menuCollection": "", 
+            "nodetype": "subconst"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"constant\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_constant", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Constant", 
+            "menuCollection": "", 
+            "nodetype": "constant"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"maddconst\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_maddconst", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Multiply Add Const", 
+            "menuCollection": "", 
+            "nodetype": "maddconst"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}

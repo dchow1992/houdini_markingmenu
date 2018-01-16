@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_platonic", 
+            "index": 0, 
+            "isMenu": true, 
+            "label": "Primitives", 
+            "menuCollection": "SOP_primitives.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_copy", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Instancing", 
+            "menuCollection": "SOP_instancing.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_testgeometry_pighead", 
+            "index": 2, 
+            "isMenu": true, 
+            "label": "Test Geometry", 
+            "menuCollection": "SOP_testgeometry.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_group", 
+            "index": 3, 
+            "isMenu": true, 
+            "label": "Groups", 
+            "menuCollection": "SOP_groups.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_polywire", 
+            "index": 4, 
+            "isMenu": true, 
+            "label": "Graphs", 
+            "menuCollection": "SOP_graphs.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_texture", 
+            "index": 5, 
+            "isMenu": true, 
+            "label": "Materials", 
+            "menuCollection": "SOP_materials.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_pack", 
+            "index": 6, 
+            "isMenu": true, 
+            "label": "Modify", 
+            "menuCollection": "SOP_modifygeometry.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribute", 
+            "index": 7, 
+            "isMenu": true, 
+            "label": "Attributes", 
+            "menuCollection": "SOP_attributes.json", 
+            "nodetype": "null"
+        }
+    ]
+}

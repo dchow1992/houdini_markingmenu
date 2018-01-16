@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 0, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"rest\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_rest", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Rest Position", 
+            "menuCollection": "", 
+            "nodetype": "rest"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"texture\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_texture", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "UV Texture", 
+            "menuCollection": "", 
+            "nodetype": "texture"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"material\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_material", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Material", 
+            "menuCollection": "", 
+            "nodetype": "material"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"uvquickshade\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_uvquickshade", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "UV Quickshade", 
+            "menuCollection": "", 
+            "nodetype": "uvquickshade"
+        }
+    ]
+}

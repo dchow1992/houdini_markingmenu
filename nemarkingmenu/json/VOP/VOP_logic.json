@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"compare\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_compare", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Compare", 
+            "menuCollection": "", 
+            "nodetype": "compare"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"twoway\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_twoway", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Two Way Switch", 
+            "menuCollection": "", 
+            "nodetype": "twoway"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"and\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_and", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "And", 
+            "menuCollection": "", 
+            "nodetype": "and"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"or\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_or", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Or", 
+            "menuCollection": "", 
+            "nodetype": "or"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"not\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_not", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Not", 
+            "menuCollection": "", 
+            "nodetype": "not"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"switch\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_switch", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Switch", 
+            "menuCollection": "", 
+            "nodetype": "switch"
+        }
+    ]
+}

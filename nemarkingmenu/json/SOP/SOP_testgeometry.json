@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 0, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"testgeometry_squab\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_testgeometry_squab", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Squab", 
+            "menuCollection": "", 
+            "nodetype": "testgeometry_squab"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"testgeometry_rubbertoy\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_testgeometry_rubbertoy", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Rubbertoy", 
+            "menuCollection": "", 
+            "nodetype": "testgeometry_rubbertoy"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"testgeometry_pighead\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_testgeometry_pighead", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Pighead", 
+            "menuCollection": "", 
+            "nodetype": "testgeometry_pighead"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"testgeometry_shaderball\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_testgeometry_shaderball", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Shaderball", 
+            "menuCollection": "", 
+            "nodetype": "testgeometry_shaderball"
+        }
+    ]
+}

@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 0, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"vdbsmoothsdf\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_OpenVDB", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "VDB Smooth SDF", 
+            "menuCollection": "", 
+            "nodetype": "vdbsmoothsdf"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"vdbactivate\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_OpenVDB", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "VDB Activate", 
+            "menuCollection": "", 
+            "nodetype": "vdbactivate"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"convertvdb\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_OpenVDB", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Convert VDB", 
+            "menuCollection": "", 
+            "nodetype": "convertvdb"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"vdbfrompolygons\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_OpenVDB", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "VDB From Polygons", 
+            "menuCollection": "", 
+            "nodetype": "vdbfrompolygons"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"vdbfromparticles\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_OpenVDB", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "VDB From Particles", 
+            "menuCollection": "", 
+            "nodetype": "vdbfromparticles"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"vdb\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_OpenVDB", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "VDB", 
+            "menuCollection": "", 
+            "nodetype": "vdb"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"vdbreshapesdf\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_OpenVDB", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "VDB Reshape SDF", 
+            "menuCollection": "", 
+            "nodetype": "vdbreshapesdf"
+        }
+    ]
+}
