@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"floattoint\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_floattoint", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Float To Int", 
+            "menuCollection": "", 
+            "nodetype": "floattoint"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"vectofloat\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_vectofloat", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Vector To Float", 
+            "menuCollection": "", 
+            "nodetype": "vectofloat"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"floattovec\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_floattovec", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Float To Vector", 
+            "menuCollection": "", 
+            "nodetype": "floattovec"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"m3tom4\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "COMMON_null", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "M3 To M4", 
+            "menuCollection": "", 
+            "nodetype": "m3tom4"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"m4tom3\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "COMMON_null", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "M4 To M3", 
+            "menuCollection": "", 
+            "nodetype": "m4tom3"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"quattomatx\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_quattomatx", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Quaternion To M3", 
+            "menuCollection": "", 
+            "nodetype": "quattomatx"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"matxtoquat\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_matxtoquat", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "M3 To Quaternion", 
+            "menuCollection": "", 
+            "nodetype": "matxtoquat"
+        }
+    ]
+}

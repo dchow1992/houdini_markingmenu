@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"dopnet\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_dopnet", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Dopnet", 
+            "menuCollection": "", 
+            "nodetype": "dopnet"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"chopnet\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "NETWORKS_chop", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Chopnet", 
+            "menuCollection": "", 
+            "nodetype": "chopnet"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"matnet\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "NETWORKS_mat", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Matnet", 
+            "menuCollection": "", 
+            "nodetype": "matnet"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"ropnet\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "NETWORKS_rop", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Ropnet", 
+            "menuCollection": "", 
+            "nodetype": "ropnet"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"shopnet\", False)", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "NETWORKS_shop", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Shopnet", 
+            "menuCollection": "", 
+            "nodetype": "shopnet"
+        }
+    ]
+}

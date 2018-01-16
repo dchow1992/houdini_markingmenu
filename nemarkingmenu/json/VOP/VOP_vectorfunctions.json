@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"cross\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_cross", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Cross Product", 
+            "menuCollection": "", 
+            "nodetype": "cross"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"lookat\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_lookat", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Look At", 
+            "menuCollection": "", 
+            "nodetype": "lookat"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"align\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_align", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Align", 
+            "menuCollection": "", 
+            "nodetype": "align"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"normalize\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_normalize", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Normalize", 
+            "menuCollection": "", 
+            "nodetype": "normalize"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"dot\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_dot", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Dot Product", 
+            "menuCollection": "", 
+            "nodetype": "dot"
+        }
+    ]
+}

@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_add", 
+            "index": 0, 
+            "isMenu": true, 
+            "label": "Arithmetic", 
+            "menuCollection": "VOP_arithmetic.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_vecgetcompon", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Type Conversion", 
+            "menuCollection": "VOP_typeconversion.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.openEditor()", 
+            "commandType": "customfunction", 
+            "context": "VOP", 
+            "icon": "SOP_null", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Open Editor", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_fit", 
+            "index": 3, 
+            "isMenu": true, 
+            "label": "Standard Functions", 
+            "menuCollection": "VOP_standardfunctions.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createBindExport()", 
+            "commandType": "customfunction", 
+            "context": "VOP", 
+            "icon": "VOP_bind", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Bind Export", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"bind\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_bind", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Bind", 
+            "menuCollection": "", 
+            "nodetype": "bind"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_align", 
+            "index": 6, 
+            "isMenu": true, 
+            "label": "Vector Functions", 
+            "menuCollection": "VOP_vectorfunctions.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "COMMON_null", 
+            "index": 7, 
+            "isMenu": true, 
+            "label": "Attributes I/O", 
+            "menuCollection": "VOP_attributes.json", 
+            "nodetype": "null"
+        }
+    ]
+}

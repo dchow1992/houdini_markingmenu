@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 0, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"rotate\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_rotate", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Rotate", 
+            "menuCollection": "", 
+            "nodetype": "rotate"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"orient\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_orient", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Orient", 
+            "menuCollection": "", 
+            "nodetype": "orient"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"transform\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_transform", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Transform", 
+            "menuCollection": "", 
+            "nodetype": "transform"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"makexform\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_makexform", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Make Transform", 
+            "menuCollection": "", 
+            "nodetype": "makexform"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"makeinstancexform\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_makeinstancexform", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Instance Transform", 
+            "menuCollection": "", 
+            "nodetype": "makeinstancexform"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}

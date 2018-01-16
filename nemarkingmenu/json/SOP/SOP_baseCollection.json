@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_solver", 
+            "index": 0, 
+            "isMenu": true, 
+            "label": "Solving", 
+            "menuCollection": "SOP_solvers.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribwrangle", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Wrangles", 
+            "menuCollection": "SOP_wrangles.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.openEditor()", 
+            "commandType": "customfunction", 
+            "context": "SOP", 
+            "icon": "COMMON_null", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Menu Editor", 
+            "menuCollection": "< Not Linked >", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_block_begin", 
+            "index": 3, 
+            "isMenu": true, 
+            "label": "Other", 
+            "menuCollection": "SOP_other.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "COMMON_openvdb", 
+            "index": 4, 
+            "isMenu": true, 
+            "label": "Open VDB", 
+            "menuCollection": "SOP_vdb.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_attribvop", 
+            "index": 5, 
+            "isMenu": true, 
+            "label": "VOPs", 
+            "menuCollection": "SOP_vops.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_object_merge", 
+            "index": 6, 
+            "isMenu": true, 
+            "label": "Utilities", 
+            "menuCollection": "SOP_utilities.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "COMMON_null", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Null", 
+            "menuCollection": "< Not Linked >", 
+            "nodetype": "null"
+        }
+    ]
+}

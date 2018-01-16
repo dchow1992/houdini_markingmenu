@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_twoway", 
+            "index": 0, 
+            "isMenu": true, 
+            "label": "Logic", 
+            "menuCollection": "VOP_logic.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_turbnoise", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Noise", 
+            "menuCollection": "VOP_noise.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_if", 
+            "index": 2, 
+            "isMenu": true, 
+            "label": "Loops", 
+            "menuCollection": "VOP_loops.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_constant", 
+            "index": 3, 
+            "isMenu": true, 
+            "label": "Constant Functions", 
+            "menuCollection": "VOP_constants.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_transform", 
+            "index": 4, 
+            "isMenu": true, 
+            "label": "Transforms", 
+            "menuCollection": "VOP_transforms.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_sine", 
+            "index": 5, 
+            "isMenu": true, 
+            "label": "Trigonometry", 
+            "menuCollection": "VOP_trig.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "COMMON_null", 
+            "index": 6, 
+            "isMenu": true, 
+            "label": "Arrays", 
+            "menuCollection": "VOP_arrays.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_pcopen", 
+            "index": 7, 
+            "isMenu": true, 
+            "label": "Point Clouds", 
+            "menuCollection": "VOP_pointclouds.json", 
+            "nodetype": "null"
+        }
+    ]
+}

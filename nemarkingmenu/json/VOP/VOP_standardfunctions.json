@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"ceiling\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_ceiling", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Ceiling", 
+            "menuCollection": "", 
+            "nodetype": "ceiling"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"floor\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_floor", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Floor", 
+            "menuCollection": "", 
+            "nodetype": "floor"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"complement\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_complement", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Complement", 
+            "menuCollection": "", 
+            "nodetype": "complement"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"fit\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_fit", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Fit", 
+            "menuCollection": "", 
+            "nodetype": "fit"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"abs\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_abs", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Absolute Value", 
+            "menuCollection": "", 
+            "nodetype": "abs"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"modulo\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_modulo", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Modulo", 
+            "menuCollection": "", 
+            "nodetype": "modulo"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "cmds.createNode(\"null\", False)", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}
