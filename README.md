@@ -12,6 +12,9 @@ $HOUDINI_USER_PREF_DIR/
         nemarkingmenu/
         
         nodegraphhooks.py
-
+    scripts/
+        python/
+            nodegraphactivewire.py
 special care should be taken if you already have custom event handling in your own nodegraphhooks.py
+
 
