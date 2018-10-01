@@ -9,7 +9,7 @@ $HOUDINI_USER_PREF_DIR/
 
     python2.7libs/
     
-        nemarkingmenu/
+        houdini_markingmenu/
         
         nodegraphhooks.py
         
