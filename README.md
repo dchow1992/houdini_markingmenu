@@ -10,6 +10,9 @@ $HOUDINI_USER_PREF_DIR/
     python2.7libs/
     
         houdini_markingmenu/
+        widgets/
+            menuitembutton.py
+            mousepath.py
         
         nodegraphhooks.py
         
