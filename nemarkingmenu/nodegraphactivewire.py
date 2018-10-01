@@ -6,7 +6,7 @@ import nodegraphsnap as snap
 import nodegraphutils as utils
 import nodegraphview as view
 from canvaseventtypes import *
-
+ 
 def handleEvent(uievent, last_handler_coroutine):
     """
         Very simple handler to wait for the user to click a location in the
@@ -16,7 +16,7 @@ def handleEvent(uievent, last_handler_coroutine):
     if handler_coroutine is None:
         handler_coroutine = handleEventCoroutine()
         next(handler_coroutine)
-
+ 
     # If we are here recursively as a result of the handler running some
     # code already, we have to skip this event.
     if not handler_coroutine.gi_running:
@@ -24,16 +24,16 @@ def handleEvent(uievent, last_handler_coroutine):
             handler_coroutine.send(uievent)
         except StopIteration:
             handler_coroutine = None
-
+ 
     return handler_coroutine
-
+ 
 def sendEventToHandler(handler, uievent, shapes):
     result = handler.handleEvent(uievent, [])
     if not isinstance(result, base.EventHandler):
         result = None
     uievent.editor.setOverlayShapes(shapes)
     return result
-
+ 
 def setEventContextData(contextdata, locatedconn, locatedinput, locatedoutput):
     # If the mouse is over a wire, we want to set both end of the connection.
     # If the mouse is over an input or output, and that end of the connection
@@ -46,7 +46,7 @@ def setEventContextData(contextdata, locatedconn, locatedinput, locatedoutput):
             contextdata['outputitem'] = locatedconn.item.outputItem()
             contextdata['inputindex'] = locatedconn.item.inputIndex()
             contextdata['outputindex'] = locatedconn.item.outputIndex()
-
+ 
     elif locatedinput is not None:
         allow_change = (contextdata['outputitem'] is None)
         if allow_change and not contextdata['branch']:
@@ -67,7 +67,7 @@ def setEventContextData(contextdata, locatedconn, locatedinput, locatedoutput):
                     contextdata['inputindex'] = input_conns[-1].inputIndex() + 1
                 else:
                     contextdata['inputindex'] = 0
-
+ 
     elif locatedoutput is not None:
         allow_change = (contextdata['inputitem'] is None)
         if allow_change and not contextdata['branch']:
@@ -81,7 +81,7 @@ def setEventContextData(contextdata, locatedconn, locatedinput, locatedoutput):
             contextdata['branch'] = True
             contextdata['inputitem'] = locatedoutput.item
             contextdata['outputindex'] = locatedoutput.index
-
+ 
 def handleEventCoroutine():
     visiblebounds = hou.BoundingRect()
     halfsize = utils.getNewNodeHalfSize()
@@ -98,30 +98,30 @@ def handleEventCoroutine():
     handler = None
     editor = None
     olddefaultcursor = None
-
+ 
     while True:
         uievent = yield
         if editor is None:
             editor = uievent.editor
             olddefaultcursor = editor.defaultCursor()
-
+ 
         if handler is not None:
             handler = sendEventToHandler(handler, uievent, shapes)
             if handler is None:
                 editor.setDefaultCursor(olddefaultcursor)
             continue
-
+ 
         newvisiblebounds = editor.visibleBounds()
         if visiblebounds != newvisiblebounds:
             alignrects = editor.allVisibleRects([])
             visiblebounds = newvisiblebounds
-
+ 
         if (isinstance(uievent, KeyboardEvent) or \
             isinstance(uievent, MouseEvent)):
             if nodecenter is None:
                 nodecenter = uievent.mousepos
                 nodecenter = editor.posFromScreen(nodecenter)
-
+ 
             # Check for a wire to drop the node on, if that pref is enabled.
             # Don't update the target on a mouse up event. We want to keep
             # the located/selected target from the last mouse event, since the
@@ -149,13 +149,13 @@ def handleEventCoroutine():
                     editor.setDefaultCursor(None)
                 else:
                     editor.setDefaultCursor(utils.theCursorDragDropOn)
-
+ 
         if isinstance(uievent, KeyboardEvent):
             if uievent.eventtype.endswith('keyhit') and \
                display.setKeyPrompt(editor, uievent.key,
                                     'h.pane.wsheet.cancel', uievent.eventtype):
                 break
-
+ 
             if uievent.eventtype.endswith('keyhit') and \
                display.setKeyPrompt(editor, uievent.key,
                                     'h.pane.wsheet.add_op', uievent.eventtype):
@@ -164,23 +164,23 @@ def handleEventCoroutine():
                 # up the tab menu).
                 editor.handleCurrentKeyboardEvent(True)
                 break
-
+ 
             elif uievent.eventtype == 'keyhit' and uievent.key == 'Enter':
                 editor.eventContextData()['pos'] = nodecenter - halfsize
                 setEventContextData(editor.eventContextData(),
                     locatedconn, locatedinput, locatedoutput)
                 break
-
+ 
             elif uievent.eventtype == 'keyhit' and uievent.key == 'Shift+Enter':
                 editor.eventContextData()['pos'] = None
                 setEventContextData(editor.eventContextData(),
                     locatedconn, locatedinput, locatedoutput)
                 break
-
+ 
         elif isinstance(uievent, MouseEvent):
             if uievent.eventtype == 'mousewheel':
                 view.scaleWithMouseWheel(uievent)
-
+ 
             elif uievent.eventtype == 'mousedown':
                 if uievent.selected.name.startswith('overview'):
                     handler = base.OverviewMouseHandler(uievent)
@@ -191,21 +191,21 @@ def handleEventCoroutine():
                 if handler is not None:
                     editor.setDefaultCursor(olddefaultcursor)
                     handler = sendEventToHandler(handler, uievent, shapes)
-
+ 
             elif uievent.eventtype == 'mouseup':
                 editor.eventContextData()['pos'] = nodecenter - halfsize
                 setEventContextData(editor.eventContextData(),
                     locatedconn, locatedinput, locatedoutput)
                 break
-
+ 
             else:
                 nodecenter = uievent.mousepos
                 nodecenter = editor.posFromScreen(nodecenter)
                 category = editor.pwd().childTypeCategory()
                 # If we are showing a preview of the node shape, we need to
                 # pass a large square to ensure the shape draws at the
-                # expected size.
-
+                # expected size.               
+ 
                 if prefs.showNodeShapes(editor) and \
                    category != hou.vopNodeTypeCategory():
                     halfmaxsize = hou.Vector2(maxsize, maxsize)
@@ -235,14 +235,14 @@ def handleEventCoroutine():
                                 0.5, True, False)]'''
                 shapes = snapresult.shapes(editor)
                 shapes.extend(buildPendingWires(editor, nodecenter, locatedconn, locatedinput, locatedoutput))
-
+ 
             editor.setOverlayShapes(shapes)
-
+ 
     if editor is not None:
         editor.setDefaultCursor(olddefaultcursor)
         editor.setOverlayShapes([])
         editor.popEventContext()
-
+ 
 def buildPendingWires(editor, nodecenter,
                       locatedconn, locatedinput, locatedoutput):
     shapes = []
@@ -255,7 +255,7 @@ def buildPendingWires(editor, nodecenter,
     branch = contextdata['branch']
     clr = hou.ui.colorFromName('GraphPreSelection')
     alpha = 1.0
-
+ 
     if inputitem is not None and outputitem is not None:
         outpos = editor.itemOutputPos(inputitem, outputindex)
         outdir = editor.itemOutputDir(inputitem, outputindex)
@@ -265,7 +265,7 @@ def buildPendingWires(editor, nodecenter,
                 outpos, outdir, nodecenter, -outdir, clr, alpha))
         shapes.append(hou.NetworkShapeConnection(
                 nodecenter, -indir, inpos, indir, clr, alpha))
-
+ 
     elif inputitem is not None:
         outpos = editor.itemOutputPos(inputitem, outputindex)
         outdir = editor.itemOutputDir(inputitem, outputindex)
@@ -282,7 +282,7 @@ def buildPendingWires(editor, nodecenter,
                         conn.outputItem(), conn.inputIndex())
                 shapes.append(hou.NetworkShapeConnection(
                         nodecenter, -indir, inpos, indir, clr, alpha))
-
+ 
     elif outputitem is not None:
         conns = outputitem.inputConnections()
         inpos = editor.itemInputPos(outputitem, inputindex)
@@ -299,3 +299,5 @@ def buildPendingWires(editor, nodecenter,
                         conn.inputItem(), conn.inputItemOutputIndex())
                 shapes.append(hou.NetworkShapeConnection(
                         outpos, outdir, nodecenter, -outdir, clr, alpha))
+ 
+    return shapes
