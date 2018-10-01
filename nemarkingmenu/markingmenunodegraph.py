@@ -19,7 +19,7 @@ import nodegraphutils as utils
 import nodegraphview as view
 #import nodegraphhooks as hooks
 from canvaseventtypes import *
-
+ 
 theFlagDecorators = ( 'flag', 'flagindicator' )
 theFlagTogglers = ( 'flag', 'flagindicator', 'footerflag' )
 theNodeSelectors = ( 'node', 'connectorarea', 'preview', 'footer' )
@@ -54,7 +54,7 @@ theBackgroundImageDraggables = (
     'backgroundimagelink',
     'backgroundimagebrightness'
 )
-
+ 
 def handleEvent(uievent, last_handler_coroutine):
     """
         Handles events coming from the Network Editor.
@@ -63,7 +63,7 @@ def handleEvent(uievent, last_handler_coroutine):
     """
     if not isinstance(uievent.editor, hou.NetworkEditor):
         return None
-
+ 
     handler_coroutine = last_handler_coroutine
     if handler_coroutine is None:
         volatile_keys = []
@@ -85,7 +85,7 @@ def handleEvent(uievent, last_handler_coroutine):
         uievent.editor.setDragSourceData([])
         handler_coroutine = handleEventCoroutine()
         next(handler_coroutine)
-
+ 
     # If we are here recursively as a result of the handler running some
     # code already, we have to skip this event.
     if not handler_coroutine.gi_running:
@@ -93,9 +93,9 @@ def handleEvent(uievent, last_handler_coroutine):
             handler_coroutine.send(uievent)
         except StopIteration:
             handler_coroutine = None
-
+ 
     return handler_coroutine
-
+ 
 def handleEventCoroutine():
     event_handler = None
     pending_actions = []
@@ -105,7 +105,7 @@ def handleEventCoroutine():
         uievent = yield
         editor = uievent.editor
         editor_updates = utils.EditorUpdates()
-
+ 
         # Hitting the escape key cancels everything. Clear all state by
         # exiting this function.
         if isinstance(uievent, KeyboardEvent) and \
@@ -113,7 +113,7 @@ def handleEventCoroutine():
                                 'h.pane.wsheet.cancel', uievent.eventtype):
             event_handler = None
             keep_state = False
-
+ 
         # Changing networks is like hitting Escape. It should cancel any
         # ongoing user actions.
         elif isinstance(uievent, ContextEvent):
@@ -122,24 +122,24 @@ def handleEventCoroutine():
             view.handleNetworkChange(editor, oldpath, newpath, None, False)
             event_handler = None
             keep_state = False
-
+ 
         # Clearing our file is like hitting Escape. It should cancel any
         # ongoing user actions.
         elif isinstance(uievent, ContextClearEvent):
             view.clearViewBoundsData(editor, uievent.context)
             event_handler = None
             keep_state = False
-
+ 
         # The initialization event is called once when the NNE pane is
         # first created.
         elif isinstance(uievent, InitializationEvent):
             prefs.registerPreferences(uievent.editor)
-
+ 
         else:
             try:
                 if event_handler is None:
                     event_handler = createEventHandler(uievent, pending_actions)
-
+ 
                 if isinstance(event_handler, base.EventHandler):
                     event_handler = event_handler.handleEvent(uievent,
                                                               pending_actions)
@@ -149,7 +149,7 @@ def handleEventCoroutine():
                     if event_handler is None:
                         uievent.editor.setNetworkBoxPendingRemovals([])
                         uievent.editor.setDragSourceData([])
-
+ 
                 prompt = None
                 if isinstance(event_handler, base.EventHandler):
                     editor_updates.combine(event_handler.editor_updates)
@@ -157,24 +157,24 @@ def handleEventCoroutine():
                        isinstance(uievent, KeyboardEvent):
                         prompt = event_handler.getPrompt(uievent)
                         display.setPrompt(editor, prompt, pending_actions)
-
+ 
                 elif isinstance(uievent, MouseEvent) or \
                      isinstance(uievent, KeyboardEvent):
                     event_handler = None
                     prompt = utils.getPromptWithNoHandler(uievent)
                     display.setPrompt(editor, prompt, pending_actions,
                         uievent.modifierstate.ctrl)
-
+ 
                 elif isinstance(uievent, KeyboardEvent):
                     event_handler = None
-
+ 
                 if isinstance(uievent, MouseEvent):
                     # Configure the canvas tool tip.
                     if uievent.eventtype == 'mousemove':
                         editor.setTooltip(utils.getTooltip(uievent))
                     else:
                         editor.setTooltip(None)
-
+ 
                 # For all pending actions, give them a chance to complete
                 # based on the new event, or incorporate their visual
                 # elements into the editor.
@@ -183,34 +183,34 @@ def handleEventCoroutine():
                         pending_actions.remove(action)
                     else:
                         editor_updates.combine(action.editor_updates)
-
+ 
             except hou.PermissionError as pe:
                 editor.flashMessage('STATUS_error',
                     'Permission Denied', 2.0)
                 event_handler = None
                 keep_state = False
-
+ 
             except Exception as ex:
                 traceback.print_exc()
                 event_handler = None
                 keep_state = False
-
+ 
         # If an action has completed, all drawing state related to the last
         # activity should be cleared.
         editor_updates.applyToEditor(editor)
-
+ 
         # Any time we exit an event handler, for any reason, make sure we
         # re-enable UI element locating in the network editor.
         if event_handler is None:
             editor.setLocatingEnabled(True)
-
+ 
     # If we exit our loop, clean up the editor's pre-selection.
     uievent.editor.setPreSelectedItems(())
     # Reset our background images in case the user was modifying them.
     if prefs.backgroundImageEditing(uievent.editor):
         images = utils.loadBackgroundImages(uievent.editor.pwd())
         uievent.editor.setBackgroundImages(images)
-
+ 
 '''
 def createNodeTypeEventHandler(uievent, pending_actions):
     handler = None
@@ -223,19 +223,19 @@ def createNodeTypeEventHandler(uievent, pending_actions):
             func = None
         if func is not None:
             handler, handled = func(uievent, pending_actions)
-
+ 
     return handler, handled
-
+ 
 def createEventHandler(uievent, pending_actions):
     # Provide an opportunity for user-customized event handling.
     handler, handled = hooks.createEventHandler(uievent, pending_actions)
     if handled:
         return handler
-
+ 
     if isinstance(uievent, KeyboardEvent):
         if uievent.eventtype.endswith('keyhit'):
             return hotkeys.KeyHitHandler(uievent)
-
+ 
         elif uievent.eventtype == 'keydown':
             display.setDecoratedItem(uievent.editor, None,
                     pending_actions, False, False)
@@ -251,36 +251,36 @@ def createEventHandler(uievent, pending_actions):
             cutkeys = hou.ui.hotkeys('h.pane.wsheet.cut_wires_mode')
             if uievent.key in viewkeys:
                 return states.ViewStateHandler(uievent)
-
+ 
             elif uievent.key in selectkeys:
                 return states.BoxSelectStateHandler(uievent)
-
+ 
             elif uievent.key in cutkeys:
                 return states.CutWiresStateHandler(uievent)
-
+ 
             elif uievent.key in alignkeys:
                 return states.AlignStateHandler(uievent)
-
+ 
             elif uievent.key in bypasskeys:
                 return states.FlagStateHandler(uievent, 0)
-
+ 
             elif uievent.key in flag1keys:
                 return states.FlagStateHandler(uievent, 1)
-
+ 
             elif uievent.key in flag2keys:
                 return states.FlagStateHandler(uievent, 2)
-
+ 
             elif uievent.key in flag3keys:
                 return states.FlagStateHandler(uievent, 3)
-
+ 
             elif uievent.key in flag4keys:
                 return states.FlagStateHandler(uievent, 4)
-
+ 
             elif uievent.key in viskeys:
                 if uievent.editor.pwd().childTypeCategory() in \
                    (hou.sopNodeTypeCategory(), hou.vopNodeTypeCategory()):
                     return states.VisualizeStateHandler(uievent)
-
+ 
     elif isinstance(uievent, MouseEvent):
         if uievent.eventtype == 'mousedown':
             display.setDecoratedItem(uievent.editor, None,
@@ -317,7 +317,7 @@ def createEventHandler(uievent, pending_actions):
                 return NodeConnectionMouseHandler(uievent)
             elif isinstance(uievent.selected.item, NodeDependency):
                 return NodeDependencyMouseHandler(uievent)
-
+ 
         elif uievent.eventtype == 'mousemove':
             prev_decorated = uievent.editor.decoratedItem()
             keep_prev_decorated = False
@@ -340,7 +340,7 @@ def createEventHandler(uievent, pending_actions):
                 if any(item for item in items_under_mouse
                        if item[1] in theFlyoutExpansions):
                     keep_prev_decorated = True
-
+ 
             if not keep_prev_decorated:
                 new_decorated = None
                 if isinstance(uievent.located.item, hou.Node) and \
@@ -354,7 +354,7 @@ def createEventHandler(uievent, pending_actions):
                      isinstance(uievent.located.item, hou.SubnetIndirectInput):
                     # Bring up the decoration on any part of an indirect input.
                     new_decorated = uievent.located.item
-
+ 
                 if new_decorated is not None:
                     # If the decoration is changing from interactive to
                     # non-interactive, we may need to update the decorated item
@@ -382,17 +382,17 @@ def createEventHandler(uievent, pending_actions):
                             isinstance(new_decorated, hou.NetworkDot) or \
                             uievent.modifierstate.ctrl,
                             not uievent.modifierstate.ctrl)
-
+ 
                 else:
                     display.setDecoratedItem(uievent.editor, None,
                             pending_actions, False, False)
-
+ 
         elif uievent.eventtype == 'mousewheel':
             view.scaleWithMouseWheel(uievent)
-
+ 
     return None
 '''
-
+ 
 class BackgroundMouseHandler(base.EventHandler):
     def handleEvent(self, uievent, pending_actions):
         if uievent.eventtype == 'mousedrag':
@@ -405,21 +405,21 @@ class BackgroundMouseHandler(base.EventHandler):
                 handler = base.ViewScaleHandler(self.start_uievent)
             if handler:
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
         elif uievent.eventtype == 'mouseup':
             if self.start_uievent.mousestate.lmb:
                 with hou.undos.group('Clear selection'):
                     hou.clearAllSelected()
-
+ 
             elif self.start_uievent.mousestate.rmb:
                 uievent.editor.openTabMenu(key = utils.getDefaultTabMenuKey())
-
+ 
             return None
-
+ 
         # Keep handling events until the mouse is dragged, or the mouse button
         # is released.
         return self
-
+ 
 class MovableItemMoveHandler(base.ItemEventHandler):
     def __init__(self, start_uievent, click_handler):
         base.ItemEventHandler.__init__(self, start_uievent)
@@ -446,15 +446,15 @@ class MovableItemMoveHandler(base.ItemEventHandler):
             gestures.ShakeDetector(start_uievent.editor, 'shake'))
         self.olddefaultcursor = start_uievent.editor.defaultCursor()
         start_uievent.editor.setDefaultCursor(None)
-
+ 
     def isPerformingCopy(self, uievent):
         return uievent.modifierstate.alt
-
+ 
     def isDragFarEnoughToCopy(self, uievent):
         rect = uievent.editor.itemRect(self.item, False)
         pos = uievent.editor.posFromScreen(uievent.mousepos)
         return not rect.contains(pos)
-
+ 
     def getItemsToMove(self, uievent):
         if uievent.modifierstate.alt and \
            uievent.modifierstate.shift and \
@@ -466,7 +466,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                 itemset = set(list(self.item.parent().selectedItems()))
             else:
                 itemset = set([self.item])
-
+ 
         else:
             # If we are dragging a picked item, drag all picked items.
             # Otherwise only drag the selected item. If ctrl or shift are
@@ -481,7 +481,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                 itemset = set()
                 utils.getOutputsRecursive(self.item, itemset)
                 include_container_netboxes = True
-
+ 
             elif uievent.modifierstate.shift and \
                  (isinstance(self.item, hou.Node) or \
                   isinstance(self.item, hou.NetworkDot)):
@@ -489,13 +489,13 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                 itemset = set()
                 utils.getInputsRecursive(self.item, itemset)
                 include_container_netboxes = True
-
+ 
             else:
                 if self.item.isSelected():
                     itemset = set(list(self.item.parent().selectedItems()))
                 else:
                     itemset = set([self.item])
-
+ 
             # When moving with Shift or Ctrl down, we want to move any netboxes
             # that contain any items that are being moved.
             if include_container_netboxes:
@@ -519,34 +519,34 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                             containerset.add(netbox)
                     itemset = itemset.union(containerset)
                     containedset = containerset
-
+ 
         containedset = set()
         for item in itemset:
             if isinstance(item, hou.NetworkBox):
                 containedset = containedset.union(set(item.items()))
         itemset = itemset.union(containedset)
         itemset.remove(self.item)
-
+ 
         # Convert the item set into a list.
         moveitems = list(itemset)
         moveitems.insert(0, self.item)
-
+ 
         # Set up drag data in case the mouse leaves the view.
         uievent.editor.setDragSourceData(moveitems)
-
+ 
         return moveitems
-
+ 
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         if uievent.eventtype == 'keydown' or \
            uievent.eventtype == 'keyup':
             dropkeys = hou.ui.hotkeys('h.pane.wsheet.drop_on_wire_mode')
             if uievent.key in dropkeys:
                 self.toggleallowdroponwire = (uievent.eventtype == 'keydown')
-
+ 
         elif (isinstance(uievent, MouseEvent) or \
               isinstance(uievent, KeyboardEvent)) and \
              not uievent.modifierstate.alt:
@@ -562,24 +562,24 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                     for replacement in replacements:
                         replacement.createConnection()
                     utils.cleanupDisconnectedItems(uievent.editor.pwd())
-
+ 
                 # We may have deleted some picked dots, so regenerate our
                 # list of picked items.
                 self.moveitems = []
-
+ 
         self.dropitem = None
-
+ 
         if isinstance(uievent, MouseEvent) or \
            isinstance(uievent, KeyboardEvent):
             self.editor_updates.clear()
             radius = utils.getDropTargetRadius(uievent.editor)
-
+ 
             if isinstance(uievent, KeyboardEvent) or \
                uievent.eventtype == 'mousedrag':
                 handler = None
                 if self.start_uievent.mousestate.lmb:
                     editor = uievent.editor
-
+ 
                     # If the mouse is moved outside the network view, treat it
                     # as a drag and drop to another part of Houdini, so don't
                     # adjust any positions.
@@ -589,10 +589,10 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                         self.drag = hou.Vector2(0, 0)
                         self.showAllAdjustments(editor, uievent)
                         return self
-
+ 
                     # Start auto-scrolling if we are near the edge.
                     autoscroll.startAutoScroll(self, uievent, pending_actions)
-
+ 
                     # Only allow dragging within the visible area (but with auto
                     # scrolling the visible area may change over time).
                     self.drag = editor.screenBounds().closestPoint(
@@ -600,14 +600,14 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                     self.drag = self.drag - editor.posToScreen(self.start_pos)
                     duration = self.drag.length()
                     self.drag = editor.sizeFromScreen(self.drag)
-
+ 
                     # If we haven't yet generated our list of things being
                     # moved, do it now.
                     if not self.moveitems or \
                        self.moveitemsmodifierstate != uievent.modifierstate:
                         self.moveitems = self.getItemsToMove(uievent)
                         self.moveitemsmodifierstate = uievent.modifierstate
-
+ 
                     # Get drop targets, but don't allow any of the items
                     # being dragged.
                     items = utils.getPossibleDropTargets(uievent, radius,
@@ -615,7 +615,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                     mouseitem = self.getPreferredDropTarget(items, uievent)
                     editor.setDropTargetItem(*mouseitem)
                     self.dropitem = mouseitem
-
+ 
                     # Regenerate our possible alignment targets if our view
                     # bounds have changed.
                     newvisiblebounds = uievent.editor.visibleBounds()
@@ -630,7 +630,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                             not aligntomoveitems)
                         self.visiblebounds = newvisiblebounds
                         self.aligntomoveitems = aligntomoveitems
-
+ 
                     if not self.isPerformingCopy(uievent) or \
                        self.isDragFarEnoughToCopy(uievent):
                         # Try to do snapping of the item being dragged to any
@@ -643,28 +643,28 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                                     snapresult.shapes(editor))
                         if snapresult.isValid():
                             self.drag += snapresult.delta()
-
+ 
                     # The position of each item changes with each mouse
                     # movement.
                     self.showAllAdjustments(editor, uievent)
-
+ 
                 elif base.isPanEvent(self.start_uievent):
                     handler = base.ViewPanHandler(self.start_uievent)
-
+ 
                 elif base.isScaleEvent(self.start_uievent):
                     handler = base.ViewScaleHandler(self.start_uievent)
-
+ 
                 if handler:
                     uievent.editor.setDefaultCursor(self.olddefaultcursor)
                     return handler.handleEvent(uievent, pending_actions)
-
+ 
                 if self.dropitem is not None and self.dropitem.item is not None:
                     uievent.editor.setDefaultCursor(utils.theCursorDragDropOn)
                 else:
                     uievent.editor.setDefaultCursor(None)
-
+ 
                 return self
-
+ 
             elif uievent.eventtype == 'mouseup':
                 # If we looked like we were doing a copy, but didn't move the
                 # mouse far enough to do a real copy, treat it as a click
@@ -675,7 +675,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                         uievent.editor.setDefaultCursor(self.olddefaultcursor)
                         return self.click_handler.handleEvent(uievent,
                                                               pending_actions)
-
+ 
                 # Only handle drops if the mouse button is released inside
                 # the network view. Also don't drop on any of the items
                 # being dragged.
@@ -689,19 +689,19 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                         self.applyAdjustments(uievent)
                     else:
                         self.handleDrop(mouseitem, uievent)
-
+ 
                 # Reset the default cursor as we leaev this handler.
                 uievent.editor.setDefaultCursor(self.olddefaultcursor)
-
+ 
                 return None
-
+ 
             elif uievent.eventtype == 'mousewheel':
                 view.scaleWithMouseWheel(uievent)
                 self.showAllAdjustments(uievent.editor, uievent)
-
+ 
         # Keep handling events until the mouse button is released.
         return self
-
+ 
     def getItemChain(self):
         drag_items = set(self.moveitems)
         parent = self.item.parent()
@@ -717,7 +717,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
             visited_items.add(start_item)
             inputs = list(c.inputItem() for c in start_item.inputConnections())
             chain.insert(0, start_item)
-
+ 
         visited_items = set([self.item])
         end_item = self.item
         outputs = list(c.outputItem()
@@ -737,9 +737,9 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                     break
             if not found_output:
                 outputs = []
-
+ 
         return chain
-
+ 
     def buildPreviewWires(self, editor, conn):
         wire_shapes = []
         zero = hou.Vector2(0.0, 0.0)
@@ -758,7 +758,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
             indir = editor.itemInputDir(initem, 0)
             wire_shapes.append(hou.NetworkShapeConnection(
                 outpos, outdir, inpos, indir, clr, 1.0))
-
+ 
         if utils.getMaxNumOutputs(outitem) > 0:
             outpos = editor.itemOutputPos(outitem, 0)
             outdir = editor.itemOutputDir(outitem, 0)
@@ -770,9 +770,9 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                     conn.inputIndex())
             wire_shapes.append(hou.NetworkShapeConnection(
                 outpos, outdir, inpos, indir, clr, 1.0))
-
+ 
         return wire_shapes
-
+ 
     def getPreferredDropTarget(self, mouseitems, uievent):
         mouseitem = NetworkComponent(None, '', 0)
         for testitem in mouseitems:
@@ -780,9 +780,9 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                 if self.item != testitem.item:
                     mouseitem = NetworkComponent(*testitem)
                     break
-
+ 
         return mouseitem
-
+ 
     def handleDrop(self, mouseitem, uievent):
         if isinstance(mouseitem.item, hou.NetworkBox):
             with hou.undos.group('Move items'):
@@ -799,7 +799,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                                 parent.removeItem(item)
                             new_parent.addItem(item)
                     utils.saveParentNetworkBoxSizes(uievent.editor, self.item)
-
+ 
         else:
             with hou.undos.group('Move items'):
                 self.applyAdjustments(uievent)
@@ -811,7 +811,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                         if parent and \
                            parent not in self.moveitems:
                             parent.removeItem(item)
-
+ 
     def showAllAdjustments(self, editor, uievent):
         items = []
         adjustments = []
@@ -839,13 +839,13 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                         shape = hou.NetworkShapeBox(
                             rect, clr, 0.7, True, False)
                     shapes.append(shape)
-
+ 
         else:
             for item in self.moveitems:
                 start = item.position()
                 end = start + self.drag
                 adjustments.append(hou.NetworkAnimValue(0.0, start, end))
-
+ 
         if self.isPerformingCopy(uievent):
             self.editor_updates.addOverlayShapes(shapes)
         else:
@@ -869,7 +869,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                     if self.gman.velocity() > v:
                         editor.setNetworkBoxPendingRemovals(self.moveitems)
             self.editor_updates.setAdjustments(self.moveitems, adjustments)
-
+ 
     def applyAdjustments(self, uievent):
         if self.isPerformingCopy(uievent):
             if self.isDragFarEnoughToCopy(uievent):
@@ -880,12 +880,12 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                 # Don't try to copy nothing (or nothing but subnet inputs).
                 if not copyitems:
                     return
-
+ 
                 # Figure out a bounding rect for all items being copied.
                 old_rect = hou.BoundingRect()
                 for item in copyitems:
                     old_rect.enlargeToContain(uievent.editor.itemRect(item))
-
+ 
                 with hou.undos.group('Duplicate items'):
                     # Hold down Shift and Ctrl to get reference copies.
                     uievent.editor.pwd().copyItems(copyitems,
@@ -894,14 +894,14 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                     utils.moveItemsToLocation(uievent.editor,
                         old_rect.center() + self.drag, uievent.mousepos)
                     utils.updateCurrentItem(uievent.editor)
-
+ 
         else:
             with hou.undos.group('Move items'):
                 for item in self.moveitems:
                     if item.parentNetworkBox() not in self.moveitems:
                         item.setPosition(item.position() + self.drag)
                         utils.saveParentNetworkBoxSizes(uievent.editor, item)
-
+ 
     def setParentNetworkBoxFromMousePos(self, uievent):
         # Make sure this is called from within an undo group.
         netbox = utils.getNetworkBoxUnderMouse(uievent.editor, uievent.mousepos)
@@ -915,7 +915,7 @@ class MovableItemMoveHandler(base.ItemEventHandler):
                 itemnetbox = item.parentNetworkBox()
                 if itemnetbox is not None and itemnetbox not in self.moveitems:
                     itemnetbox.removeItem(item)
-
+ 
 class NodeMoveHandler(MovableItemMoveHandler):
     def getPrompt(self, uievent):
         dropkeys = hou.ui.hotkeys('h.pane.wsheet.drop_on_wire_mode')
@@ -924,9 +924,9 @@ class NodeMoveHandler(MovableItemMoveHandler):
             prompt = 'Hold ' + ' or '.join(dropkeys) + ' to '
             prompt += 'disable' if allowdroponwire else 'enable'
             prompt += ' dropping nodes on existing wires.'
-
+ 
             return prompt
-
+ 
     def getPreferredDropTarget(self, mouseitems, uievent):
         mouseitem = NetworkComponent(None, '', 0)
         # Don't allow drop on wire if the pref is disabled,
@@ -945,16 +945,16 @@ class NodeMoveHandler(MovableItemMoveHandler):
                             self.start_uievent.editor, mouseitem.item)
                         self.editor_updates.addOverlayShapes(wire_shapes)
                         break
-
+ 
         # Only accept a network box drop target if nothing else is available.
         if mouseitem.item is None:
             for testitem in mouseitems:
                 if isinstance(testitem.item, hou.NetworkBox):
                     mouseitem = NetworkComponent(*testitem)
                     break
-
+ 
         return mouseitem
-
+ 
     def handleDrop(self, mouseitem, uievent):
         if isinstance(mouseitem.item, hou.NodeConnection):
             with hou.undos.group('Insert node'):
@@ -964,10 +964,10 @@ class NodeMoveHandler(MovableItemMoveHandler):
                 self.applyAdjustments(uievent)
                 self.setParentNetworkBoxFromMousePos(uievent)
                 utils.moveNodesToAvoidOverlap(uievent.editor, self.moveitems)
-
+ 
         else:
             MovableItemMoveHandler.handleDrop(self, mouseitem, uievent)
-
+ 
 class NodeClickHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         if self.start_uievent.selected.name in theNodeSelectors:
@@ -976,7 +976,7 @@ class NodeClickHandler(base.ItemEventHandler):
                not uievent.modifierstate.ctrl:
                 handler = connect.ItemConnectHandler(uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             else:
                 itemset = set([self.item])
                 if uievent.modifierstate.alt and \
@@ -992,7 +992,7 @@ class NodeClickHandler(base.ItemEventHandler):
                 view.modifySelection(uievent, None, itemset, self.item,
                     shift = False if uievent.modifierstate.alt else None,
                     ctrl = False if uievent.modifierstate.alt else None)
-
+ 
         elif self.start_uievent.selected.name == 'inputgroup':
             groups = self.item.inputGroupNames()
             group = groups[self.start_uievent.selected.index]
@@ -1009,13 +1009,13 @@ class NodeClickHandler(base.ItemEventHandler):
                 for item in items:
                     if isinstance(item, hou.VopNode):
                         item.setInputGroupExpanded(group, not expanded)
-
+ 
         elif self.start_uievent.selected.name == 'input' or \
              self.start_uievent.selected.name == 'multiinput':
             if self.start_uievent.mousestate.lmb:
                 handler = connect.ItemConnectHandler(uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             else:
                 # Branch on mmb click. Insert inline for RMB click.
                 dobranch = (self.start_uievent.mousestate.mmb != 0)
@@ -1029,12 +1029,12 @@ class NodeClickHandler(base.ItemEventHandler):
                     indexes[item_index] = self.start_uievent.selected.index
                 uievent.editor.openTabMenu(branch = dobranch,
                     dest_items = items, dest_connector_indexes = indexes)
-
+ 
         elif self.start_uievent.selected.name == 'output':
             if self.start_uievent.mousestate.lmb:
                 handler = connect.ItemConnectHandler(uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             else:
                 # Branch on mmb click. Insert inline for RMB click.
                 dobranch = (self.start_uievent.mousestate.mmb != 0)
@@ -1048,16 +1048,16 @@ class NodeClickHandler(base.ItemEventHandler):
                     indexes[item_index] = self.start_uievent.selected.index
                 uievent.editor.openTabMenu(branch = dobranch,
                     src_items = items, src_connector_indexes = indexes)
-
+ 
         elif self.start_uievent.selected.name == 'previewplane':
             if isinstance(self.start_uievent.selected.item, hou.CopNode):
                 menu = popupmenus.CopPreviewPlaneMenu(
                             uievent, uievent.located.item)
                 result = utils.getPopupMenuResult(menu)
                 menu.executeCommand(result)
-
+ 
             return None
-
+ 
         elif self.start_uievent.selected.name in theInfoTogglers:
             if self.start_uievent.mousestate.lmb or \
                self.start_uievent.mousestate.mmb:
@@ -1065,7 +1065,7 @@ class NodeClickHandler(base.ItemEventHandler):
                     prefs.transientInfo(uievent.editor),
                     self.start_uievent.modifierstate.shift,
                     uievent.editor)
-
+ 
         elif self.start_uievent.selected.name in theFlagTogglers:
             flag = flags.getFlagEnumFromIndex(self.start_uievent.selected.index)
             if self.item.isSelected():
@@ -1082,15 +1082,15 @@ class NodeClickHandler(base.ItemEventHandler):
                     uievent.modifierstate.ctrl,
                     uievent.modifierstate.alt,
                     False, False)
-
+ 
         return None
-
+ 
 class NodeMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         if uievent.eventtype == 'mousedrag':
             handler = None
             if uievent.dragging and self.start_uievent.mousestate.lmb:
@@ -1099,7 +1099,7 @@ class NodeMouseHandler(base.ItemEventHandler):
                             pending_actions, False, False)
                     handler = NodeMoveHandler(self.start_uievent,
                                 NodeClickHandler(self.start_uievent))
-
+ 
                 elif self.start_uievent.selected.name == 'input' or \
                      self.start_uievent.selected.name == 'multiinput' or \
                      self.start_uievent.selected.name == 'output':
@@ -1108,16 +1108,16 @@ class NodeMouseHandler(base.ItemEventHandler):
                     if not isinstance(self.item, hou.VopNode) or \
                        self.start_uievent.selected.index >= 0:
                         handler = connect.ItemConnectHandler(uievent)
-
+ 
             elif self.start_uievent.selected.name not in theNodeDraggers:
                 handler = NodeMoveHandler(self.start_uievent,
                             NodeClickHandler(self.start_uievent))
-
+ 
             if handler:
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             return self
-
+ 
         elif uievent.eventtype == 'mouseup':
             if self.start_uievent.selected.name in theNodeInfoPoppers and \
                self.start_uievent.mousestate.mmb:
@@ -1129,20 +1129,20 @@ class NodeMouseHandler(base.ItemEventHandler):
                 else:
                     if self.popupinfo:
                         self.popupinfo.close()
-
+ 
             elif self.start_uievent.selected.item == uievent.located.item:
                 handler = NodeClickHandler(self.start_uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             return None
-
+ 
         elif uievent.eventtype == 'doubleclick':
             if self.start_uievent.selected.item == uievent.located.item and \
                self.start_uievent.mousestate.lmb and \
                self.start_uievent.selected.name in theNodeSelectors:
                 view.diveIntoNode(uievent.editor, self.item)
                 return None
-
+ 
         elif uievent.eventtype == 'mousedown':
             self.popupinfo = None
             if self.start_uievent.selected.name == 'name':
@@ -1152,7 +1152,7 @@ class NodeMouseHandler(base.ItemEventHandler):
                         pending_actions.append(
                             base.PendingTextChangeAction(self.item, valueid))
                         return None
-
+ 
             elif self.start_uievent.selected.name in theNodeInfoPoppers and \
                 self.start_uievent.mousestate.mmb and \
                 not self.start_uievent.modifierstate.ctrl:
@@ -1160,7 +1160,7 @@ class NodeMouseHandler(base.ItemEventHandler):
                     prefs.transientInfo(uievent.editor),
                     not self.start_uievent.modifierstate.shift,
                     uievent.editor)
-
+ 
             elif (self.start_uievent.selected.name in theFlagDecorators or \
                 self.start_uievent.selected.name in theInfoTogglers) and \
                 (self.start_uievent.mousestate.lmb or \
@@ -1168,7 +1168,7 @@ class NodeMouseHandler(base.ItemEventHandler):
                     display.setDecoratedItem(uievent.editor,
                         self.start_uievent.selected.item,
                         pending_actions, True, True)
-
+ 
             elif self.start_uievent.selected.name in theNodeDraggers and \
                 self.start_uievent.mousestate.rmb:
                 if self.start_uievent.selected.name == 'preview' and \
@@ -1177,21 +1177,21 @@ class NodeMouseHandler(base.ItemEventHandler):
                                 uievent, uievent.located.item)
                     result = utils.getPopupMenuResult(menu)
                     menu.executeCommand(result)
-
+ 
                 else:
                     uievent.editor.openNodeMenu(self.item)
-
+ 
                 return None
-
+ 
             elif isinstance(self.item, hou.VopNode) and \
                  self.start_uievent.mousestate.mmb and \
                  self.start_uievent.selected.name == 'input':
                     # VOPs special case handling for MMB click on inputs.
                     uievent.editor.openVopEffectsMenu(self.item,
                             self.start_uievent.selected.index)
-
+ 
                     return None
-
+ 
             elif isinstance(self.item, hou.VopNode) and \
                  self.start_uievent.mousestate.rmb and \
                  self.start_uievent.modifierstate.alt and \
@@ -1199,12 +1199,12 @@ class NodeMouseHandler(base.ItemEventHandler):
                     # VOPs special case handling for Alt+RMB click on outputs.
                     uievent.editor.openVopOutputInfoMenu(self.item,
                             self.start_uievent.selected.index)
-
+ 
                     return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class NetworkMovableItemSizeHandler(base.ItemEventHandler):
     def __init__(self, start_uievent):
         base.ItemEventHandler.__init__(self, start_uievent)
@@ -1227,44 +1227,44 @@ class NetworkMovableItemSizeHandler(base.ItemEventHandler):
                     hou.ui.resourceValueFromName('GraphStickyNoteTitleHeight'))
             else:
                 self.titleheight = 0.0
-
+ 
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         if not isinstance(uievent, MouseEvent):
             return self
-
+ 
         # Regenerate our possible alignment targets if our view
         # bounds have changed.
         newvisiblebounds = uievent.editor.visibleBounds()
         if self.visiblebounds != newvisiblebounds:
             self.alignrects = uievent.editor.allVisibleRects([self.item])
             self.visiblebounds = newvisiblebounds
-
+ 
         (rect, snapresult) = snap.snapResizeRect(uievent,
             self.item, self.initialrect, self.direction, self.titleheight,
             self.start_pos, alignrects = self.alignrects)
         self.editor_updates.setOverlayShapes(
             snapresult.shapes(uievent.editor))
-
+ 
         new_pos = rect.min()
         new_size = rect.size()
-
+ 
         if uievent.eventtype == 'mousedrag':
             # Start auto-scrolling if we are near the edge.
             autoscroll.startAutoScroll(self, uievent, pending_actions)
-
+ 
             # Create an adjustment to make the item look a different size
             items = [self.item]
             rect = hou.Vector4(new_pos.x(), new_pos.y(),
                                new_size.x(), new_size.y())
             adjustments = [hou.NetworkAnimValue(0.0, rect, rect)]
             self.editor_updates.setAdjustments(items, adjustments)
-
+ 
             return self
-
+ 
         elif uievent.eventtype == 'mouseup':
             # Actually resize the network item
             visible_rect = uievent.editor.itemRect(self.item)
@@ -1276,11 +1276,11 @@ class NetworkMovableItemSizeHandler(base.ItemEventHandler):
             new_pos = hou.Vector2(
                     min(new_pos.x(), visible_rect.min().x()),
                     min(new_pos.y(), visible_rect.min().y()))
-
+ 
             with hou.undos.group(self.undostr):
                 if isinstance(self.item, hou.NetworkBox):
                     self.item.setAutoFit(False)
-
+ 
                 elif uievent.modifierstate.shift:
                     # Change the text size by the geometric mean of the change
                     # in size of the separate axes.
@@ -1289,34 +1289,34 @@ class NetworkMovableItemSizeHandler(base.ItemEventHandler):
                     ratio = math.sqrt(xratio * yratio)
                     newtextsize = self.textsize * ratio
                     self.item.setTextSize(newtextsize)
-
+ 
                 new_size -= hou.Vector2(0.0, self.titleheight)
                 self.item.setBounds(hou.BoundingRect(new_pos, new_pos+new_size))
                 utils.saveParentNetworkBoxSizes(uievent.editor, self.item)
-
+ 
             return None
-
+ 
         # Keep handling events until the mouse button is released.
         return self
-
+ 
 class NetworkBoxClickHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         if self.start_uievent.selected.name == 'networkboxtitle':
             view.modifySelection(uievent, None, [self.item])
-
+ 
         elif self.start_uievent.selected.name == 'networkboxminimize':
             utils.setMinimized(uievent.editor, self.item,
                                not self.item.isMinimized(),
                                uievent.modifierstate.ctrl)
-
+ 
         return None
-
+ 
 class NetworkBoxMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         if uievent.eventtype == 'mousedown':
             if self.start_uievent.mousestate.rmb:
                 if self.start_uievent.selected.name == 'networkboxtitle':
@@ -1325,7 +1325,7 @@ class NetworkBoxMouseHandler(base.ItemEventHandler):
                     result = utils.getPopupMenuResult(menu)
                     menu.executeCommand(result)
                     return None
-
+ 
         elif uievent.eventtype == 'mousedrag':
             handler = None
             if self.start_uievent.selected.name == 'networkboxtitle' and \
@@ -1333,28 +1333,28 @@ class NetworkBoxMouseHandler(base.ItemEventHandler):
                uievent.dragging:
                 handler = MovableItemMoveHandler(self.start_uievent,
                              NetworkBoxClickHandler(self.start_uievent))
-
+ 
             elif self.start_uievent.selected.name == 'networkboxborder' and \
                self.start_uievent.mousestate.lmb and \
                uievent.dragging:
                 handler = NetworkMovableItemSizeHandler(self.start_uievent)
-
+ 
             elif base.isPanEvent(self.start_uievent):
                 handler = base.ViewPanHandler(self.start_uievent)
-
+ 
             elif base.isScaleEvent(self.start_uievent):
                 handler = base.ViewScaleHandler(self.start_uievent)
-
+ 
             if handler:
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
         elif uievent.eventtype == 'mouseup':
             if self.start_uievent.selected.item == uievent.located.item:
                 handler = NetworkBoxClickHandler(self.start_uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             return None
-
+ 
         elif uievent.eventtype == 'doubleclick':
             if self.start_uievent.selected.name == 'networkboxtitle' and \
                self.start_uievent.mousestate.lmb:
@@ -1363,34 +1363,34 @@ class NetworkBoxMouseHandler(base.ItemEventHandler):
                     pending_actions.append(
                         base.PendingTextChangeAction(self.item, valueid))
                     return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class StickyNoteClickHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         if self.start_uievent.selected.name == 'stickynotetitle':
             view.modifySelection(uievent, None, [self.item])
-
+ 
         elif self.start_uievent.selected.name == 'stickynotetext':
             if uievent.editor.pwd().isEditable():
                 valueid = uievent.editor.openNoteEditor(self.item)
                 pending_actions.append(
                     base.PendingTextChangeAction(self.item, valueid))
-
+ 
         elif self.start_uievent.selected.name == 'stickynoteminimize':
             utils.setMinimized(uievent.editor, self.item,
                                not self.item.isMinimized(),
                                uievent.modifierstate.ctrl)
-
+ 
         return None
-
+ 
 class StickyNoteMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         if uievent.eventtype == 'mousedrag':
             if (self.start_uievent.selected.name == 'stickynotetitle' or \
                 self.start_uievent.selected.name == 'stickynotetext') and \
@@ -1398,41 +1398,41 @@ class StickyNoteMouseHandler(base.ItemEventHandler):
                 handler = MovableItemMoveHandler(self.start_uievent,
                             StickyNoteClickHandler(self.start_uievent))
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             elif self.start_uievent.selected.name == 'stickynoteborder' and \
                  self.start_uievent.mousestate.lmb:
                 handler = NetworkMovableItemSizeHandler(self.start_uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             elif base.isPanEvent(self.start_uievent):
                 handler = base.ViewPanHandler(self.start_uievent)
-
+ 
             elif base.isScaleEvent(self.start_uievent):
                 handler = base.ViewScaleHandler(self.start_uievent)
-
+ 
             if handler:
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             return self
-
+ 
         elif uievent.eventtype == 'mouseup':
             if self.start_uievent.mousestate.lmb and \
                self.start_uievent.selected.item == uievent.located.item:
                 handler = StickyNoteClickHandler(self.start_uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             elif self.start_uievent.mousestate.rmb and \
                  self.start_uievent.selected.item == uievent.located.item:
                 menu = popupmenus.StickyNoteContextMenu(
                             uievent, uievent.located.item)
                 result = utils.getPopupMenuResult(menu)
                 menu.executeCommand(result)
-
+ 
             return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class IndirectInputClickHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         if self.start_uievent.selected.name == 'indirectinput':
@@ -1442,7 +1442,7 @@ class IndirectInputClickHandler(base.ItemEventHandler):
                not uievent.modifierstate.ctrl:
                 handler = connect.ItemConnectHandler(uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             else:
                 itemset = set([self.item])
                 if uievent.modifierstate.alt and \
@@ -1453,12 +1453,12 @@ class IndirectInputClickHandler(base.ItemEventHandler):
                 view.modifySelection(uievent, None, itemset, None,
                     shift = False if uievent.modifierstate.alt else None,
                     ctrl = False if uievent.modifierstate.alt else None)
-
+ 
         elif self.start_uievent.selected.name == 'indirectinputoutput':
             if self.start_uievent.mousestate.lmb:
                 handler = connect.ItemConnectHandler(uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             else:
                 # Branch on mmb click. Insert inline for RMB click.
                 dobranch = (self.start_uievent.mousestate.mmb != 0)
@@ -1469,7 +1469,7 @@ class IndirectInputClickHandler(base.ItemEventHandler):
                 indexes = [0] * len(items)
                 uievent.editor.openTabMenu(branch = dobranch,
                     src_items = items, src_connector_indexes = indexes)
-
+ 
         elif self.start_uievent.selected.name in theInfoTogglers and \
              self.item.input() is not None:
             if self.start_uievent.mousestate.lmb or \
@@ -1478,15 +1478,15 @@ class IndirectInputClickHandler(base.ItemEventHandler):
                     prefs.transientInfo(uievent.editor),
                     self.start_uievent.modifierstate.shift,
                     uievent.editor)
-
+ 
         return None
-
+ 
 class IndirectInputMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         if uievent.eventtype == 'mousedown':
             self.popupinfo = None
             if self.start_uievent.selected.name == 'indirectinput' and \
@@ -1497,14 +1497,14 @@ class IndirectInputMouseHandler(base.ItemEventHandler):
                     prefs.transientInfo(uievent.editor),
                     not self.start_uievent.modifierstate.shift,
                     uievent.editor)
-
+ 
             elif self.start_uievent.selected.name in theInfoTogglers and \
                 (self.start_uievent.mousestate.lmb or \
                  self.start_uievent.mousestate.mmb):
                 display.setDecoratedItem(uievent.editor,
                     self.start_uievent.selected.item,
                     pending_actions, True, True)
-
+ 
             elif self.start_uievent.selected.name == 'indirectinput' and \
                  self.start_uievent.mousestate.rmb:
                 menu = popupmenus.IndirectInputContextMenu(
@@ -1512,9 +1512,9 @@ class IndirectInputMouseHandler(base.ItemEventHandler):
                 result = utils.getPopupMenuResult(menu)
                 menu.executeCommand(result)
                 return None
-
+ 
             return self
-
+ 
         elif uievent.eventtype == 'mousedrag':
             if self.start_uievent.selected.name == 'indirectinput' and \
                self.start_uievent.mousestate.lmb and \
@@ -1522,13 +1522,13 @@ class IndirectInputMouseHandler(base.ItemEventHandler):
                 handler = MovableItemMoveHandler(self.start_uievent,
                             IndirectInputClickHandler(self.start_uievent))
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             elif self.start_uievent.selected.name == 'indirectinputoutput':
                 handler = connect.ItemConnectHandler(uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             return self
-
+ 
         elif uievent.eventtype == 'mouseup':
             if self.start_uievent.selected.name == 'indirectinput' and \
                self.start_uievent.mousestate.mmb and \
@@ -1541,13 +1541,13 @@ class IndirectInputMouseHandler(base.ItemEventHandler):
                 else:
                     if self.popupinfo:
                         self.popupinfo.close()
-
+ 
             elif self.start_uievent.selected.item == uievent.located.item:
                 handler = IndirectInputClickHandler(self.start_uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             return None
-
+ 
         elif uievent.eventtype == 'doubleclick':
             if self.start_uievent.mousestate.lmb:
                 node = self.item.input()
@@ -1555,17 +1555,17 @@ class IndirectInputMouseHandler(base.ItemEventHandler):
                     node = self.item.parent()
                 view.jumpToNode(uievent.editor, node, [self.item.parent()])
                 return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class NetworkDotClickHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         if self.start_uievent.mousestate.lmb:
             if uievent.selected.name in ('dotinput', 'dotoutput'):
                 handler = connect.ItemConnectHandler(uievent)
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
             elif uievent.modifierstate.alt and \
                  not uievent.modifierstate.shift and \
                  not uievent.modifierstate.ctrl:
@@ -1578,7 +1578,7 @@ class NetworkDotClickHandler(base.ItemEventHandler):
                     self.item.setPinned(newpinned)
                     if not newpinned:
                         utils.cleanupDisconnectedItems(uievent.editor.pwd())
-
+ 
             else:
                 itemset = set([self.item])
                 if uievent.modifierstate.alt and \
@@ -1594,7 +1594,7 @@ class NetworkDotClickHandler(base.ItemEventHandler):
                 view.modifySelection(uievent, None, itemset, None,
                     shift = False if uievent.modifierstate.alt else None,
                     ctrl = False if uievent.modifierstate.alt else None)
-
+ 
         else:
             if self.start_uievent.selected.name == 'dotinput':
                 # Branch on mmb click. Insert inline for RMB click.
@@ -1606,7 +1606,7 @@ class NetworkDotClickHandler(base.ItemEventHandler):
                 indexes = [0] * len(items)
                 uievent.editor.openTabMenu(branch = dobranch,
                     dest_items = items, dest_connector_indexes = indexes)
-
+ 
             elif self.start_uievent.selected.name == 'dotoutput':
                 # Branch on mmb click. Insert inline for RMB click.
                 dobranch = (self.start_uievent.mousestate.mmb != 0)
@@ -1617,17 +1617,17 @@ class NetworkDotClickHandler(base.ItemEventHandler):
                 indexes = [0] * len(items)
                 uievent.editor.openTabMenu(branch = dobranch,
                     src_items = items, src_connector_indexes = indexes)
-
+ 
         return None
-
+ 
 class NetworkDotMoveHandler(MovableItemMoveHandler):
     def __init__(self, start_uievent, click_handler):
         MovableItemMoveHandler.__init__(self, start_uievent, click_handler)
         self.lastpos = start_uievent.mousepos
-
+ 
     def isPerformingCopy(self, uievent):
         return len(self.moveitems) > 1 and uievent.modifierstate.alt
-
+ 
     def handleEvent(self, uievent, pending_actions):
         handler = MovableItemMoveHandler.handleEvent(self, uievent,
                                                      pending_actions)
@@ -1646,7 +1646,7 @@ class NetworkDotMoveHandler(MovableItemMoveHandler):
             p0 = pick_rect.min() - hou.Vector2(radius, radius)
             p1 = pick_rect.max() + hou.Vector2(radius, radius)
             items = uievent.editor.networkItemsInBox(p0,p1,for_select=True)
-
+ 
             # Find all wires we pass over with the same input item as the
             # dot being dragged. Replace these wires with a wire from the
             # dot being dragged to wherever the wire ends up.
@@ -1674,18 +1674,18 @@ class NetworkDotMoveHandler(MovableItemMoveHandler):
                 for item in items:
                     item.outputItem().setInput(item.inputIndex(), self.item, 0)
                 utils.cleanupDisconnectedItems(uievent.editor.pwd())
-
+ 
         if isinstance(uievent, MouseEvent):
             self.lastpos = uievent.mousepos
-
+ 
         return handler
-
+ 
 class NetworkDotMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         if uievent.eventtype == 'mousedown':
             self.popupinfo = None
             if self.start_uievent.selected.name == 'dot' and \
@@ -1696,7 +1696,7 @@ class NetworkDotMouseHandler(base.ItemEventHandler):
                     prefs.transientInfo(uievent.editor),
                     not self.start_uievent.modifierstate.shift,
                     uievent.editor)
-
+ 
             elif self.start_uievent.mousestate.rmb and \
                self.start_uievent.selected.name == 'dot':
                 menu = popupmenus.IndirectInputContextMenu(
@@ -1704,9 +1704,9 @@ class NetworkDotMouseHandler(base.ItemEventHandler):
                 result = utils.getPopupMenuResult(menu)
                 menu.executeCommand(result)
                 return None
-
+ 
             return self
-
+ 
         elif uievent.eventtype == 'mousedrag':
             if uievent.dragging and self.start_uievent.mousestate.lmb:
                 if self.start_uievent.selected.name == 'dot':
@@ -1715,14 +1715,14 @@ class NetworkDotMouseHandler(base.ItemEventHandler):
                     handler = NetworkDotMoveHandler(self.start_uievent,
                                 NetworkDotClickHandler(self.start_uievent))
                     return handler.handleEvent(uievent, pending_actions)
-
+ 
                 elif self.start_uievent.selected.name == 'dotinput' or \
                      self.start_uievent.selected.name == 'dotoutput':
                     handler = connect.ItemConnectHandler(uievent)
                     return handler.handleEvent(uievent, pending_actions)
-
+ 
             return self
-
+ 
         elif uievent.eventtype == 'mouseup':
             if self.start_uievent.selected.name == 'dot' and \
                self.start_uievent.mousestate.mmb and \
@@ -1735,15 +1735,15 @@ class NetworkDotMouseHandler(base.ItemEventHandler):
                 else:
                     if self.popupinfo:
                         self.popupinfo.close()
-
+ 
             elif self.start_uievent.selected.item == uievent.located.item:
                 handler = NetworkDotClickHandler(self.start_uievent)
                 return handler.handleEvent(uievent, pending_actions)
             return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class NodeConnectionMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         if uievent.selected.name == 'wire':
@@ -1751,13 +1751,13 @@ class NodeConnectionMouseHandler(base.ItemEventHandler):
         else:
             handler = NodeWireStubMouseHandler(uievent)
         return handler.handleEvent(uievent, pending_actions)
-
+ 
 class NodeWireMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         editor = uievent.editor
         if uievent.eventtype == 'mousedown':
             if uievent.modifierstate.alt and self.start_uievent.mousestate.lmb:
@@ -1772,16 +1772,16 @@ class NodeWireMouseHandler(base.ItemEventHandler):
                     handler.item = dot
                     utils.cleanupDisconnectedItems(editor.pwd())
                     return handler
-
+ 
             elif self.start_uievent.mousestate.rmb:
                 menu = popupmenus.WireContextMenu(uievent, uievent.located.item)
                 result = utils.getPopupMenuResult(menu)
                 result = menu.executeCommand(result)
                 if isinstance(result, base.EventHandler):
                     return result
-
+ 
                 return None
-
+ 
         elif uievent.eventtype == 'mousedrag':
             handler = None
             if self.start_uievent.mousestate.lmb:
@@ -1792,7 +1792,7 @@ class NodeWireMouseHandler(base.ItemEventHandler):
                 handler = base.ViewScaleHandler(self.start_uievent)
             if handler:
                 return handler.handleEvent(uievent, pending_actions)
-
+ 
         elif uievent.eventtype == 'mouseup':
             if self.start_uievent.selected.item == uievent.located.item:
                 if self.start_uievent.mousestate.lmb and \
@@ -1802,49 +1802,49 @@ class NodeWireMouseHandler(base.ItemEventHandler):
                                         [self.item],
                                         False)
                     return handler.handleEvent(uievent, pending_actions)
-
+ 
                 elif self.start_uievent.mousestate.lmb:
                     view.modifySelection(uievent, None, [self.item])
-
+ 
             return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class NodeWireStubMouseHandler(base.ItemEventHandler):
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         editor = uievent.editor
         if uievent.eventtype == 'mousedown' and \
            uievent.mousestate.rmb:
             menu = popupmenus.WireStubBundleContextMenu(uievent)
             result = utils.getPopupMenuResult(menu)
             menu.executeCommand(result)
-
+ 
             return None
-
+ 
         elif uievent.eventtype == 'mouseup' and \
            self.start_uievent.mousestate.lmb:
             if self.start_uievent.selected.item == uievent.located.item:
                 bundle = utils.getWireStubBundle(self.item,
                             uievent.located.name)
                 view.modifySelection(uievent, None, bundle)
-
+ 
             return None
-
+ 
         elif uievent.eventtype == 'doubleclick':
             if self.start_uievent.selected.item == uievent.located.item and \
                self.start_uievent.mousestate.lmb:
                 utils.exposeWireStubBundle(self.item, uievent.located.name)
-
+ 
                 return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class NodeDependencyMouseHandler(base.EventHandler):
     def __init__(self, start_uievent):
         base.EventHandler.__init__(self, start_uievent)
@@ -1853,7 +1853,7 @@ class NodeDependencyMouseHandler(base.EventHandler):
             (start_uievent.selected.name == 'dependencyexternalinput')
         self.isexternaloutput = \
             (start_uievent.selected.name == 'dependencyexternaloutput')
-
+ 
     def handleEvent(self, uievent, pending_actions):
         editor = uievent.editor
         if uievent.eventtype == 'mousedown':
@@ -1869,13 +1869,13 @@ class NodeDependencyMouseHandler(base.EventHandler):
                     result = utils.getPopupMenuResult(menu)
                     menu.executeCommand(result)
                     return None
-
+ 
         elif uievent.eventtype == 'mouseup':
             return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
-
+ 
 class BackgroundImageMouseHandler(base.EventHandler):
     def __init__(self, start_uievent):
         base.EventHandler.__init__(self, start_uievent)
@@ -1903,7 +1903,7 @@ class BackgroundImageMouseHandler(base.EventHandler):
             self.direction = \
                 utils.getResizeDirection(start_uievent.selected.index)
             self.startsize = self.image.rect()
-
+ 
     def updateImages(self, editor, dosave, dodelete = False):
         images = list(editor.backgroundImages())
         if dodelete:
@@ -1913,7 +1913,7 @@ class BackgroundImageMouseHandler(base.EventHandler):
         editor.setBackgroundImages(images)
         if dosave:
             utils.saveBackgroundImages(editor.pwd(), images)
-
+ 
     def getDropTarget(self, uievent):
         radius = utils.getDropTargetRadius(uievent.editor)
         items = utils.getPossibleDropTargets(uievent, radius)
@@ -1923,12 +1923,12 @@ class BackgroundImageMouseHandler(base.EventHandler):
                         isinstance(item.item, hou.StickyNote))
         item = items[0] if items else None
         return item
-
+ 
     def handleEvent(self, uievent, pending_actions):
         # Check if the user wants to enter the scroll state.
         if states.isScrollStateEvent(uievent):
             return states.ScrollStateHandler(uievent, self)
-
+ 
         # RMB opens context menu on any part of an image's UI.
         if uievent.eventtype == 'mousedown' and \
            uievent.mousestate.rmb:
@@ -1937,11 +1937,11 @@ class BackgroundImageMouseHandler(base.EventHandler):
             result = utils.getPopupMenuResult(menu)
             menu.executeCommand(result)
             return None
-
+ 
         # Only handle LMB interactions, ignore MMB.
         if not self.start_uievent.mousestate.lmb:
             return self
-
+ 
         if self.isbrightness and \
            (uievent.eventtype == 'mousedown' or \
             uievent.eventtype == 'mousedrag' or \
@@ -1952,12 +1952,12 @@ class BackgroundImageMouseHandler(base.EventHandler):
                 self.updateImages(uievent.editor, uievent.eventtype=='mouseup')
             if uievent.eventtype == 'mouseup':
                 return None
-
+ 
         elif uievent.eventtype == 'mousedrag' and \
              self.start_uievent.selected.name in theBackgroundImageDraggables:
             # Start auto-scrolling if we are near the edge.
             autoscroll.startAutoScroll(self, uievent, pending_actions)
-
+ 
             self.dragged = True
             if self.isborder:
                 (rect, snapresult) = snap.snapResizeRect(uievent,
@@ -1965,7 +1965,7 @@ class BackgroundImageMouseHandler(base.EventHandler):
                     self.start_pos, preserve_aspect_ratio = True)
                 self.image.setRect(rect)
                 self.updateImages(uievent.editor, False)
-
+ 
             elif self.islink:
                 drop_target = self.getDropTarget(uievent)
                 uievent.editor.setDropTargetItem(drop_target, '', 0)
@@ -1975,7 +1975,7 @@ class BackgroundImageMouseHandler(base.EventHandler):
                     hou.ui.colorFromName('GraphPreSelection'),
                     screen_space = False)
                 self.editor_updates.setOverlayShapes([link])
-
+ 
             else:
                 rect = hou.BoundingRect(self.initialrect)
                 pos = uievent.editor.posFromScreen(uievent.mousepos)
@@ -1983,14 +1983,14 @@ class BackgroundImageMouseHandler(base.EventHandler):
                 rect.translate(drag)
                 self.image.setRect(rect)
                 self.updateImages(uievent.editor, False)
-
+ 
         elif uievent.eventtype == 'mouseup':
             if uievent.located.item == self.imageindex and \
                not self.dragged:
                 if uievent.located.name == self.start_uievent.selected.name:
                     if uievent.located.name=='backgroundimagedelete':
                         self.updateImages(uievent.editor, True, True)
-
+ 
             elif self.dragged and self.islink:
                 rect = self.visiblerect
                 drop_target_name = ''
@@ -2001,14 +2001,14 @@ class BackgroundImageMouseHandler(base.EventHandler):
                                           drop_target_rect.max().y())
                     rect.translate(-rel_pos)
                     drop_target_name = drop_target.name()
-
+ 
                 self.image.setRect(rect)
                 self.image.setRelativeToPath(drop_target_name)
-
+ 
             if self.dragged:
                 self.updateImages(uievent.editor, True)
-
+ 
             return None
-
+ 
         # Keep handling events until a mouse action is identified.
         return self
