@@ -1,218 +1,142 @@
-import sys
-import hou
 import time
+ 
 import json
+ 
 import os
+ 
+import sys
+ 
+import hou
+ 
+from Qt_py.Qt import QtWidgets, QtGui, QtCore, QtTest
+ 
 import utils
-from math import sqrt
-from PySide2 import QtWidgets, QtGui, QtCore, QtTest
+ 
+sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
+                                'python2.7libs',
+                                'houdini_markingmenu'))
+ 
 import buttonfunctions as cmds
-reload(cmds)
-reload(utils)
-
-
-class MousePathGraphics(QtWidgets.QWidget):
-    def __init__(self, parentWidget, anchors_QPointsList):
-        super(MousePathGraphics, self).__init__()
-
-        self.anchors = anchors_QPointsList
-        self.radius = 8.0
-        self.width = 4.0
-        self.cursor = QtCore.QPointF(QtGui.QCursor.pos())
-        self.previousMenu = []
-
-        self.setParent(parentWidget)
-        self.setAttribute(QtCore.Qt.WA_TransparentForMouseEvents)
-
-    def mouseMoveEvent(self, e):
-        e.ignore()
-        self.cursor = QtCore.QPointF(e.pos())
-
-    def updateCursor(self, pos):
-        self.cursor = QtCore.QPointF(pos)
-
-    def paintEvent(self, e):
-        qp = QtGui.QPainter(self)
-        qp.setRenderHint(QtGui.QPainter.Antialiasing, True)
-        self.drawLines(qp, self.anchors)
-        self.drawCircles(qp, self.anchors)
-        qp.end()
-
-    def drawCircles(self, painter, QPointsList):
-        pen = QtGui.QPen()
-        painter.setPen(pen)
-
-        brush = QtGui.QBrush(QtCore.Qt.SolidPattern)
-        brush.setColor(QtGui.QColor(225, 225, 225))
-        painter.setBrush(brush)
-
-        for i in QPointsList:
-            painter.drawEllipse(i, self.radius, self.radius)
-
-    def drawLines(self, painter, QPointsList):
-        pen = QtGui.QPen(QtCore.Qt.black, self.width, QtCore.Qt.SolidLine)
-        brush = QtGui.QBrush(QtCore.Qt.lightGray)
-        brush.setColor(QtGui.QColor(13, 13, 13))
-        pen.setBrush(brush)
-        painter.setPen(pen)
-
-        # draw static lines
-        if len(QPointsList) > 1:
-            for i in range(len(QPointsList)-1):
-                painter.drawLine(
-                    QtCore.QPointF(QPointsList[i]),
-                    QtCore.QPointF(QPointsList[i + 1])
-                    )
-
-        # draw mouse line
-        window_width = 500
-        fade_dist = 250.0
-
-        a = QtCore.QPointF(self.cursor - QtCore.QPointF(QPointsList[-1]))
-        dist = sqrt(a.x() * a.x() + a.y() * a.y())
-        norm_a = a / dist
-
-        startP = QtCore.QPointF(QPointsList[-1]) + (norm_a)*fade_dist
-        limitP = startP
-        if dist > fade_dist:
-            a = window_width - 380
-            step = 5.0
-            startval = 13
-            endval = 50 - startval
-            count = a / step
-            for i in range(int(count)):
-                val = startval + ((endval / count) * i)
-                endP = startP + norm_a * step
-
-                x = endP - QtCore.QPointF(QPointsList[-1])
-                dist2 = sqrt(x.x()*x.x() + x.y()*x.y())
-                if dist2 <= dist:
-                    brush.setColor(QtGui.QColor(val, val, val))
-                    pen.setBrush(brush)
-                    painter.setPen(pen)
-                    painter.drawLine(startP, endP)
-                    startP = endP
-
-            brush.setColor(QtGui.QColor(13, 13, 13))
-            pen.setBrush(brush)
-            painter.setPen(pen)
-
-            painter.drawLine(
-                QtCore.QPointF(QPointsList[-1]),
-                QtCore.QPoint(limitP.x(), limitP.y())
-                )
-
-        else:
-            painter.drawLine(QtCore.QPointF(QPointsList[-1]), self.cursor)
-
-
-class MenuItemButton(QtWidgets.QPushButton):
-    def __init__(self, *args, **kwargs):
-        super(MenuItemButton, self).__init__(*args, **kwargs)
-        self.style = hou.qt.styleSheet()
-        self.underMouse = 0
-        self.command = ''
-        self.isMenu = False
-        self.menuObjects = []
-        self.isTarget = False
-
-        # new variables to support passing the editor through
-        self.editor = 0
-        self.commandType = 'createnode'
-        self.nodetype = 'nodetype'
-        self.activeWire = False
-
-    def isUnder(self, pos):
-        if self.geometry().contains(pos):
-            if not self.underMouse:
-                self.underMouse = 1
-        else:
-            if self.underMouse:
-                self.underMouse = 0
-
-    def paintEvent(self, e):
-        super(MenuItemButton, self).paintEvent(e)
-        if self.isTarget:
-            self.setStyleSheet('''background-color: rgb(255,149,0);
-                                    color: rgb(25,25,25);''')
-        else:
-            self.setStyleSheet(hou.qt.styleSheet())
-
-    def runCommand(self):
-        exec(self.command)
-
-
+ 
+from widgets import mousepath, menuitembutton
+ 
+# reload(cmds)
+# reload(utils)
+# reload(mousepath)
+# reload(menuitembutton)
+ 
+ 
 class NEMarkingMenu(QtWidgets.QWidget):
+    """Display the marking menu in the network editor and run chosen function.
+ 
+    Methods:
+    __initUI -- create initial window, set invisible, grab mouse
+    drawUI -- center window on cursor, draw buttons, path, and anchors
+    storeCollection -- check keyboard modifiers, store json collection in memory
+    createMenuButtons -- position, connect, and draw menu buttons
+    createMousePath -- create mouse path
+    displayWindowInitial -- simulates short delay before marking menu appears
+    updateTargetWidget -- set target widget to button closest to cursor
+    rebuildMenu -- destroy, rebuild, and redisplay menu buttons
+    propagateMenu -- control forward and backward traversals
+    updateMousePathWidget -- update mousepath and anchors on screen
+    executeCommand -- click target widget
+    mouseMoveEvent -- trigger above methods on mouse move events
+    mouseReleaseEvent -- close menu
+    closeEvent -- delete from memory
+ 
+    Instance variables:
+    visible -- button visibility (boolean)
+    startTime -- time at menu creation for simulating delays (float)
+    origin -- menu origin (QPoint)
+    windowSize -- max invisible window bounds (int)
+    editor -- target houdini network editor (hou network editor)
+    mouseAnchorPositions -- path anchor joint positions (QPoint list)
+    mousePathGraphicsWidget -- mouse path object (MousePathGraphics)
+    menuItemWidgets -- button objects (QPushbutton list)
+    rectangles -- button bounds (QRect list)
+    menuYOffsets -- hardcoded offsets for button positions
+    menuXOffsets -- hardcoded offsets for button positions
+    targetWidget -- current highlighted button (QPushbutton)
+    currentContext -- target houdini network editor context
+    baseCollection -- current context's json file on disk (string)
+    rootpath -- project directory
+    inputConfigFile -- modifier preferences (dictionary)
+    collectionItemDescriptions -- current json file in memory (dictionary list)
+    collectionsDir -- path to current json file on disk
+    """
     def __init__(self, editor):
         super(NEMarkingMenu, self).__init__()
-
+ 
         # for display offset
         self.visible = False
         self.startTime = time.time()
         self.origin = QtCore.QPoint(0, 0)
-        self.windowSize = 1000
+        self.windowSize = 1300
         self.editor = editor
+ 
         # for storing widgets - mouse path
         self.mouseAnchorPositions = []
         self.mousePathGraphicsWidget = 0
-
+ 
         # for storing widgets - menu widgets
         self.menuItemWidgets = []
         self.rectangles = []
         pad = 1.18
-
+ 
         self.menuYOffsets = [
             70*pad, 35*pad, 0*pad, -35*pad,
             -70*pad, -35*pad, 0*pad, 35*pad
             ]
-
+ 
         self.menuXOffsets = [
             0*pad, 45*pad, 70*pad, 45*pad,
             0*pad, 45*pad, 70*pad, 45*pad
             ]
-
+ 
         self.targetWidget = 0
-
+ 
         # setup initial config file
         self.currentContext = utils.getContext(self.editor)
         self.baseCollection = '{}_baseCollection.json'.format(self.currentContext)
-
+ 
         self.rootpath = os.path.join(
             os.path.abspath(hou.getenv('HOUDINI_USER_PREF_DIR')),
             'python2.7libs',
-            'nemarkingmenu'
+            'houdini_markingmenu'
             )
-
+ 
         self.inputConfigFile = {}
         self.collectionItemDescriptions = []
+ 
+        self.collectionsDir = os.path.join(self.rootpath, 'json', self.currentContext)
         self.storeCollection(self.baseCollection)
-
-        self.initUI()
-
-    def initUI(self):
+        self.__initUI()
+ 
+    def __initUI(self):
         self.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
-
+ 
         self.setWindowFlags(
             self.windowFlags() |
             QtCore.Qt.FramelessWindowHint |
             QtCore.Qt.X11BypassWindowManagerHint
             )
-
+ 
         self.setFixedWidth(self.windowSize)
         self.setFixedHeight(self.windowSize)
         self.grabMouse()
         self.setFocus()
         self.setMouseTracking(True)
         self.drawUI()
-
+ 
     def drawUI(self):
         # center on cursor
         self.move(
             QtGui.QCursor.pos().x() - self.size().width()/2,
             QtGui.QCursor.pos().y() - self.size().height()/2
             )
-
+ 
         # init mouse anchor list with menu center
         if not len(self.mouseAnchorPositions):
             self.mouseAnchorPositions.append(QtCore.QPoint(
@@ -220,19 +144,17 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 self.size().height()/2
                 )
             )
-
+ 
         self.createMenuButtons(0)
         self.createMousePath()
-
+ 
         # set mouse tracking for all child widgets
         for i in self.children():
             i.setMouseTracking(True)
-
+ 
     def storeCollection(self, collectionFile):
-        self.collectionsDir = os.path.join(self.rootpath, 'json', self.currentContext)
         # close if config file not found
         if not os.path.isfile(os.path.join(self.collectionsDir, collectionFile)):
-            print 'collections missing in this context'
             self.close()
         else:
             # open prefs
@@ -243,38 +165,36 @@ class NEMarkingMenu(QtWidgets.QWidget):
                     'json',
                     'menuprefs.json'), 'r') as f:
                 prefs = json.load(f)
-
+ 
             modifiers = QtWidgets.QApplication.keyboardModifiers()
             if modifiers == QtCore.Qt.ShiftModifier:
                 collectionFile = prefs[self.currentContext]['Shift']
             elif modifiers == QtCore.Qt.ControlModifier:
                 collectionFile = prefs[self.currentContext]['Control']
-
+ 
             self.inputConfigFile = utils.loadCollection(
                 os.path.join(self.rootpath, 'json', self.currentContext, collectionFile)
                 )
-
+ 
             for item in self.inputConfigFile:
                 self.collectionItemDescriptions.append(item)
-
+ 
     def createMenuButtons(self, anchorIndex):
-        # generate initial menu
         dummyMenu = QtWidgets.QMenu()
-
         center = self.mouseAnchorPositions[anchorIndex]
-
         for item in self.collectionItemDescriptions:
             if item['active']:
                 index = item['index']
-                btn = MenuItemButton(item['label'] + '  ', self)
-
+                btn = menuitembutton.MenuItemButton(item['label'] + '  ', self)
+ 
                 if item['isMenu']:
                     btn.setMenu(dummyMenu)
                     btn.menu()
                     btn.isMenu = True
-                    btn.menuObjects = utils.loadCollection(
-                        os.path.join(self.collectionsDir, item['menuCollection']))
-
+                    if os.path.isfile(os.path.join(self.collectionsDir, item['menuCollection'])):
+                        btn.menuObjects = utils.loadCollection(
+                            os.path.join(self.collectionsDir, item['menuCollection']))
+ 
                 # button size, icon, icon size, position
                 minx = 110
                 maxy = 24
@@ -284,50 +204,48 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 except hou.OperationFailed:
                     btn.setIcon(hou.qt.createIcon('COMMON_null', 20, 20))
                     btn.setIconSize(QtCore.QSize(12, 12))
-
+ 
                 s = btn.sizeHint()
                 if s.width() < minx:
                     s.setWidth(minx)
+ 
                 if s.height() > maxy or s.height() < maxy:
                     s.setHeight(maxy)
+ 
                 btn.setFixedSize(s)
-
                 xoffset = btn.geometry().width()/2 + self.menuXOffsets[index]
                 if self.menuXOffsets[index] == 0:
                     xoffset = 0
+ 
                 btncenter = QtCore.QPoint(
                     btn.size().width()/2 - xoffset,
                     btn.size().height()/2 + self.menuYOffsets[index]
                     )
-
-                # subtract offset if left side
+ 
+                # subtract offset on left side
                 if index >= 4:
                     btncenter = QtCore.QPoint(
                         btn.size().width()/2 + xoffset,
                         btn.size().height()/2 + self.menuYOffsets[index]
                         )
-
+ 
                 btn.move(center - btncenter)
                 btn.command = item['command']
-                # new lines for passing the editor through for cmds
+                btn.editor = self.editor
                 btn.nodetype = item['nodetype']
                 btn.commandType = item['commandType']
                 btn.activeWire = item['activeWire']
-                if item['commandType'] == 'createnode':
-                    btn.clicked.connect(self.testCmd)
-                else:
-                    # end new lines
-                    btn.clicked.connect(btn.runCommand)
+                btn.clicked.connect(btn.runCommand)
                 btn.show()
                 self.menuItemWidgets.append(btn)
                 self.rectangles.append(btn.geometry())
-
+ 
     def createMousePath(self):
         # draw and store mouse path
-        mousePath = MousePathGraphics(self, self.mouseAnchorPositions)
+        mousePath = mousepath.MousePathGraphics(self, self.mouseAnchorPositions)
         mousePath.setGeometry(0, 0, self.windowSize, self.windowSize)
         self.mousePathGraphicsWidget = mousePath
-
+ 
     def displayWindowInitial(self, e):
         # display window if delay has elapsed
         if not self.visible:
@@ -337,7 +255,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
                 self.visible = True
                 QtTest.QTest.mousePress(self, QtCore.Qt.RightButton)
                 self.show()
-
+ 
     def updateTargetWidget(self, e):
         # find closest widget and do shading
         closeWidget = 0
@@ -358,13 +276,13 @@ class NEMarkingMenu(QtWidgets.QWidget):
             for i in self.rectangles:
                 self.menuItemWidgets[self.rectangles.index(i)].isTarget = False
             self.targetWidget = 0
-
+ 
     def rebuildMenu(self, descriptionList):
         # remove button references from array, delete current buttons
         # descriptionList is a list of dictionaries
         for i in self.menuItemWidgets:
             i.deleteLater()
-
+ 
         # reset targetWidget and prepare to draw new buttons
         self.targetWidget = 0
         self.menuItemWidgets = []
@@ -372,58 +290,56 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.collectionItemDescriptions = descriptionList
         time.sleep(.015)
         self.createMenuButtons(len(self.mouseAnchorPositions)-1)
-
+ 
     def propagateMenu(self, e):
         if (self.targetWidget != 0 and
                 self.targetWidget.underMouse and
                 self.targetWidget.isMenu):
-            # store current configuration in case user wants to go back
-            self.mousePathGraphicsWidget.previousMenu.append(
-                self.collectionItemDescriptions)
-
-            # add new position for mouse path
-            self.mouseAnchorPositions.append(e.pos())
-
-            # stash menuObjects dict
-            submenuItems = self.targetWidget.menuObjects
-            self.rebuildMenu(submenuItems)
-
+            # if menu has items in it
+            if len(self.targetWidget.menuObjects):
+                # store current configuration in case user wants to go back
+                self.mousePathGraphicsWidget.previousMenu.append(
+                    self.collectionItemDescriptions)
+ 
+                # add new position for mouse path
+                self.mouseAnchorPositions.append(e.pos())
+ 
+                # stash menuObjects dict
+                submenuItems = self.targetWidget.menuObjects
+                self.rebuildMenu(submenuItems)
+ 
     def updateMousePathWidget(self, e):
         # update mouse path widget
         self.mousePathGraphicsWidget.updateCursor(e.pos())
         self.mousePathGraphicsWidget.raise_()
-
+ 
         if len(self.mouseAnchorPositions) > 1:
             if utils.qpDist(self.mouseAnchorPositions[-2], e.pos()) < 10:
                 del self.mouseAnchorPositions[-1]
                 self.rebuildMenu(self.mousePathGraphicsWidget.previousMenu[-1])
-
-                # remove last item from list to track which menu we need to return to
+ 
+        # remove last item from list to track which menu we need to return to
                 self.mousePathGraphicsWidget.previousMenu = \
                     self.mousePathGraphicsWidget.previousMenu[:-1]
-
-    def testCmd(self):
-        cmds.createNode(
-            self.targetWidget.nodetype, self.editor, self.targetWidget.activeWire)
-
+ 
     def executeCommand(self):
         self.targetWidget.click()
-
+ 
     def mouseMoveEvent(self, e):
         self.updateMousePathWidget(e)
         self.updateTargetWidget(e)
         self.propagateMenu(e)
         self.displayWindowInitial(e)
         self.update()
-
+ 
     def mouseReleaseEvent(self, e):
         # if self.visible:
         self.close()
-
+ 
     def closeEvent(self, e):
         self.releaseMouse()
         self.setParent(None)
         self.deleteLater()
-
+ 
         if self.targetWidget != 0 and not self.targetWidget.isMenu:
             self.executeCommand()
