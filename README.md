@@ -10,11 +10,21 @@ $HOUDINI_USER_PREF_DIR/
     python2.7libs/
     
         houdini_markingmenu/
-        widgets/
-            menuitembutton.py
-            mousepath.py
-        
+            widgets/
+                menuitembutton.py
+                mousepath.py        
         nodegraphhooks.py
+            editor/
+                widgets/
+                    detailspane.y
+                    editortaskbar.py
+                    managecollectionstoolbar.py
+                    modifiercomboboxes.py
+                    referenceview.py                    
+                    subwidgets/
+                        labelcombobox.py
+                        referencebuttons.py
+                    
         
     scripts/
     
