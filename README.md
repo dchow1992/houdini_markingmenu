@@ -12,8 +12,7 @@ $HOUDINI_USER_PREF_DIR/
         houdini_markingmenu/
             widgets/
                 menuitembutton.py
-                mousepath.py        
-        nodegraphhooks.py
+                mousepath.py
             editor/
                 widgets/
                     detailspane.y
@@ -24,6 +23,7 @@ $HOUDINI_USER_PREF_DIR/
                     subwidgets/
                         labelcombobox.py
                         referencebuttons.py
+            nodegraphhooks.py
                     
         
     scripts/
