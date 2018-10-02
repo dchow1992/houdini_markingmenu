@@ -42,24 +42,9 @@ def createEventHandler(uievent, pending_actions):
     if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedown' and uievent.mousestate.rmb:
  
         reload(cmds)
- 
-        if isinstance(uievent.selected.item, NodeDependency):
-            return None, False
-        elif uievent.selected.name == 'colorpalettecolor':
-            return None, False
-        elif uievent.selected.name == 'shapepaletteshape':
-            return None, False
-        elif uievent.selected.name in nodegraph.thePaletteBackgrounds:
-            return None, False
-        elif uievent.selected.name in nodegraph.thePaletteBorders:
-            return None, False
-        elif uievent.selected.name in nodegraph.theBackgroundImageElements:
-            return None, False
-        elif cmds.menu_activate == 1:
-            return MarkingMenuMouseHandler(uievent), True
-        else:
-            return base.ViewScaleHandler(uievent), True
-    if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedown':
-        None
- 
+        if uievent.selected.item is None:
+           if cmds.menu_activate == 1:
+               return MarkingMenuMouseHandler(uievent), True
+           else:
+               return None, False
     return None, False
