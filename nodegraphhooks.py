@@ -43,7 +43,19 @@ def createEventHandler(uievent, pending_actions):
  
         reload(cmds)
  
-        if cmds.menu_activate == 1:
+        if isinstance(uievent.selected.item, NodeDependency):
+            return None, False
+        elif uievent.selected.name == 'colorpalettecolor':
+            return None, False
+        elif uievent.selected.name == 'shapepaletteshape':
+            return None, False
+        elif uievent.selected.name in nodegraph.thePaletteBackgrounds:
+            return None, False
+        elif uievent.selected.name in nodegraph.thePaletteBorders:
+            return None, False
+        elif uievent.selected.name in nodegraph.theBackgroundImageElements:
+            return None, False
+        elif cmds.menu_activate == 1:
             return MarkingMenuMouseHandler(uievent), True
         else:
             return base.ViewScaleHandler(uievent), True
