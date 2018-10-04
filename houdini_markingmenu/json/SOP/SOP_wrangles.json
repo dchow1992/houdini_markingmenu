@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": true, 
+            "command": "createDetailWrangle", 
+            "commandType": "customfunction", 
+            "context": "SOP", 
+            "icon": "SOP_attribwrangle", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Detail ", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": true, 
+            "command": "createPointWrangle", 
+            "commandType": "customfunction", 
+            "context": "SOP", 
+            "icon": "SOP_attribwrangle", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Point", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": true, 
+            "command": "createPrimitiveWrangle", 
+            "commandType": "customfunction", 
+            "context": "SOP", 
+            "icon": "SOP_attribwrangle", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Primitive", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": true, 
+            "command": "createVolumeWrangle", 
+            "commandType": "customfunction", 
+            "context": "SOP", 
+            "icon": "SOP_attribwrangle", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Volume", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createVertexWrangle", 
+            "commandType": "customfunction", 
+            "context": "SOP", 
+            "icon": "SOP_attribwrangle", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Vertex", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}
