@@ -1,27 +1,30 @@
-from PySide2 import QtWidgets
-
+from Qt_py.Qt import QtWidgets
+ 
 import hou
-
+ 
+import toolutils
+ 
 import sys
-
+ 
 import os
 sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
                                 'python2.7libs',
                                 'houdini_markingmenu'))
-
+ 
 import buttonfunctions as cmds
-
+ 
+sys.path.insert(0, os.path.join(os.environ['REZ_HOUDINI_MARKINGMENU_ROOT'], 'python', 'houdini_markingmenu'))
 import reservedfunctions as cmdsreserved
-
-
+ 
+ 
 class MenuItemButton(QtWidgets.QPushButton):
     """Subclassed pushbutton for marking menu.
-
+ 
     Methods:
     isUnder -- determine if button is under cursor
     paintEvent -- color change if under cursor
     runCommand -- execute command
-
+ 
     Instance variables:
     style -- button stylesheet (qt stylesheet)
     underMouse -- is button is under cursor (boolean)
@@ -46,7 +49,7 @@ class MenuItemButton(QtWidgets.QPushButton):
         self.commandType = 'createnode'
         self.nodetype = 'nodetype'
         self.activeWire = False
-
+ 
     def isUnder(self, pos):
         if self.geometry().contains(pos):
             if not self.underMouse:
@@ -54,7 +57,7 @@ class MenuItemButton(QtWidgets.QPushButton):
         else:
             if self.underMouse:
                 self.underMouse = 0
-
+ 
     def paintEvent(self, e):
         super(MenuItemButton, self).paintEvent(e)
         if self.isTarget:
@@ -62,14 +65,19 @@ class MenuItemButton(QtWidgets.QPushButton):
                                     color: rgb(25,25,25);''')
         else:
             self.setStyleSheet(hou.qt.styleSheet())
-
+ 
     def runCommand(self):
         if not self.isMenu:
             if self.command != 'createNode' and self.command != 'launchEditor':
-                func = cmds.__dict__[self.command]
-                func(nodetype=self.nodetype,
-                     editor=self.editor,
-                     activeWire=self.activeWire)
+                # buttonfunctions take precedence over toolscripts
+                if self.command in cmds.__dict__:
+                    func = cmds.__dict__[self.command]
+                    func(nodetype=self.nodetype,
+                         editor=self.editor,
+                         activeWire=self.activeWire)
+                else:
+                    cmdsreserved.runShelfTool(self.command, self.editor, self.activeWire)
+ 
             elif self.command == 'createNode' or self.command == 'launchEditor':
                 func = cmdsreserved.__dict__[self.command]
                 func(nodetype=self.nodetype,
