@@ -1,6 +1,7 @@
 # ne-markingmenu
+## This is a marking menu for the houdini network editor. It allows fast access to node creation, placement, toolscripts, and shelf tools
 
-directory should match this:
+Install to:
 ``` 
 HOUDINI_USER_PREF_DIR/    
     python2.7libs/
