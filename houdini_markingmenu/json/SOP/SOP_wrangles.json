@@ -16,7 +16,7 @@
         {
             "active": 1, 
             "activeWire": true, 
-            "command": "createPointWrangle", 
+            "command": "model_pointwrangle", 
             "commandType": "customfunction", 
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
@@ -29,7 +29,7 @@
         {
             "active": 1, 
             "activeWire": true, 
-            "command": "createPrimitiveWrangle", 
+            "command": "model_primitivewrangle", 
             "commandType": "customfunction", 
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
@@ -42,20 +42,20 @@
         {
             "active": 1, 
             "activeWire": true, 
-            "command": "createVolumeWrangle", 
-            "commandType": "customfunction", 
+            "command": "createNode", 
+            "commandType": "createnode", 
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
             "index": 3, 
             "isMenu": false, 
             "label": "Volume", 
             "menuCollection": "< Not Linked >.json", 
-            "nodetype": "null"
+            "nodetype": "volumewrangle"
         }, 
         {
             "active": 1, 
-            "activeWire": false, 
-            "command": "createVertexWrangle", 
+            "activeWire": true, 
+            "command": "model_vertexwrangle", 
             "commandType": "customfunction", 
             "context": "SOP", 
             "icon": "SOP_attribwrangle", 
@@ -92,17 +92,17 @@
             "nodetype": "null"
         }, 
         {
-            "active": 0, 
-            "activeWire": false, 
-            "command": "", 
+            "active": 1, 
+            "activeWire": true, 
+            "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "MISC_python", 
+            "icon": "SOP_attribwrangle", 
             "index": 7, 
-            "isMenu": 0, 
-            "label": "", 
-            "menuCollection": "", 
-            "nodetype": "null"
+            "isMenu": false, 
+            "label": "Deformation", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "deformationwrangle"
         }
     ]
 }

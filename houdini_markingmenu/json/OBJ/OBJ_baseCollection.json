@@ -14,16 +14,16 @@
             "nodetype": "geo"
         }, 
         {
-            "active": 0, 
+            "active": 1, 
             "activeWire": false, 
-            "command": "", 
+            "command": "createNode", 
             "commandType": "createnode", 
             "context": "OBJ", 
-            "icon": "MISC_python", 
+            "icon": "OBJ_light", 
             "index": 1, 
-            "isMenu": 0, 
-            "label": "", 
-            "menuCollection": "", 
+            "isMenu": true, 
+            "label": "Lights", 
+            "menuCollection": "OBJ_lights.json", 
             "nodetype": "null"
         }, 
         {
@@ -79,29 +79,29 @@
             "nodetype": "null"
         }, 
         {
-            "active": 0, 
+            "active": 1, 
             "activeWire": false, 
-            "command": "", 
+            "command": "createNode", 
             "commandType": "createnode", 
             "context": "OBJ", 
-            "icon": "MISC_python", 
+            "icon": "OBJ_camera", 
             "index": 6, 
-            "isMenu": 0, 
-            "label": "", 
-            "menuCollection": "", 
-            "nodetype": "null"
+            "isMenu": false, 
+            "label": "Camera", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "cam"
         }, 
         {
-            "active": 0, 
+            "active": 1, 
             "activeWire": false, 
-            "command": "", 
+            "command": "createNode", 
             "commandType": "createnode", 
             "context": "OBJ", 
-            "icon": "MISC_python", 
+            "icon": "OBJ_null", 
             "index": 7, 
-            "isMenu": 0, 
-            "label": "", 
-            "menuCollection": "", 
+            "isMenu": false, 
+            "label": "Null", 
+            "menuCollection": "< Not Linked >.json", 
             "nodetype": "null"
         }
     ]

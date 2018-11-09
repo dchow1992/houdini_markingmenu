@@ -2,8 +2,8 @@
     "menu": [
         {
             "active": 1, 
-            "activeWire": false, 
-            "command": "createVertexVOP", 
+            "activeWire": true, 
+            "command": "model_vertexvop", 
             "commandType": "customfunction", 
             "context": "SOP", 
             "icon": "SOP_attribvop", 
@@ -15,21 +15,21 @@
         }, 
         {
             "active": 1, 
-            "activeWire": false, 
-            "command": "createVolumeVOP", 
-            "commandType": "customfunction", 
+            "activeWire": true, 
+            "command": "createNode", 
+            "commandType": "createnode", 
             "context": "SOP", 
             "icon": "SOP_attribvop", 
             "index": 1, 
             "isMenu": false, 
             "label": "Volume", 
             "menuCollection": "< Not Linked >.json", 
-            "nodetype": "null"
+            "nodetype": "volumevop"
         }, 
         {
             "active": 1, 
-            "activeWire": false, 
-            "command": "createPrimitiveVOP", 
+            "activeWire": true, 
+            "command": "model_primitivevop", 
             "commandType": "customfunction", 
             "context": "SOP", 
             "icon": "SOP_attribvop", 
@@ -41,8 +41,8 @@
         }, 
         {
             "active": 1, 
-            "activeWire": false, 
-            "command": "createPointVOP", 
+            "activeWire": true, 
+            "command": "model_pointvop", 
             "commandType": "customfunction", 
             "context": "SOP", 
             "icon": "SOP_attribvop", 
@@ -54,7 +54,7 @@
         }, 
         {
             "active": 1, 
-            "activeWire": false, 
+            "activeWire": true, 
             "command": "createDetailVOP", 
             "commandType": "customfunction", 
             "context": "SOP", 
