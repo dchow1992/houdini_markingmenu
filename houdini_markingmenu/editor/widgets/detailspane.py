@@ -1,5 +1,7 @@
 import os
 
+import json
+
 import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore
@@ -26,6 +28,21 @@ class DetailsPane(QtWidgets.QWidget):
             node_types = categories[category].nodeTypes()
             for node_type in node_types.keys():
                 strlist.append(node_types[node_type].icon())
+
+        jsondict = {}
+        jsonfile = os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
+                     'python2.7libs',
+                     'houdini_markingmenu',
+                     'json',
+                     'icons.json')
+
+        with open(jsonfile, 'r') as f:
+            jsondict = json.load(f)
+
+        for x in jsondict.keys():
+            for item in jsondict[x]:
+                if item not in strlist:
+                    strlist.append(item)
 
         comp = QtWidgets.QCompleter(list(set(strlist)))
         comp.popup().setStyleSheet(hou.qt.styleSheet())
