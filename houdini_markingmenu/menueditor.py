@@ -259,12 +259,18 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             context2 = self._currentContext[0] + self._currentContext[1:].lower()
             all_types = []
  
-            for fi in hou.hda.loadedFiles():
-                for d in hou.hda.definitionsInFile(fi):
-                    try:
-                        all_types.append(d.nodeType().nameWithCategory())
-                    except:
-                        None
+            # for fi in hou.hda.loadedFiles():
+            #     for d in hou.hda.definitionsInFile(fi):
+            #         try:
+            #             all_types.append(d.nodeType().nameWithCategory())
+            #         except:
+            #             None
+ 
+            categories = hou.nodeTypeCategories()
+            for category in categories.keys():
+                node_types = categories[category].nodeTypes()
+                for node_type in node_types.keys():
+                    all_types.append(node_types[node_type].nameWithCategory())
  
             # foo = [all_types.extend(
             #     [d.nodeType().nameWithCategory() for d in hou.hda.definitionsInFile(fi)]
@@ -286,8 +292,9 @@ class MarkingMenuEditor(QtWidgets.QWidget):
  
             all_types = temp
             alltypeset = set(all_types)
-            contextHDAs = filter(lambda x: context2 in x, alltypeset)
-            contextHDAs = [a.split('/')[-1] for a in contextHDAs]
+            # contextHDAs = filter(lambda x: context2 in x, alltypeset)
+            # contextHDAs = [a.split('/')[-1] for a in contextHDAs]
+            contextHDAs = [a.split('/')[-1] for a in alltypeset]
             strlist = strlist + list(set(contextHDAs) - set(strlist))
  
             # assign completer
