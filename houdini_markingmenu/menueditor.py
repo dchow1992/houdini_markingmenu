@@ -244,16 +244,16 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             # build completer based on current context
             strlist = []
             jsondict = {}
-            with open(os.path.join(os.environ['REZ_HOUDINI_MARKINGMENU_ROOT'],
-                                   'python',
-                                   'houdini_markingmenu',
-                                   'json',
-                                   'nodes.json'), 'r') as f:
+            # with open(os.path.join(os.environ['REZ_HOUDINI_MARKINGMENU_ROOT'],
+            #                        'python',
+            #                        'houdini_markingmenu',
+            #                        'json',
+            #                        'nodes.json'), 'r') as f:
  
-                jsondict = json.load(f)
+            #     jsondict = json.load(f)
  
-                for item in jsondict[self._currentContext]:
-                    strlist.append(item)
+            #     for item in jsondict[self._currentContext]:
+            #         strlist.append(item)
  
             # add HDAs to strlist
             context2 = self._currentContext[0] + self._currentContext[1:].lower()
@@ -938,6 +938,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self.close()
  
     def __unsavedChangesAlert(self):
+        self._unsaved = 1
         self._taskbar.saveTextWidget.setText(
             ' < unsaved changes > '
             )
