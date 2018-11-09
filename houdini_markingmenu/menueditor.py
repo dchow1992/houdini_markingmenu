@@ -244,29 +244,16 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             # build completer based on current context
             strlist = []
             jsondict = {}
-            with open(os.path.join(self._rootpath,
-                                   'json',
-                                   'nodes.json'), 'r') as f:
-
-                jsondict = json.load(f)
-
-                for item in jsondict[self._currentContext]:
-                    strlist.append(item)
 
             # add HDAs to strlist
             context2 = self._currentContext[0] + self._currentContext[1:].lower()
             all_types = []
 
-            for fi in hou.hda.loadedFiles():
-                for d in hou.hda.definitionsInFile(fi):
-                    try:
-                        all_types.append(d.nodeType().nameWithCategory())
-                    except:
-                        None
-
-            # foo = [all_types.extend(
-            #     [d.nodeType().nameWithCategory() for d in hou.hda.definitionsInFile(fi)]
-            #     ) for fi in hou.hda.loadedFiles()]
+            categories = hou.nodeTypeCategories()
+            for category in categories.keys():
+                node_types = categories[category].nodeTypes()
+                for node_type in node_types.keys():
+                    all_types.append(node_types[node_type].nameWithCategory())
 
             # split off version and namespace
             temp = []
@@ -284,8 +271,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
             all_types = temp
             alltypeset = set(all_types)
-            contextHDAs = filter(lambda x: context2 in x, alltypeset)
-            contextHDAs = [a.split('/')[-1] for a in contextHDAs]
+            contextHDAs = [a.split('/')[-1] for a in alltypeset]
             strlist = strlist + list(set(contextHDAs) - set(strlist))
 
             # assign completer
@@ -929,6 +915,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self.close()
 
     def __unsavedChangesAlert(self):
+        self._unsaved = 1
         self._taskbar.saveTextWidget.setText(
             ' < unsaved changes > '
             )

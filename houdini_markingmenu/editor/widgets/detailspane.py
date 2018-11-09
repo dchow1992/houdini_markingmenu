@@ -11,13 +11,26 @@ class DetailsPane(QtWidgets.QWidget):
     def __init__(self, rootpath):
         super(DetailsPane, self).__init__()
 
-        self.iconCompleter = utils.buildCompleter(
-            os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
-                         'python2.7libs',
-                         'houdini_markingmenu',
-                         'json',
-                         'icons.json')
-            )
+        # self.iconCompleter = utils.buildCompleter(
+        #     os.path.join(os.environ['REZ_HOUDINI_MARKINGMENU_ROOT'],
+        #                  'python',
+        #                  'houdini_markingmenu',
+        #                  'json',
+        #                  'icons.json')
+        #     )
+
+        # build icon completer
+        categories = hou.nodeTypeCategories()
+        strlist = []
+        for category in categories.keys():
+            node_types = categories[category].nodeTypes()
+            for node_type in node_types.keys():
+                strlist.append(node_types[node_type].icon())
+
+        comp = QtWidgets.QCompleter(list(set(strlist)))
+        comp.popup().setStyleSheet(hou.qt.styleSheet())
+        comp.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
+        self.iconCompleter = comp
 
         self.initUI()
 

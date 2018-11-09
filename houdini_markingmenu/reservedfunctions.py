@@ -16,11 +16,21 @@ def createNode(**kwargs):
             scriptargs = {}
             scriptargs['pane'] = network_editor
 
+            nodenames = []
+            nodetypenames = []
+
+            categories = hou.nodeTypeCategories()
+            for category in categories.keys():
+                node_types = categories[category].nodeTypes()
+                for node_type in node_types.keys():
+                    nodenames.append(node_types[node_type].nameComponents()[2])
+                    nodetypenames.append(node_types[node_type].name())
+
             # for whatever reason, I had to call two functions to get the correct
             # interactions to pick up, so the first call to selectPosition() doesn't do anything
             network_editor.selectPosition()
 
-            node = toolutils.genericTool(scriptargs, nodetypename=kwargs['nodetype'])
+            node = toolutils.genericTool(scriptargs, nodetypename=nodetypenames[nodenames.index(kwargs['nodetype'])])
             if kwargs['activeWire'] and len(network_editor.allVisibleRects(())):
                 pickWire(node, network_editor)
         except hou.OperationInterrupted:
