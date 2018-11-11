@@ -72,4 +72,4 @@ def launchEditor(**kwargs):
         if type(entry).__name__ == 'MarkingMenuEditor':
             entry.setParent(None)
             entry.close()
-    ex = mm.MarkingMenuEditor()
+    ex = mm.MarkingMenuEditor(kwargs['editor'])

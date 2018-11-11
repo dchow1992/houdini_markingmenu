@@ -6,12 +6,12 @@
             "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_solver", 
+            "icon": "SOP_dopimport", 
             "index": 0, 
-            "isMenu": true, 
-            "label": "Simulation", 
-            "menuCollection": "SOP_simulation.json", 
-            "nodetype": "null"
+            "isMenu": false, 
+            "label": "Import Fields", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "dopimportfield"
         }, 
         {
             "active": 1, 
@@ -19,37 +19,37 @@
             "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_attribwrangle", 
+            "icon": "SOP_solver", 
             "index": 1, 
-            "isMenu": true, 
-            "label": "Wrangles", 
-            "menuCollection": "SOP_wrangles.json", 
-            "nodetype": "null"
+            "isMenu": false, 
+            "label": "Solver", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "solver"
         }, 
         {
             "active": 1, 
             "activeWire": false, 
-            "command": "launchEditor", 
-            "commandType": "customfunction", 
+            "command": "createNode", 
+            "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_compile_begin", 
+            "icon": "SOP_dopimportrecords", 
             "index": 2, 
             "isMenu": false, 
-            "label": "MM EDITOR", 
+            "label": "Import", 
             "menuCollection": "< Not Linked >.json", 
-            "nodetype": "null"
+            "nodetype": "dopimport"
         }, 
         {
-            "active": 1, 
+            "active": 0, 
             "activeWire": false, 
-            "command": "createNode", 
+            "command": "", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_attribvop", 
+            "icon": "MISC_python", 
             "index": 3, 
-            "isMenu": true, 
-            "label": "Vops", 
-            "menuCollection": "SOP_vops.json", 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
@@ -66,29 +66,29 @@
             "nodetype": "null"
         }, 
         {
-            "active": 1, 
+            "active": 0, 
             "activeWire": false, 
-            "command": "createNode", 
+            "command": "", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_attribute", 
+            "icon": "MISC_python", 
             "index": 5, 
-            "isMenu": true, 
-            "label": "Attributes", 
-            "menuCollection": "SOP_attributes.json", 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
-            "active": 1, 
+            "active": 0, 
             "activeWire": false, 
-            "command": "createNode", 
+            "command": "", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "BUTTONS_materials_assigned", 
+            "icon": "MISC_python", 
             "index": 6, 
-            "isMenu": true, 
-            "label": "Scripts", 
-            "menuCollection": "SOP_scripts.json", 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
             "nodetype": "null"
         }, 
         {
@@ -97,12 +97,12 @@
             "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_block_end", 
+            "icon": "SOP_voronoifracture", 
             "index": 7, 
-            "isMenu": true, 
-            "label": "Common", 
-            "menuCollection": "SOP_common.json", 
-            "nodetype": "null"
+            "isMenu": false, 
+            "label": "Geocache", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "dchow__geocache__1_0"
         }
     ]
 }

@@ -29,7 +29,7 @@ reload(detailspane)
 
 class MarkingMenuEditor(QtWidgets.QWidget):
     """Editor for creating, deleting, and editing marking menus."""
-    def __init__(self):
+    def __init__(self, editor):
         super(MarkingMenuEditor, self).__init__()
         self.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
         self.setWindowTitle('Marking Menu Editor')
@@ -50,6 +50,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
         self._collections = []
         self._currentContext = 'SOP'
+        self.editor = editor
 
         self._collectionsDir = os.path.join(
             self._rootpath,
@@ -127,7 +128,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._menuToolbar.contextComboBox.insertItems(0, self._contexts)
 
         self._menuToolbar.contextComboBox.setCurrentIndex(
-            self._menuToolbar.contextComboBox.findText(utils.getContext()))
+            self._menuToolbar.contextComboBox.findText(utils.getContext(self.editor)))
 
         self._currentContext = self._menuToolbar.contextComboBox.currentText()
         self.show()
