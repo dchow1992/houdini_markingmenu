@@ -33,9 +33,14 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         super(MarkingMenuEditor, self).__init__()
         self.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
         self.setWindowTitle('Marking Menu Editor')
+
+        # UI fixed sizes
+        self.HIGH_DPI = False
+        self.dpifactor = 2 if self.HIGH_DPI else 1
+
         self.setGeometry(300, 250, 900, 700)
         self.setStyleSheet('background-color: rgb(58,58,58);')
-        self.setFixedSize(1150, 850)
+        self.setFixedSize(1150 * self.dpifactor, 850 * self.dpifactor)
 
         self._rootpath = os.path.join(
                 os.path.abspath(hou.getenv('HOUDINI_USER_PREF_DIR')),
@@ -96,30 +101,30 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self.setLayout(self._layout)
 
         # collections menu toolbar
-        self._menuToolbar = managecollectionstoolbar.ManageCollectionsToolbar()
+        self._menuToolbar = managecollectionstoolbar.ManageCollectionsToolbar(highdpi=self.HIGH_DPI)
 
         self._layout.addLayout(self._menuToolbar.layout)
         self._layout.addSpacing(10)
 
         # modifier collection combo boxes
-        self._modifierComboBoxes = modifiercomboboxes.ModifierComboBoxes()
+        self._modifierComboBoxes = modifiercomboboxes.ModifierComboBoxes(highdpi=self.HIGH_DPI)
         self._layout.addLayout(self._modifierComboBoxes.layout)
 
         # reference view
-        self._referenceView = referenceview.ReferenceView()
+        self._referenceView = referenceview.ReferenceView(highdpi=self.HIGH_DPI)
         self._layout.addLayout(self._referenceView.layout)
 
         self._layout.addSpacing(10)
 
         # details pane
-        self._detailsPane = detailspane.DetailsPane(self._rootpath)
+        self._detailsPane = detailspane.DetailsPane(self._rootpath, highdpi=self.HIGH_DPI)
         self._layout.addLayout(self._detailsPane.layout)
 
         self._saveSeparatorWidget = hou.qt.createSeparator()
         self._layout.addWidget(self._saveSeparatorWidget)
 
         # taskbar
-        self._taskbar = editortaskbar.EditorTaskbar()
+        self._taskbar = editortaskbar.EditorTaskbar(highdpi=self.HIGH_DPI)
         self._layout.addLayout(self._taskbar.layout)
 
         self.__connectWidgetActions()

@@ -4,8 +4,9 @@ from PySide2 import QtWidgets
 
 
 class EditorTaskbar(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super(EditorTaskbar, self).__init__()
+        self.dpifactor = 2 if kwargs['highdpi'] else 1
         self.initUI()
 
     def initUI(self):
@@ -21,8 +22,8 @@ class EditorTaskbar(QtWidgets.QWidget):
         self.saveButton = QtWidgets.QPushButton('Save Collection')
         self.closeButton = QtWidgets.QPushButton('Close')
 
-        self.saveButton.setMinimumSize(220, 70)
-        self.closeButton.setMinimumSize(220, 70)
+        self.saveButton.setMinimumSize(220*self.dpifactor, 70*self.dpifactor)
+        self.closeButton.setMinimumSize(220*self.dpifactor, 70*self.dpifactor)
 
         self.saveButton.setStyleSheet(hou.qt.styleSheet())
         self.closeButton.setStyleSheet(hou.qt.styleSheet())

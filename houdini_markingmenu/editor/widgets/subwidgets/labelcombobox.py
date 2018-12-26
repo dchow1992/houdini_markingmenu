@@ -19,6 +19,6 @@ class LabelComboBox(QtWidgets.QWidget):
         self.comboBox.setStyleSheet(hou.qt.styleSheet())
 
         self.layout.addWidget(self.label)
-        self.layout.addSpacing(5)
+        self.layout.addSpacing(0)
         self.layout.addWidget(self.comboBox)
         self.layout.addStretch(1)

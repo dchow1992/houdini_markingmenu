@@ -4,13 +4,14 @@ from PySide2 import QtWidgets, QtGui
 
 
 class ReferenceButtons(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super(ReferenceButtons, self).__init__()
+        self.dpifactor = 2 if kwargs['highdpi'] else 1
         self.initUI()
 
     def initUI(self):
         self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addSpacing(80)
+        self.layout.addSpacing(80*self.dpifactor)
 
         h0 = QtWidgets.QHBoxLayout()
         self.layout.addLayout(h0)
@@ -21,35 +22,35 @@ class ReferenceButtons(QtWidgets.QWidget):
         self.layout.addLayout(h1)
         btn1 = QtWidgets.QPushButton('Item Slot 7', self)
         h1.addWidget(btn1)
-        h1.addSpacing(60)
+        h1.addSpacing(60*self.dpifactor)
 
         h2 = QtWidgets.QHBoxLayout()
         self.layout.addLayout(h2)
         btn2 = QtWidgets.QPushButton('Item Slot 6', self)
         h2.addWidget(btn2)
 
-        h2.addSpacing(35)
+        h2.addSpacing(35*self.dpifactor)
         ref = QtWidgets.QLabel('                        ')
         self.backbtn = QtWidgets.QPushButton('', self)
-        self.backbtn.setFixedSize(40, 24)
+        self.backbtn.setFixedSize(40 * self.dpifactor, 24 * self.dpifactor)
         self.backbtn.setIcon(hou.qt.Icon('BUTTONS_back'))
         self.backbtn.setStyleSheet(hou.qt.styleSheet())
 
         self.homebtn = QtWidgets.QPushButton('', self)
-        self.homebtn.setFixedSize(40, 24)
+        self.homebtn.setFixedSize(40 * self.dpifactor, 24 * self.dpifactor)
         self.homebtn.setIcon(hou.qt.Icon('IMAGE_home'))
         self.homebtn.setStyleSheet(hou.qt.styleSheet())
 
         h2.addWidget(self.backbtn)
-        h2.addSpacing(3)
+        h2.addSpacing(3*self.dpifactor)
         h2.addWidget(self.homebtn)
-        h2.addSpacing(35)
+        h2.addSpacing(35*self.dpifactor)
 
         h3 = QtWidgets.QHBoxLayout()
         self.layout.addLayout(h3)
         btn3 = QtWidgets.QPushButton('Item Slot 5', self)
         h3.addWidget(btn3)
-        h3.addSpacing(60)
+        h3.addSpacing(60*self.dpifactor)
 
         h4 = QtWidgets.QHBoxLayout()
         self.layout.addLayout(h4)
@@ -84,6 +85,6 @@ class ReferenceButtons(QtWidgets.QWidget):
                                 padding-bottom: 3px;
                                 padding-left: 15px;
                             }''')
-            b.setFixedSize(140, 24)
+            b.setFixedSize(140 * self.dpifactor, 24 * self.dpifactor)
 
-        self.layout.addSpacing(80)
+        self.layout.addSpacing(80*self.dpifactor)

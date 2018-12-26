@@ -68,33 +68,43 @@ class NEMarkingMenu(QtWidgets.QWidget):
     def __init__(self, editor):
         super(NEMarkingMenu, self).__init__()
 
-        # for display offset
+        # UI fixed sizes
+        self.HIGH_DPI = False
+        self.UISCALE = 2 if self.HIGH_DPI else 1  # scale factor for high DPI monitors, 2 should be enough.
+
+        self.windowSize = 1300 * self.UISCALE # invisible bounds size, too big may impact performance
+        self.pad = 1.18 * self.UISCALE # gap between buttons
+        self.buttonWidth = 110 * self.UISCALE
+        self.buttonHeight = 24 * self.UISCALE
+        self.buttonIconSize = 12 * self.UISCALE
+
+        # menu draw time offset
         self.visible = False
         self.startTime = time.time()
         self.origin = QtCore.QPoint(0, 0)
-        self.windowSize = 1300
+        
         self.editor = editor
 
-        # for storing widgets - mouse path
+        # storing widgets - mouse path
         self.mouseAnchorPositions = []
         self.mousePathGraphicsWidget = 0
 
-        # for storing widgets - menu widgets
+        # storing widgets - menu widgets
         self.menuItemWidgets = []
         self.rectangles = []
-        pad = 1.18
+        
+        self.targetWidget = 0
 
+        # relative positional offsets between buttons
         self.menuYOffsets = [
-            70*pad, 35*pad, 0*pad, -35*pad,
-            -70*pad, -35*pad, 0*pad, 35*pad
+            70*self.pad, 35*self.pad, 0*self.pad, -35*self.pad,
+            -70*self.pad, -35*self.pad, 0*self.pad, 35*self.pad
             ]
 
         self.menuXOffsets = [
-            0*pad, 45*pad, 70*pad, 45*pad,
-            0*pad, 45*pad, 70*pad, 45*pad
-            ]
-
-        self.targetWidget = 0
+            0*self.pad, 45*self.pad, 70*self.pad, 45*self.pad,
+            0*self.pad, 45*self.pad, 70*self.pad, 45*self.pad
+            ]        
 
         # setup initial config file
         self.currentContext = utils.getContext(self.editor)
@@ -185,8 +195,10 @@ class NEMarkingMenu(QtWidgets.QWidget):
         for item in self.collectionItemDescriptions:
             if item['active']:
                 index = item['index']
-                btn = menuitembutton.MenuItemButton(item['label'] + '  ', self)
 
+                a = item['label'].ljust(14 if (self.HIGH_DPI and item['isMenu']) else 2)
+
+                btn = menuitembutton.MenuItemButton(uiscale=self.UISCALE, text=a, parent=self)
                 if item['isMenu']:
                     btn.setMenu(dummyMenu)
                     btn.menu()
@@ -196,14 +208,14 @@ class NEMarkingMenu(QtWidgets.QWidget):
                             os.path.join(self.collectionsDir, item['menuCollection']))
 
                 # button size, icon, icon size, position
-                minx = 110
-                maxy = 24
+                minx = self.buttonWidth
+                maxy = self.buttonHeight
                 try:
                     btn.setIcon(hou.qt.createIcon(item['icon'], 20, 20))
-                    btn.setIconSize(QtCore.QSize(12, 12))
+                    btn.setIconSize(QtCore.QSize(self.buttonIconSize, self.buttonIconSize))
                 except hou.OperationFailed:
                     btn.setIcon(hou.qt.createIcon('COMMON_null', 20, 20))
-                    btn.setIconSize(QtCore.QSize(12, 12))
+                    btn.setIconSize(QtCore.QSize(self.buttonIconSize, self.buttonIconSize))
 
                 s = btn.sizeHint()
                 if s.width() < minx:
@@ -242,7 +254,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
 
     def createMousePath(self):
         # draw and store mouse path
-        mousePath = mousepath.MousePathGraphics(self, self.mouseAnchorPositions)
+        mousePath = mousepath.MousePathGraphics(self, self.mouseAnchorPositions, self.UISCALE)
         mousePath.setGeometry(0, 0, self.windowSize, self.windowSize)
         self.mousePathGraphicsWidget = mousePath
 
