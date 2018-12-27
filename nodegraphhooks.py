@@ -48,7 +48,7 @@ def createEventHandler(uievent, pending_actions):
     if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedown' and uievent.mousestate.rmb:
         reload(cmds)
         if uievent.selected.item is None:
-            if cmds.menu_activate == 1:
+            if cmds.MENU_ACTIVATE:
                 a = buildHandler(uievent, pending_actions)
                 return a, True
             else:

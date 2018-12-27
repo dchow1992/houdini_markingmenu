@@ -18,6 +18,8 @@ from editor.widgets import detailspane
 
 from editor.widgets import editortaskbar
 
+import buttonfunctions as cmds
+
 import utils
 
 reload(detailspane)
@@ -35,7 +37,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self.setWindowTitle('Marking Menu Editor')
 
         # UI fixed sizes
-        self.HIGH_DPI = False
+        self.HIGH_DPI = cmds.HIGH_DPI
         self.dpifactor = 2 if self.HIGH_DPI else 1
 
         self.setGeometry(300, 250, 900, 700)

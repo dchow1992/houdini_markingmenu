@@ -69,7 +69,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         super(NEMarkingMenu, self).__init__()
 
         # UI fixed sizes
-        self.HIGH_DPI = False
+        self.HIGH_DPI = cmds.HIGH_DPI
         self.UISCALE = 2 if self.HIGH_DPI else 1  # scale factor for high DPI monitors, 2 should be enough.
 
         self.windowSize = 1300 * self.UISCALE # invisible bounds size, too big may impact performance
