@@ -1,11 +1,13 @@
 import hou
 
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore
 
 
 class ManageCollectionsToolbar(QtWidgets.QWidget):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super(ManageCollectionsToolbar, self).__init__()
+        self.buttonIconSize = 24 if kwargs['highdpi'] else 12
+        self.dpifactor = 1.2 if kwargs['highdpi'] else 1
         self.initUI()
 
     def initUI(self):
@@ -85,14 +87,15 @@ class ManageCollectionsToolbar(QtWidgets.QWidget):
 
         self.reloadBtn = QtWidgets.QPushButton('Reload Collection')
         self.reloadBtn.setIcon(hou.qt.createIcon('BUTTONS_cook'))
+        self.reloadBtn.setIconSize(QtCore.QSize(self.buttonIconSize, self.buttonIconSize))
 
         self.contextComboBox = hou.qt.createComboBox()
-        self.contextComboBox.setMinimumContentsLength(5)
+        self.contextComboBox.setMinimumContentsLength(5 * self.dpifactor)
 
         self.contextComboBox.setStyleSheet(self.unlinkedStyle)
 
         self.collectionComboBox = hou.qt.createComboBox()
-        self.collectionComboBox.setMinimumContentsLength(35)
+        self.collectionComboBox.setMinimumContentsLength(35 * self.dpifactor)
 
         self.collectionComboBox.setStyleSheet(self.unlinkedStyle)
 
@@ -108,14 +111,14 @@ class ManageCollectionsToolbar(QtWidgets.QWidget):
 
         # local layout
         self.layout.addWidget(self.reloadBtn)
-        self.layout.addSpacing(10)
+        self.layout.addSpacing(10 * self.dpifactor)
         self.layout.addWidget(self.contextComboBox)
-        self.layout.addSpacing(10)
+        self.layout.addSpacing(10 * self.dpifactor)
         self.layout.addWidget(self.collectionComboBox)
-        self.layout.addSpacing(10)
+        self.layout.addSpacing(10 * self.dpifactor)
         self.layout.addWidget(self.newBtn)
-        self.layout.addSpacing(10)
+        self.layout.addSpacing(10 * self.dpifactor)
         self.layout.addWidget(self.delBtn)
-        self.layout.addSpacing(10)
+        self.layout.addSpacing(10 * self.dpifactor)
         self.layout.addWidget(self.renameBtn)
         self.layout.addStretch(1)

@@ -8,8 +8,9 @@ import toolutils
 
 import reservedfunctions as cmdsreserved
 
-''' menu_activate = 1 to enable menu... '''
-menu_activate = 1
+'''Menu Preferences'''
+MENU_ACTIVATE = True
+HIGH_DPI = True
 
 # External Script Examples
 

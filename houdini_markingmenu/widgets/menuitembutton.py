@@ -12,6 +12,7 @@ import buttonfunctions as cmds
 
 import reservedfunctions as cmdsreserved
 
+reload(cmdsreserved)
 
 class MenuItemButton(QtWidgets.QPushButton):
     """Subclassed pushbutton for marking menu.
@@ -33,8 +34,9 @@ class MenuItemButton(QtWidgets.QPushButton):
     nodetype -- houdini nodetype (string)
     activeWire -- picking input wire after node creation (boolean)
     """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, uiscale, *args, **kwargs):
         super(MenuItemButton, self).__init__(*args, **kwargs)
+        self.UISCALE = uiscale
         self.style = hou.qt.styleSheet()
         self.underMouse = 0
         self.command = ''
@@ -45,6 +47,8 @@ class MenuItemButton(QtWidgets.QPushButton):
         self.commandType = 'createnode'
         self.nodetype = 'nodetype'
         self.activeWire = False
+        self.fontSize = int(12 * self.UISCALE)
+        self.setStyleSheet(hou.qt.styleSheet().replace('font-size: 23px;', 'font-size: %dpx;' % self.fontSize))
 
     def isUnder(self, pos):
         if self.geometry().contains(pos):
@@ -58,9 +62,11 @@ class MenuItemButton(QtWidgets.QPushButton):
         super(MenuItemButton, self).paintEvent(e)
         if self.isTarget:
             self.setStyleSheet('''background-color: rgb(255,149,0);
-                                    color: rgb(25,25,25);''')
+                                    color: rgb(25,25,25);
+                                    font-size: %dpx;''' % self.fontSize
+                                    )
         else:
-            self.setStyleSheet(hou.qt.styleSheet())
+            self.setStyleSheet(hou.qt.styleSheet().replace('font-size: 23px;', 'font-size: %dpx;' % self.fontSize))
 
     def runCommand(self):
         if not self.isMenu:

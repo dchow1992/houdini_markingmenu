@@ -10,16 +10,10 @@ from houdini_markingmenu import utils
 
 
 class DetailsPane(QtWidgets.QWidget):
-    def __init__(self, rootpath):
+    def __init__(self, rootpath, *args, **kwargs):
         super(DetailsPane, self).__init__()
 
-        # self.iconCompleter = utils.buildCompleter(
-        #     os.path.join(os.environ['REZ_HOUDINI_MARKINGMENU_ROOT'],
-        #                  'python',
-        #                  'houdini_markingmenu',
-        #                  'json',
-        #                  'icons.json')
-        #     )
+        self.dpifactor = 2 if kwargs['highdpi'] else 1
 
         # build icon completer
         categories = hou.nodeTypeCategories()
@@ -53,7 +47,7 @@ class DetailsPane(QtWidgets.QWidget):
 
     def initUI(self):
         self.layout = QtWidgets.QGridLayout()
-        self.layout.setSpacing(10)
+        self.layout.setSpacing(10 * self.dpifactor)
 
         # widget arrays
         self.indexComboBoxes = []
@@ -201,7 +195,7 @@ class DetailsPane(QtWidgets.QWidget):
             # index comboboxes
             a = hou.qt.createComboBox()
             a.setStyleSheet(comboStyle)
-            a.setMaximumSize(70, 200)
+            a.setMaximumSize(70 * self.dpifactor, 200 * self.dpifactor)
             self.indexComboBoxes.append(a)
             self.layout.addWidget(a, i, 0, 1, 1)
 
@@ -222,7 +216,7 @@ class DetailsPane(QtWidgets.QWidget):
             a = QtWidgets.QLineEdit()
             a.setStyleSheet(lineEditStyle)
             a.setPlaceholderText('Label')
-            a.setFixedSize(140, a.sizeHint().height())
+            a.setFixedSize(140 * self.dpifactor, a.sizeHint().height())
             self.labelEdits.append(a)
             self.layout.addWidget(a, i, 3, 1, 1)
 
@@ -230,7 +224,7 @@ class DetailsPane(QtWidgets.QWidget):
             a = QtWidgets.QLineEdit()
             a.setStyleSheet(lineEditStyle)
             a.setPlaceholderText('Icon - ex: MISC_python')
-            a.setFixedSize(150, a.sizeHint().height())
+            a.setFixedSize(150 * self.dpifactor, a.sizeHint().height())
             a.setCompleter(self.iconCompleter)
             self.iconEdits.append(a)
             self.layout.addWidget(a, i, 4, 1, 1)
@@ -238,7 +232,7 @@ class DetailsPane(QtWidgets.QWidget):
             # menu combo boxes
             a = hou.qt.createComboBox()
             a.setStyleSheet(comboStyle)
-            a.setFixedSize(160, a.sizeHint().height())
+            a.setFixedSize(160 * self.dpifactor, a.sizeHint().height())
             self.menuComboBoxes.append(a)
             self.layout.addWidget(a, i, 5, 1, 1)
             rowMenuWidgets.append(a)
@@ -252,7 +246,7 @@ class DetailsPane(QtWidgets.QWidget):
             # command type combo boxes
             a = hou.qt.createComboBox()
             a.setStyleSheet(comboStyle)
-            a.setFixedSize(130, a.sizeHint().height())
+            a.setFixedSize(130 * self.dpifactor, a.sizeHint().height())
             self.cmdComboBoxes.append(a)
             self.layout.addWidget(a, i, 7, 1, 1)
             rowButtonWidgets.append(a)

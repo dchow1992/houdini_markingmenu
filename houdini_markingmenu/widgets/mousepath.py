@@ -20,12 +20,13 @@ class MousePathGraphics(QtWidgets.QWidget):
     cursor -- cursor position (QPointF)
     previousMenu -- previous menu for backtracking (dictionary list)
     """
-    def __init__(self, parentWidget, anchors_QPointsList):
+    def __init__(self, parentWidget, anchors_QPointsList, uiscale):
         super(MousePathGraphics, self).__init__()
 
+        self.UISCALE = uiscale
         self.anchors = anchors_QPointsList
-        self.radius = 8.0
-        self.width = 4.0
+        self.radius = 8.0 * uiscale
+        self.width = 4.0 * uiscale
         self.cursor = QtCore.QPointF(QtGui.QCursor.pos())
         self.previousMenu = []
 
@@ -73,8 +74,8 @@ class MousePathGraphics(QtWidgets.QWidget):
                     )
 
         # draw mouse line
-        window_width = 500
-        fade_dist = 250.0
+        window_width = 500 * self.UISCALE
+        fade_dist = 250.0 * self.UISCALE
 
         a = QtCore.QPointF(self.cursor - QtCore.QPointF(QPointsList[-1]))
         dist = sqrt(a.x() * a.x() + a.y() * a.y())
@@ -83,7 +84,7 @@ class MousePathGraphics(QtWidgets.QWidget):
         startP = QtCore.QPointF(QPointsList[-1]) + (norm_a)*fade_dist
         limitP = startP
         if dist > fade_dist:
-            a = window_width - 380
+            a = window_width - 380 * self.UISCALE
             step = 5.0
             startval = 13
             endval = 50 - startval
