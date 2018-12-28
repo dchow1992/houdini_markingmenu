@@ -10,7 +10,7 @@ import reservedfunctions as cmdsreserved
 
 '''Menu Preferences'''
 MENU_ACTIVATE = True
-HIGH_DPI = True
+HIGH_DPI = False
 
 # External Script Examples
 
