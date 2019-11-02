@@ -98,7 +98,7 @@ def saveCollection(collection, data):
         json.dump(a, f, indent=4, sort_keys=True)
 
 
-def getContext(editor=hou.ui.paneTabOfType(hou.paneTabType.NetworkEditor)):
+def getContext(editor):
     """Return houdini context string."""
     hou_context = editor.pwd().childTypeCategory().name()
     if hou_context == 'Sop':
