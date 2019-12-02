@@ -6,8 +6,6 @@ import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore
 
-from houdini_markingmenu import utils
-
 
 class DetailsPane(QtWidgets.QWidget):
     def __init__(self, rootpath, *args, **kwargs):
@@ -96,6 +94,7 @@ class DetailsPane(QtWidgets.QWidget):
             font.setBold(True)
             label.setFont(font)
             self.layout.addWidget(label, 0, col, 1, 1)
+            label.setStyleSheet(hou.qt.styleSheet())
 
         comboStyle = '''
             QComboBox
@@ -171,6 +170,7 @@ class DetailsPane(QtWidgets.QWidget):
                 background-color: rgb(46, 46, 46);
                 border: 1px solid rgb(35, 35, 35);
                 border-radius: 1px;
+                color: rgb(210,210,210);
                 padding: 1px 1px;
                 selection-color: rgb(0, 0, 0);
                 selection-background-color: rgb(184, 133, 32);
@@ -194,13 +194,18 @@ class DetailsPane(QtWidgets.QWidget):
 
             # index comboboxes
             a = hou.qt.createComboBox()
-            a.setStyleSheet(comboStyle)
+            a.setStyleSheet(hou.qt.styleSheet())
+            # a.setStyleSheet(comboStyle)
             a.setMaximumSize(70 * self.dpifactor, 200 * self.dpifactor)
             self.indexComboBoxes.append(a)
             self.layout.addWidget(a, i, 0, 1, 1)
 
             # enabled checkboxes
             h = hou.qt.createCheckBox()
+            h.setStyleSheet(h.styleSheet() + '''
+                QCheckBox {
+                    color: rgb(210,210,210);
+                    }''')
             h.setText('Item %d' % (i-2))
             h.setCheckState(QtCore.Qt.CheckState.Checked)
             self.activeToggles.append(h)
@@ -208,6 +213,11 @@ class DetailsPane(QtWidgets.QWidget):
 
             # is menu checkboxes
             a = hou.qt.createCheckBox()
+            a.setStyleSheet(a.styleSheet() + '''
+                QCheckBox {
+                    color: rgb(210,210,210);
+                    }''')
+            # a.setStyleSheet(hou.qt.styleSheet())
             a.setText('Menu')
             self.menuToggles.append(a)
             self.layout.addWidget(a, i, 2, 1, 1)
@@ -231,7 +241,8 @@ class DetailsPane(QtWidgets.QWidget):
 
             # menu combo boxes
             a = hou.qt.createComboBox()
-            a.setStyleSheet(comboStyle)
+            # a.setStyleSheet(comboStyle)
+            a.setStyleSheet(hou.qt.styleSheet())
             a.setFixedSize(160 * self.dpifactor, a.sizeHint().height())
             self.menuComboBoxes.append(a)
             self.layout.addWidget(a, i, 5, 1, 1)
@@ -239,13 +250,18 @@ class DetailsPane(QtWidgets.QWidget):
 
             # command labels
             a = QtWidgets.QLabel('Mode: ')
+            a.setStyleSheet(a.styleSheet() + '''
+                QLabel {
+                    color: rgb(210,210,210);
+                    }''')
             self.cmdLabels.append(a)
             self.layout.addWidget(a, i, 6, 1, 1)
             rowButtonWidgets.append(a)
 
             # command type combo boxes
             a = hou.qt.createComboBox()
-            a.setStyleSheet(comboStyle)
+            # a.setStyleSheet(comboStyle)
+            a.setStyleSheet(hou.qt.styleSheet())
             a.setFixedSize(130 * self.dpifactor, a.sizeHint().height())
             self.cmdComboBoxes.append(a)
             self.layout.addWidget(a, i, 7, 1, 1)
@@ -261,6 +277,10 @@ class DetailsPane(QtWidgets.QWidget):
 
             # active wire checkboxes
             a = hou.qt.createCheckBox()
+            a.setStyleSheet(a.styleSheet() + '''
+                QCheckBox {
+                    color: rgb(210,210,210);
+                    }''')
             a.setText('Active Wire')
             self.wireToggles.append(a)
             self.layout.addWidget(a, i, 9, 1, 1)
