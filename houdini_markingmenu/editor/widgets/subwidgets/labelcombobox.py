@@ -13,6 +13,7 @@ class LabelComboBox(QtWidgets.QWidget):
     def initUI(self):
         self.layout = QtWidgets.QHBoxLayout()
         self.label = QtWidgets.QLabel(self.name)
+        self.label.setStyleSheet(hou.qt.styleSheet())
 
         self.comboBox = hou.qt.createComboBox()
         self.comboBox.setMinimumSize(self.minxsize, 0)
