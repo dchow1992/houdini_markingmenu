@@ -33,12 +33,12 @@ class ReferenceButtons(QtWidgets.QWidget):
         ref = QtWidgets.QLabel('                        ')
         self.backbtn = QtWidgets.QPushButton('', self)
         self.backbtn.setFixedSize(40 * self.dpifactor, 24 * self.dpifactor)
-        self.backbtn.setIcon(hou.qt.Icon('BUTTONS_back'))
+        self.backbtn.setIcon(hou.qt.createIcon('BUTTONS_back'))
         self.backbtn.setStyleSheet(hou.qt.styleSheet())
 
         self.homebtn = QtWidgets.QPushButton('', self)
         self.homebtn.setFixedSize(40 * self.dpifactor, 24 * self.dpifactor)
-        self.homebtn.setIcon(hou.qt.Icon('IMAGE_home'))
+        self.homebtn.setIcon(hou.qt.createIcon('IMAGE_home'))
         self.homebtn.setStyleSheet(hou.qt.styleSheet())
 
         h2.addWidget(self.backbtn)
