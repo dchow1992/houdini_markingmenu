@@ -20,7 +20,7 @@ from editor.widgets import editortaskbar
 
 import buttonfunctions as cmds
 
-import utils
+import mmutils
 
 reload(detailspane)
 reload(referenceview)
@@ -33,7 +33,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
     """Editor for creating, deleting, and editing marking menus."""
     def __init__(self, editor):
         super(MarkingMenuEditor, self).__init__()
-        self.setParent(hou.qt.mainWindow(), QtCore.Qt.Window)
+
         self.setWindowTitle('Marking Menu Editor')
 
         # UI fixed sizes
@@ -66,7 +66,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             )
 
         self._fullcpath = ''  # full path to the current collection on disk
-        self._menuPrefs = utils.loadMenuPreferences(os.path.join(
+        self._menuPrefs = mmutils.loadMenuPreferences(os.path.join(
             self._rootpath, 'json', 'menuprefs.json'))
         self._detailIndices = []
         self._loadedCollection = []
@@ -135,7 +135,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._menuToolbar.contextComboBox.insertItems(0, self._contexts)
 
         self._menuToolbar.contextComboBox.setCurrentIndex(
-            self._menuToolbar.contextComboBox.findText(utils.getContext(self.editor)))
+            self._menuToolbar.contextComboBox.findText(mmutils.getContext(self.editor)))
 
         self._currentContext = self._menuToolbar.contextComboBox.currentText()
         self.show()
@@ -265,22 +265,15 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
             # split off version and namespace
             temp = []
+
             for a in all_types:
-                asplit = a.split('::')
-                if len(asplit) == 1:
-                    temp.append(asplit[0])
-                elif len(asplit) == 2:
-                    if len(asplit[0]) > len(asplit[1]):
-                        temp.append(asplit[0])
-                    else:
-                        temp.append(asplit[1])
-                elif len(asplit) == 3:
-                    temp.append(asplit[1])
+                name = max(a.split('::'), key=len)
+                con = name.split('/')[0]
+                if con == context2:
+                    temp.append(name.split('/')[-1])
 
             all_types = temp
-            alltypeset = set(all_types)
-            contextHDAs = [a.split('/')[-1] for a in alltypeset]
-            strlist = strlist + list(set(contextHDAs) - set(strlist))
+            strlist = temp
 
             # assign completer
             self.nodeCompleter = QtWidgets.QCompleter(strlist)
@@ -288,7 +281,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             self.nodeCompleter.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
 
         # refilter collections by context
-        self._collections = utils.filterCollections(
+        self._collections = mmutils.filterCollections(
             self._collectionsDir,
             self._currentContext
             )
@@ -299,7 +292,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._menuToolbar.collectionComboBox.insertItems(0, self.collectionsLabels)
 
         # modifier combo boxes
-        self._menuPrefs = utils.loadMenuPreferences(os.path.join(
+        self._menuPrefs = mmutils.loadMenuPreferences(os.path.join(
             self._rootpath, 'json', 'menuprefs.json'))
         try:
             shiftItem = self._menuPrefs[self._currentContext]['Shift']
@@ -324,7 +317,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 self._collectionsDir,
                 self._menuToolbar.collectionComboBox.currentText() + '.json')
 
-            self._loadedCollection = utils.loadCollection(self._fullcpath)
+            self._loadedCollection = mmutils.loadCollection(self._fullcpath)
             self._virtualCollection = self._loadedCollection
             self._taskbar.saveTextWidget.setStyleSheet(
                 '''
@@ -346,7 +339,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             )
         self._unsaved = 0
 
-        utils.saveCollection(self._fullcpath, self._virtualCollection)
+        mmutils.saveCollection(self._fullcpath, self._virtualCollection)
 
     def __newAction(self):
         diag = hou.ui.readInput(
@@ -380,7 +373,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                         )
             else:
                 self.__detailDefaults()
-                utils.saveCollection(
+                mmutils.saveCollection(
                     os.path.join(self._collectionsDir, namestr),
                     self._virtualCollection
                     )
@@ -703,7 +696,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             for idx in range(8):
                 index = idx
                 if not self._detailsPane.activeToggles[idx].isChecked():
-                    defEntry = utils.ButtonConfig(
+                    defEntry = mmutils.ButtonConfig(
                         self._currentContext,
                         index,
                         0,
@@ -745,7 +738,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
                     wire = self._detailsPane.wireToggles[idx].isChecked()
 
-                    newEntry = utils.ButtonConfig(
+                    newEntry = mmutils.ButtonConfig(
                         self._currentContext,
                         index,
                         isMenu,
@@ -811,6 +804,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
             if item['active']:
                 btn.setDisabled(False)
+                btn.setFocusPolicy(QtCore.Qt.NoFocus)
                 btn.setStyleSheet('')
                 btn.setStyleSheet('''
                     QPushButton
@@ -844,7 +838,12 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                     '''
                     QPushButton:hover
                     {
-                        border: 1px solid rgba(185, 134, 32, 100%);
+                        border: 1px solid rgba(185, 134, 32, 100%);                        
+                    }
+                    QPushButton:menu-indicator
+                    {
+                        subcontrol-position: right center;
+                        left: -7px;        
                     }''')
 
                     btn.setMenu(dummyMenu)
@@ -874,7 +873,24 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
             elif not item['active']:
                 btn.setDisabled(True)
-                btn.setStyleSheet(' ')
+                btn.setStyleSheet('''
+                    QPushButton
+                    {
+                        background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                    stop: 0.0 rgb(86, 86, 86),
+                                    stop: 1.0 rgb(58, 58, 58));
+                        border-top: 1px solid rgba(0, 0, 0, 40%);
+                        border-right: 1px solid rgba(0, 0, 0, 40%);
+                        border-bottom: 1px solid rgba(0, 0, 0, 62%);
+                        border-left: 1px solid rgba(0, 0, 0, 40%);
+                        border-radius: 1px;
+                        color: rgb(123, 123, 123);
+                        padding-top: 3px;
+                        padding-right: 15px;
+                        padding-bottom: 3px;
+                        padding-left: 15px;
+                    }
+                    ''')
                 btn.setText('Item Slot {}'.format(idx))
                 btn.setIcon(QtGui.QIcon())
                 btn.setMenu(QtWidgets.QMenu())
