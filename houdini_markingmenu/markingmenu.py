@@ -10,7 +10,7 @@ import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 
-import utils
+import mmutils
 
 sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
                                 'python2.7libs',
@@ -20,10 +20,10 @@ import buttonfunctions as cmds
 
 from widgets import mousepath, menuitembutton
 
-# reload(cmds)
-# reload(utils)
-# reload(mousepath)
-# reload(menuitembutton)
+reload(cmds)
+reload(mmutils)
+reload(mousepath)
+reload(menuitembutton)
 
 
 class NEMarkingMenu(QtWidgets.QWidget):
@@ -74,7 +74,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
 
         self.windowSize = 1300 * self.UISCALE # invisible bounds size, too big may impact performance
         self.pad = 1.18 * self.UISCALE # gap between buttons
-        self.buttonWidth = 110 * self.UISCALE
+        self.buttonWidth = 134 * self.UISCALE
         self.buttonHeight = 24 * self.UISCALE
         self.buttonIconSize = 12 * self.UISCALE
 
@@ -107,7 +107,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
             ]        
 
         # setup initial config file
-        self.currentContext = utils.getContext(self.editor)
+        self.currentContext = mmutils.getContext(self.editor)
         self.baseCollection = '{}_baseCollection.json'.format(self.currentContext)
 
         self.rootpath = os.path.join(
@@ -182,7 +182,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
             elif modifiers == QtCore.Qt.ControlModifier:
                 collectionFile = prefs[self.currentContext]['Control']
 
-            self.inputConfigFile = utils.loadCollection(
+            self.inputConfigFile = mmutils.loadCollection(
                 os.path.join(self.rootpath, 'json', self.currentContext, collectionFile)
                 )
 
@@ -204,7 +204,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
                     btn.menu()
                     btn.isMenu = True
                     if os.path.isfile(os.path.join(self.collectionsDir, item['menuCollection'])):
-                        btn.menuObjects = utils.loadCollection(
+                        btn.menuObjects = mmutils.loadCollection(
                             os.path.join(self.collectionsDir, item['menuCollection']))
 
                 # button size, icon, icon size, position
@@ -271,11 +271,11 @@ class NEMarkingMenu(QtWidgets.QWidget):
     def updateTargetWidget(self, e):
         # find closest widget and do shading
         closeWidget = 0
-        if utils.qpDist(self.mouseAnchorPositions[-1], e.pos()) > 14:
+        if mmutils.qpDist(self.mouseAnchorPositions[-1], e.pos()) > 14:
             distance = 99999
             idx = -1
             for i in self.rectangles:
-                prd = utils.pointRectDist(e.pos(), i)
+                prd = mmutils.pointRectDist(e.pos(), i)
                 self.menuItemWidgets[self.rectangles.index(i)].isTarget = False
                 if prd < distance:
                     distance = prd
@@ -326,7 +326,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.mousePathGraphicsWidget.raise_()
 
         if len(self.mouseAnchorPositions) > 1:
-            if utils.qpDist(self.mouseAnchorPositions[-2], e.pos()) < 10:
+            if mmutils.qpDist(self.mouseAnchorPositions[-2], e.pos()) < 10:
                 del self.mouseAnchorPositions[-1]
                 self.rebuildMenu(self.mousePathGraphicsWidget.previousMenu[-1])
 
