@@ -92,12 +92,14 @@ class ManageCollectionsToolbar(QtWidgets.QWidget):
         self.contextComboBox = hou.qt.createComboBox()
         self.contextComboBox.setMinimumContentsLength(5 * self.dpifactor)
 
-        self.contextComboBox.setStyleSheet(self.unlinkedStyle)
+        self.contextComboBox.setStyleSheet(hou.qt.styleSheet())
+        # self.contextComboBox.setStyleSheet(self.unlinkedStyle)
 
         self.collectionComboBox = hou.qt.createComboBox()
         self.collectionComboBox.setMinimumContentsLength(35 * self.dpifactor)
 
-        self.collectionComboBox.setStyleSheet(self.unlinkedStyle)
+        self.collectionComboBox.setStyleSheet(hou.qt.styleSheet())
+        # self.collectionComboBox.setStyleSheet(self.unlinkedStyle)
 
         # new / delete / rename collection buttons
         self.newBtn = QtWidgets.QPushButton('New Collection')

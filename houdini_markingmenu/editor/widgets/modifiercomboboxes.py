@@ -22,5 +22,6 @@ class ModifierComboBoxes(QtWidgets.QWidget):
         self.ctrl = labelcombobox.LabelComboBox(
             'CONTROL: Base Collection',
             349*self.dpifactor)
+
         self.layout.addLayout(self.shift.layout)
         self.layout.addLayout(self.ctrl.layout)

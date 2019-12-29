@@ -1,3 +1,5 @@
+import hou
+
 from PySide2 import QtWidgets
 
 from subwidgets import referencebuttons
@@ -25,8 +27,9 @@ class ReferenceView(QtWidgets.QWidget):
         self.tree.setHeaderLabel('Marking Menu Collection Overview')
         self.tree.setItemsExpandable(False)
         self.tree.setMinimumSize(self.minsize, 0) # this is the same length as the modifier comboboxes
-        self.tree.setStyleSheet('''QTreeView::branch:open {
-             image: url(none.png); } ''')
+        # self.tree.setStyleSheet('''QTreeView::branch:open {
+        #      image: url(none.png); } ''')
+        self.tree.setStyleSheet(hou.qt.styleSheet())
 
         self.layout.addWidget(self.tree)
         self.layout.addStretch(1)
