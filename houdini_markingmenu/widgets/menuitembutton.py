@@ -8,6 +8,8 @@ import sys
 
 import os
 
+import re
+
 import buttonfunctions as cmds
 
 import reservedfunctions as cmdsreserved
@@ -37,7 +39,6 @@ class MenuItemButton(QtWidgets.QPushButton):
     def __init__(self, uiscale, *args, **kwargs):
         super(MenuItemButton, self).__init__(*args, **kwargs)
         self.UISCALE = uiscale
-        self.style = hou.qt.styleSheet()
         self.underMouse = 0
         self.command = ''
         self.isMenu = False
@@ -48,7 +49,45 @@ class MenuItemButton(QtWidgets.QPushButton):
         self.nodetype = 'nodetype'
         self.activeWire = False
         self.fontSize = int(12 * self.UISCALE)
-        self.setStyleSheet(hou.qt.styleSheet().replace('font-size: 23px;', 'font-size: %dpx;' % self.fontSize))
+        self.defaultStyle ='''\
+            QPushButton
+            {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                            stop: 0.0 rgb(86, 86, 86),
+                            stop: 1.0 rgb(58, 58, 58));
+                border-top: 1px solid rgba(0, 0, 0, 40%);
+                border-right: 1px solid rgba(0, 0, 0, 40%);
+                border-bottom: 1px solid rgba(0, 0, 0, 62%);
+                border-left: 1px solid rgba(0, 0, 0, 40%);
+                border-radius: 1px;
+                color: rgb(203, 203, 203);
+                padding-top: 3px;
+                padding-right: 15px;
+                padding-bottom: 3px;
+                padding-left: 15px;
+                font-size: 23px;
+            }'''
+        self.defaultStyle = self.defaultStyle.replace('               font-size: 23px;', '                font-size: %dpx;' % self.fontSize)
+
+        self.targetStyle ='''\
+            QPushButton
+            {
+                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                            stop: 0.0 rgb(255, 149, 0),
+                            stop: 1.0 rgb(255, 149, 0));
+                border-top: 1px solid rgba(0, 0, 0, 40%);
+                border-right: 1px solid rgba(0, 0, 0, 40%);
+                border-bottom: 1px solid rgba(0, 0, 0, 62%);
+                border-left: 1px solid rgba(0, 0, 0, 40%);
+                border-radius: 1px;
+                color: rgb(25, 25, 25);
+                padding-top: 3px;
+                padding-right: 15px;
+                padding-bottom: 3px;
+                padding-left: 15px;
+                font-size: 23px;
+            }'''
+        self.targetStyle = self.targetStyle.replace('               font-size: 23px;', '                font-size: %dpx;' % self.fontSize)
 
     def isUnder(self, pos):
         if self.geometry().contains(pos):
@@ -61,12 +100,9 @@ class MenuItemButton(QtWidgets.QPushButton):
     def paintEvent(self, e):
         super(MenuItemButton, self).paintEvent(e)
         if self.isTarget:
-            self.setStyleSheet('''background-color: rgb(255,149,0);
-                                    color: rgb(25,25,25);
-                                    font-size: %dpx;''' % self.fontSize
-                                    )
+            self.setStyleSheet(self.targetStyle)
         else:
-            self.setStyleSheet(hou.qt.styleSheet().replace('font-size: 23px;', 'font-size: %dpx;' % self.fontSize))
+            self.setStyleSheet(self.defaultStyle)
 
     def runCommand(self):
         if not self.isMenu:
