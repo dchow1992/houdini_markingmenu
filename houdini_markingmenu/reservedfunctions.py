@@ -68,7 +68,7 @@ def pickWire(node, network_editor):
 
 def launchEditor(**kwargs):
     """Open the marking menu editor."""
-    for entry in QtWidgets.qApp.allWidgets():
+    for entry in QtWidgets.QApplication.instance().allWidgets():
         if type(entry).__name__ == 'MarkingMenuEditor':
             entry.setParent(None)
             entry.close()
