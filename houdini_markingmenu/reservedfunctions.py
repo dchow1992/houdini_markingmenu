@@ -44,10 +44,13 @@ def runShelfTool(commandstr, editor, activeWire):
         if t == commandstr:
             # dummy event first
             editor.selectPosition()
-            toolutils.testTool(tools[t], pane=editor)
-            if activeWire:
-                node = hou.selectedNodes()[0]
-                pickWire(node, editor)
+            try:
+                toolutils.testTool(tools[t], pane=editor)
+                if activeWire:
+                    node = hou.selectedNodes()[0]
+                    pickWire(node, editor)
+            except hou.OperationInterrupted:
+                pass
 
 
 def pickWire(node, network_editor):
