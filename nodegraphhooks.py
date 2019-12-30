@@ -24,6 +24,10 @@ def buildHandler(uievent, pending_actions):
         def handleEvent(self, uievent, pending_actions):
             if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedrag':
                 reload(mm)
+                for entry in QtWidgets.QApplication.instance().allWidgets():
+                    if type(entry).__name__ == 'NEMarkingMenu':
+                        entry.setParent(None)
+                        entry.close()
                 markingMenu = mm.NEMarkingMenu(uievent.editor)
                 # return None if we handled event and launched a marking menu
                 return None
