@@ -6,6 +6,8 @@ sys.dont_write_bytecode = True
 
 import hou
 
+from PySide2 import QtWidgets
+
 from houdini_markingmenu import markingmenu as mm
 
 from canvaseventtypes import *
