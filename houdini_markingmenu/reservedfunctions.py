@@ -30,7 +30,7 @@ def createNode(**kwargs):
             # interactions to pick up, so the first call to selectPosition() doesn't do anything
             network_editor.selectPosition()
 
-            node = toolutils.genericTool(scriptargs, nodetypename=nodetypenames[nodenames.index(kwargs['nodetype'])])
+            node = toolutils.genericTool(scriptargs, nodetypename=nodetypenames[nodetypenames.index(kwargs['nodetype'])])
             if kwargs['activeWire'] and len(network_editor.allVisibleRects(())):
                 pickWire(node, network_editor)
         except hou.OperationInterrupted:
