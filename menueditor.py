@@ -95,7 +95,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._funcCompleter = QtWidgets.QCompleter(funcList)
         self._funcCompleter.popup().setStyleSheet(hou.qt.styleSheet())
         self._funcCompleter.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
-
+        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         self.__initUI()
 
     def __initUI(self):
