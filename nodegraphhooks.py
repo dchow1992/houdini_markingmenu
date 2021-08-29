@@ -2,21 +2,19 @@ import os
 
 import sys
 
-sys.dont_write_bytecode = True
-
 import hou
-
-from houdini_markingmenu import markingmenu as mm
 
 from canvaseventtypes import *
 
 import nodegraphbase as base
 
-sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
-                'python2.7libs',
-                'houdini_markingmenu'))
+# sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
+#                 'python2.7libs',
+#                 'houdini_markingmenu'))
 
-import buttonfunctions as cmds
+from houdini_markingmenu.python import markingmenu as mm
+
+from houdini_markingmenu.python import buttonfunctions as cmds
 
 def buildHandler(uievent, pending_actions):
     import nodegraph # to avoid circular imports

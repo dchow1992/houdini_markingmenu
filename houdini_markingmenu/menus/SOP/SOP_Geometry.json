@@ -2,16 +2,16 @@
     "menu": [
         {
             "active": 1, 
-            "activeWire": true, 
+            "activeWire": false, 
             "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_blast", 
+            "icon": "SOP_grid", 
             "index": 0, 
             "isMenu": false, 
-            "label": "Blast", 
+            "label": "Grid", 
             "menuCollection": "< Not Linked >.json", 
-            "nodetype": "blast"
+            "nodetype": "grid"
         }, 
         {
             "active": 0, 
@@ -53,56 +53,56 @@
             "nodetype": "null"
         }, 
         {
-            "active": 1, 
-            "activeWire": true, 
-            "command": "createNode", 
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_timeshift", 
+            "icon": "MISC_python", 
             "index": 4, 
-            "isMenu": false, 
-            "label": "Timeshift", 
-            "menuCollection": "< Not Linked >.json", 
-            "nodetype": "timeshift"
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
         }, 
         {
             "active": 1, 
-            "activeWire": true, 
+            "activeWire": false, 
             "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_normal", 
+            "icon": "SOP_add", 
             "index": 5, 
             "isMenu": false, 
-            "label": "Normal", 
+            "label": "Add", 
             "menuCollection": "< Not Linked >.json", 
-            "nodetype": "normal"
+            "nodetype": "add"
         }, 
         {
             "active": 1, 
-            "activeWire": true, 
+            "activeWire": false, 
             "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_color", 
+            "icon": "SOP_sphere", 
             "index": 6, 
             "isMenu": false, 
-            "label": "Color", 
+            "label": "Sphere", 
             "menuCollection": "< Not Linked >.json", 
-            "nodetype": "color"
+            "nodetype": "sphere"
         }, 
         {
             "active": 1, 
-            "activeWire": true, 
+            "activeWire": false, 
             "command": "createNode", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_null", 
+            "icon": "SOP_box", 
             "index": 7, 
             "isMenu": false, 
-            "label": "Null", 
+            "label": "Box", 
             "menuCollection": "< Not Linked >.json", 
-            "nodetype": "null"
+            "nodetype": "box"
         }
     ]
 }

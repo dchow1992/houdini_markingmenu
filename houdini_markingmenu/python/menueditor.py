@@ -8,19 +8,19 @@ import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 
-from editor.widgets import managecollectionstoolbar
+from editor_widgets import managecollectionstoolbar
 
-from editor.widgets import modifiercomboboxes
+from editor_widgets import modifiercomboboxes
 
-from editor.widgets import referenceview
+from editor_widgets import referenceview
 
-from editor.widgets import detailspane
+from editor_widgets import detailspane
 
-from editor.widgets import editortaskbar
+from editor_widgets import editortaskbar
 
 import buttonfunctions as cmds
 
-import mmutils
+import utils
 
 reload(detailspane)
 reload(referenceview)
@@ -61,13 +61,13 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
         self._collectionsDir = os.path.join(
             self._rootpath,
-            'json',
+            'menus',
             self._currentContext
             )
 
         self._fullcpath = ''  # full path to the current collection on disk
-        self._menuPrefs = mmutils.loadMenuPreferences(os.path.join(
-            self._rootpath, 'json', 'menuprefs.json'))
+        self._menuPrefs = utils.loadMenuPreferences(os.path.join(
+            self._rootpath, 'menus', 'menu_prefs.json'))
         self._detailIndices = []
         self._loadedCollection = []
         self._virtualCollection = []
@@ -84,7 +84,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         # button functions auto completer
         readfile = []
         funcList = []
-        with open(os.path.join(self._rootpath, 'buttonfunctions.py'), 'r') as f:
+        with open(os.path.join(self._rootpath, 'python', 'buttonfunctions.py'), 'r') as f:
             readfile = f.readlines()
 
         for line in readfile:
@@ -135,7 +135,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._menuToolbar.contextComboBox.insertItems(0, self._contexts)
 
         self._menuToolbar.contextComboBox.setCurrentIndex(
-            self._menuToolbar.contextComboBox.findText(mmutils.getContext(self.editor)))
+            self._menuToolbar.contextComboBox.findText(utils.getContext(self.editor)))
 
         self._currentContext = self._menuToolbar.contextComboBox.currentText()
         self.show()
@@ -171,6 +171,11 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
         self._referenceView.homebtn.clicked.connect(self.__homeContext)
         self._referenceView.backbtn.clicked.connect(self.__backContext)
+
+        # connect ref view menu actions
+        for idx, action in enumerate(self._referenceView.legend_actions):
+            action.triggered.connect(self.__setCollection)
+
         self._menuToolbar.reloadBtn.clicked.connect(self.__contextAction)
         self._taskbar.closeButton.clicked.connect(self.__closeAction)
 
@@ -246,7 +251,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             self.__unsavedPrompt(self._menuToolbar.collectionComboBox.currentText())
         # if context is changed, update collectionComboBox and ModifierComboBoxes
         self._currentContext = self._menuToolbar.contextComboBox.currentText()
-        self._collectionsDir = os.path.join(self._rootpath, 'json', self._currentContext)
+        self._collectionsDir = os.path.join(self._rootpath, 'menus', self._currentContext)
 
         if self._currentContext in ['SOP', 'VOP', 'DOP', 'COP', 'CHOP', 'OBJ', 'ROP']:
             # build completer based on current context
@@ -272,8 +277,8 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 if con == context2:
                     temp.append(name.split('/')[-1])
 
-            all_types = temp
-            strlist = temp
+            # all_types = temp
+            strlist = list(set(temp))
 
             # assign completer
             self.nodeCompleter = QtWidgets.QCompleter(strlist)
@@ -281,7 +286,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             self.nodeCompleter.setCompletionMode(QtWidgets.QCompleter.PopupCompletion)
 
         # refilter collections by context
-        self._collections = mmutils.filterCollections(
+        self._collections = utils.filterCollections(
             self._collectionsDir,
             self._currentContext
             )
@@ -292,8 +297,8 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._menuToolbar.collectionComboBox.insertItems(0, self.collectionsLabels)
 
         # modifier combo boxes
-        self._menuPrefs = mmutils.loadMenuPreferences(os.path.join(
-            self._rootpath, 'json', 'menuprefs.json'))
+        self._menuPrefs = utils.loadMenuPreferences(os.path.join(
+            self._rootpath, 'menus', 'menu_prefs.json'))
         try:
             shiftItem = self._menuPrefs[self._currentContext]['Shift']
             self._modifierComboBoxes.shift.comboBox.clear()
@@ -317,7 +322,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 self._collectionsDir,
                 self._menuToolbar.collectionComboBox.currentText() + '.json')
 
-            self._loadedCollection = mmutils.loadCollection(self._fullcpath)
+            self._loadedCollection = utils.loadCollection(self._fullcpath)
             self._virtualCollection = self._loadedCollection
             self._taskbar.saveTextWidget.setStyleSheet(
                 '''
@@ -339,7 +344,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             )
         self._unsaved = 0
 
-        mmutils.saveCollection(self._fullcpath, self._virtualCollection)
+        utils.saveCollection(self._fullcpath, self._virtualCollection)
 
     def __newAction(self):
         diag = hou.ui.readInput(
@@ -373,7 +378,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                         )
             else:
                 self.__detailDefaults()
-                mmutils.saveCollection(
+                utils.saveCollection(
                     os.path.join(self._collectionsDir, namestr),
                     self._virtualCollection
                     )
@@ -500,7 +505,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
     def __updateMenuPrefs(self):
         prefs = {}
-        path = os.path.join(self._rootpath, 'json', 'menuprefs.json')
+        path = os.path.join(self._rootpath, 'menus', 'menu_prefs.json')
         with open(path, 'r') as f:
             prefs = json.load(f)
         prefs[self._currentContext]['Shift'] = self._modifierComboBoxes.shift.comboBox.currentText() + '.json'
@@ -696,7 +701,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             for idx in range(8):
                 index = idx
                 if not self._detailsPane.activeToggles[idx].isChecked():
-                    defEntry = mmutils.ButtonConfig(
+                    defEntry = utils.ButtonConfig(
                         self._currentContext,
                         index,
                         0,
@@ -738,7 +743,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
                     wire = self._detailsPane.wireToggles[idx].isChecked()
 
-                    newEntry = mmutils.ButtonConfig(
+                    newEntry = utils.ButtonConfig(
                         self._currentContext,
                         index,
                         isMenu,
@@ -791,20 +796,12 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                         self._detailsPane.menuComboBoxes[idx].setItemData(menuidx, unlinkedBrush, QtCore.Qt.ForegroundRole)
 
     def __updateLegend(self):
-        self.legendmenus = range(8)
-        self.legendcollections = range(8)
-        self.legendactions = range(8)
         for idx, btn in enumerate(self._referenceView.btns):
             item = self._virtualCollection[idx]
-
-            dummyMenu = QtWidgets.QMenu()
-            dummyCollection = item['menuCollection']
-            self.legendmenus[idx] = dummyMenu
-            self.legendcollections[idx] = dummyCollection
-
             if item['active']:
                 btn.setDisabled(False)
                 btn.setFocusPolicy(QtCore.Qt.NoFocus)
+                btn.setText(item['label'])
                 btn.setStyleSheet('')
                 btn.setStyleSheet('''
                     QPushButton
@@ -824,53 +821,44 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                         padding-left: 15px;
                     }
                     ''')
-                btn.setText(item['label'])
-
                 try:
                     btn.setIcon(hou.qt.createIcon(item['icon'], 20, 20))
                     btn.setIconSize(QtCore.QSize(12, 12))
                 except hou.OperationFailed:
                     btn.setIcon(hou.qt.createIcon('COMMON_null', 20, 20))
                     btn.setIconSize(QtCore.QSize(12, 12))
-
                 if item['isMenu']:
-                    btn.setStyleSheet(btn.styleSheet() +
-                    '''
-                    QPushButton:hover
-                    {
-                        border: 1px solid rgba(185, 134, 32, 100%);                        
-                    }
-                    QPushButton:menu-indicator
-                    {
-                        subcontrol-position: right center;
-                        left: -7px;        
-                    }''')
-
-                    btn.setMenu(dummyMenu)
-                    x = btn.menu()
-                    action = x.addAction('Go to..')
-                    x.setStyleSheet('''
-                        QMenu
+                        menu = self._referenceView.legend_menus[idx]
+                        btn.setMenu(menu)
+                        btn.setStyleSheet(btn.styleSheet() +
+                        '''
+                        QPushButton:hover
                         {
-                            background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                        stop: 0.0 rgb(86, 86, 86),
-                                        stop: 1.0 rgb(58, 58, 58));
-                            color: rgb(203, 203, 203);
+                            border: 1px solid rgba(185, 134, 32, 100%);                        
                         }
-                        QMenu::item:selected
+                        QPushButton:menu-indicator
                         {
-                            background: rgba(185, 134, 32, 100%);
+                            subcontrol-position: right center;
+                            left: -7px;        
                         }''')
-
-                    self.legendactions[idx] = action
-                    action.triggered.connect(lambda x=item['menuCollection']: self.__setCollection(x))
+                        menu.setStyleSheet('''
+                            QMenu
+                            {
+                                background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                            stop: 0.0 rgb(86, 86, 86),
+                                            stop: 1.0 rgb(58, 58, 58));
+                                color: rgb(203, 203, 203);
+                            }
+                            QMenu::item:selected
+                            {
+                                background: rgba(185, 134, 32, 100%);
+                            }''')
                 else:
                     btn.setMenu(QtWidgets.QMenu())
                     try:
                         btn.clicked.disconnect()
                     except Exception:
                         pass
-
             elif not item['active']:
                 btn.setDisabled(True)
                 btn.setStyleSheet('''
@@ -899,11 +887,16 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 except Exception:
                     pass
 
-    def __setCollection(self, collection):
-        idx = self._menuToolbar.collectionComboBox.findText(collection.split('.json')[0])
-        if idx != -1:
+    def __setCollection(self): # used to be (self, collection)
+        action = self.sender()
+        idx = self._referenceView.legend_actions.index(action)
+        btn = self._referenceView.btns[idx]
+        item = self._virtualCollection[idx]
+        collection = item['menuCollection']
+        idx2 = self._menuToolbar.collectionComboBox.findText(collection.split('.json')[0])
+        if idx2 != -1:
             self.__updateLegendHistory()
-            self._menuToolbar.collectionComboBox.setCurrentIndex(idx)
+            self._menuToolbar.collectionComboBox.setCurrentIndex(idx2)
 
     def __homeContext(self):
         x = self._menuToolbar.collectionComboBox.currentIndex()

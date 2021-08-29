@@ -10,18 +10,14 @@ import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 
-import mmutils
-
-sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
-                                'python2.7libs',
-                                'houdini_markingmenu'))
+import utils
 
 import buttonfunctions as cmds
 
-from widgets import mousepath, menuitembutton
+from menu_widgets import mousepath, menuitembutton
 
 reload(cmds)
-reload(mmutils)
+reload(utils)
 reload(mousepath)
 reload(menuitembutton)
 
@@ -67,7 +63,12 @@ class NEMarkingMenu(QtWidgets.QWidget):
     """
     def __init__(self, editor):
         super(NEMarkingMenu, self).__init__()
-
+        
+        # add python folder to path for nodegraphactivewire context
+        sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
+                                'python2.7libs',
+                                'houdini_markingmenu',
+                                'python'))
         # UI fixed sizes
         self.HIGH_DPI = cmds.HIGH_DPI
         self.UISCALE = 2 if self.HIGH_DPI else 1  # scale factor for high DPI monitors, 2 should be enough.
@@ -107,7 +108,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
             ]        
 
         # setup initial config file
-        self.currentContext = mmutils.getContext(self.editor)
+        self.currentContext = utils.getContext(self.editor)
         self.baseCollection = '{}_baseCollection.json'.format(self.currentContext)
 
         self.rootpath = os.path.join(
@@ -119,7 +120,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.inputConfigFile = {}
         self.collectionItemDescriptions = []
 
-        self.collectionsDir = os.path.join(self.rootpath, 'json', self.currentContext)
+        self.collectionsDir = os.path.join(self.rootpath, 'menus', self.currentContext)
         self.storeCollection(self.baseCollection)
         self.__initUI()
 
@@ -172,8 +173,8 @@ class NEMarkingMenu(QtWidgets.QWidget):
             with open(
                 os.path.join(
                     self.rootpath,
-                    'json',
-                    'menuprefs.json'), 'r') as f:
+                    'menus',
+                    'menu_prefs.json'), 'r') as f:
                 prefs = json.load(f)
 
             modifiers = QtWidgets.QApplication.keyboardModifiers()
@@ -182,8 +183,8 @@ class NEMarkingMenu(QtWidgets.QWidget):
             elif modifiers == QtCore.Qt.ControlModifier:
                 collectionFile = prefs[self.currentContext]['Control']
 
-            self.inputConfigFile = mmutils.loadCollection(
-                os.path.join(self.rootpath, 'json', self.currentContext, collectionFile)
+            self.inputConfigFile = utils.loadCollection(
+                os.path.join(self.rootpath, 'menus', self.currentContext, collectionFile)
                 )
 
             for item in self.inputConfigFile:
@@ -204,7 +205,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
                     btn.menu()
                     btn.isMenu = True
                     if os.path.isfile(os.path.join(self.collectionsDir, item['menuCollection'])):
-                        btn.menuObjects = mmutils.loadCollection(
+                        btn.menuObjects = utils.loadCollection(
                             os.path.join(self.collectionsDir, item['menuCollection']))
 
                 # button size, icon, icon size, position
@@ -271,11 +272,11 @@ class NEMarkingMenu(QtWidgets.QWidget):
     def updateTargetWidget(self, e):
         # find closest widget and do shading
         closeWidget = 0
-        if mmutils.qpDist(self.mouseAnchorPositions[-1], e.pos()) > 14:
+        if utils.qpDist(self.mouseAnchorPositions[-1], e.pos()) > 14:
             distance = 99999
             idx = -1
             for i in self.rectangles:
-                prd = mmutils.pointRectDist(e.pos(), i)
+                prd = utils.pointRectDist(e.pos(), i)
                 self.menuItemWidgets[self.rectangles.index(i)].isTarget = False
                 if prd < distance:
                     distance = prd
@@ -326,7 +327,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         self.mousePathGraphicsWidget.raise_()
 
         if len(self.mouseAnchorPositions) > 1:
-            if mmutils.qpDist(self.mouseAnchorPositions[-2], e.pos()) < 10:
+            if utils.qpDist(self.mouseAnchorPositions[-2], e.pos()) < 10:
                 del self.mouseAnchorPositions[-1]
                 self.rebuildMenu(self.mousePathGraphicsWidget.previousMenu[-1])
 

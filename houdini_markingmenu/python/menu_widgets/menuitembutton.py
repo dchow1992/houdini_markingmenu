@@ -10,9 +10,9 @@ import os
 
 import re
 
-import buttonfunctions as cmds
+from houdini_markingmenu.python import buttonfunctions as cmds
 
-import reservedfunctions as cmdsreserved
+from houdini_markingmenu.python import reservedfunctions as cmdsreserved
 
 reload(cmdsreserved)
 

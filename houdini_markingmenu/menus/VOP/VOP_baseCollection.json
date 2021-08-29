@@ -40,16 +40,16 @@
             "nodetype": "null"
         }, 
         {
-            "active": 0, 
+            "active": 1, 
             "activeWire": false, 
-            "command": "", 
+            "command": "createNode", 
             "commandType": "createnode", 
             "context": "VOP", 
             "icon": "MISC_python", 
             "index": 3, 
-            "isMenu": 0, 
-            "label": "", 
-            "menuCollection": "", 
+            "isMenu": true, 
+            "label": "Remap Func", 
+            "menuCollection": "VOP_remap.json", 
             "nodetype": "null"
         }, 
         {

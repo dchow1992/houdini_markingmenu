@@ -37,7 +37,7 @@
     "SOP": {
         "Control": "SOP_baseCollection.json", 
         "Default": "SOP_baseCollection.json", 
-        "Shift": "SOP_scripts.json"
+        "Shift": "SOP_shiftCollection.json"
     }, 
     "VOP": {
         "Control": "VOP_baseCollection.json", 

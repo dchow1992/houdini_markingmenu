@@ -25,7 +25,7 @@ class DetailsPane(QtWidgets.QWidget):
         jsonfile = os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
                      'python2.7libs',
                      'houdini_markingmenu',
-                     'json',
+                     'menus',
                      'icons.json')
 
         with open(jsonfile, 'r') as f:

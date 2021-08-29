@@ -39,5 +39,16 @@ class ReferenceView(QtWidgets.QWidget):
         self.backbtn = self.refBtns.backbtn
         self.homebtn = self.refBtns.homebtn
 
+        self.legend_menus = range(8)
+        self.legend_collections = range(8)
+        self.legend_actions = range(8)
+        for idx, btn in enumerate(self.btns):            
+            menu = QtWidgets.QMenu()
+            goto_action = menu.addAction('Go to..')
+            self.legend_actions[idx] = goto_action
+            self.legend_menus[idx] = menu
+            self.legend_collections[idx] = 'None'
+            btn.setMenu(menu)
+
         self.layout.addLayout(self.refBtns.layout)
         self.layout.addStretch(1)
