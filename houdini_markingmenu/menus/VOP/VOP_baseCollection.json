@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_add", 
+            "index": 0, 
+            "isMenu": true, 
+            "label": "Arithmetic", 
+            "menuCollection": "VOP_arithmetic.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_turbnoise", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Noise Functions", 
+            "menuCollection": "VOP_noises.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "launchEditor", 
+            "commandType": "customfunction", 
+            "context": "VOP", 
+            "icon": "SOP_compile_begin", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "MM EDITOR", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": true, 
+            "label": "Remap Func", 
+            "menuCollection": "VOP_remap.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_cross", 
+            "index": 5, 
+            "isMenu": true, 
+            "label": "Vector Operations", 
+            "menuCollection": "VOP_vectors.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_importattrib", 
+            "index": 7, 
+            "isMenu": true, 
+            "label": "Import Attributes", 
+            "menuCollection": "VOP_importattribs.json", 
+            "nodetype": "null"
+        }
+    ]
+}

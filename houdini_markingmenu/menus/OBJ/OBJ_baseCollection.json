@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_geo", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Geometry", 
+            "menuCollection": "OBJ_lights.json", 
+            "nodetype": "geo"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_light", 
+            "index": 1, 
+            "isMenu": true, 
+            "label": "Lights", 
+            "menuCollection": "OBJ_lights.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "launchEditor", 
+            "commandType": "customfunction", 
+            "context": "OBJ", 
+            "icon": "SOP_compile_begin", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "MM EDITOR", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_camera", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Camera", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "cam"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "OBJ", 
+            "icon": "OBJ_null", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Null", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }
+    ]
+}

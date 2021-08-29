@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_grid", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Grid", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "grid"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 1, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_add", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Add", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "add"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_sphere", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Sphere", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "sphere"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_box", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Box", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "box"
+        }
+    ]
+}

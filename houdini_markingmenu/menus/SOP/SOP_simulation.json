@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_dopimport", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Import Fields", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "dopimportfield"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_solver", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Solver", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "solver"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "SOP_dopimportrecords", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Import", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "dopimport"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "SOP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}

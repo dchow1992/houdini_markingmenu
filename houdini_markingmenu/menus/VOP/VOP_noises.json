@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_unifiednoise", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Curl Noise", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "curlnoise"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_turbnoise", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Turbulent", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "turbnoise"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_aanoise", 
+            "index": 2, 
+            "isMenu": false, 
+            "label": "Anti Aliased", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "aanoise"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_worleynoise", 
+            "index": 3, 
+            "isMenu": false, 
+            "label": "Worley", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "worleynoise"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 4, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 5, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 6, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 7, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }
+    ]
+}

@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1, 
+            "activeWire": true, 
+            "command": "vex_bindexport", 
+            "commandType": "customfunction", 
+            "context": "VOP", 
+            "icon": "VOP_bind", 
+            "index": 0, 
+            "isMenu": false, 
+            "label": "Bind Export", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_importattrib", 
+            "index": 1, 
+            "isMenu": false, 
+            "label": "Detail Attrib", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "importdetail"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 2, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "MISC_python", 
+            "index": 3, 
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_primattrib", 
+            "index": 4, 
+            "isMenu": false, 
+            "label": "Get Attrib", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "getattrib"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_primattrib", 
+            "index": 5, 
+            "isMenu": false, 
+            "label": "Prim Attrib", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "importprim"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_importattrib", 
+            "index": 6, 
+            "isMenu": false, 
+            "label": "Point Attrib", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "importpoint"
+        }, 
+        {
+            "active": 1, 
+            "activeWire": false, 
+            "command": "createNode", 
+            "commandType": "createnode", 
+            "context": "VOP", 
+            "icon": "VOP_bind", 
+            "index": 7, 
+            "isMenu": false, 
+            "label": "Bind", 
+            "menuCollection": "< Not Linked >.json", 
+            "nodetype": "bind"
+        }
+    ]
+}
