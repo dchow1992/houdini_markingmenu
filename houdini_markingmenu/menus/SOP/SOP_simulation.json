@@ -92,17 +92,17 @@
             "nodetype": "null"
         }, 
         {
-            "active": 1, 
-            "activeWire": true, 
-            "command": "createNode", 
+            "active": 0, 
+            "activeWire": false, 
+            "command": "", 
             "commandType": "createnode", 
             "context": "SOP", 
-            "icon": "SOP_voronoifracture", 
+            "icon": "MISC_python", 
             "index": 7, 
-            "isMenu": false, 
-            "label": "Geocache", 
-            "menuCollection": "< Not Linked >.json", 
-            "nodetype": "dchow__geocache__1_0"
+            "isMenu": 0, 
+            "label": "", 
+            "menuCollection": "", 
+            "nodetype": "null"
         }
     ]
 }
