@@ -40,6 +40,19 @@ def createNode(**kwargs):
                         matches = set(checklist).intersection(set(components))
                         if matches:                        
                             nodes.append(node_type)
+            # Issue 22: list of node_types not always in correct order
+            tmp = {}
+            for x in nodes:
+                tokens = x.split('::')    
+                idx = 0
+                if len(tokens) > 1:
+                    digits = tokens[-1]
+                    to_int = int(float(digits))
+                    idx = to_int        
+                tmp[x] = idx
+                
+            {k: v for k, v in sorted(tmp.items(), key=lambda item: item[1])}
+            nodes = tmp.keys()
 
             network_editor.selectPosition()
 
