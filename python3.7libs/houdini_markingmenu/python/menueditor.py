@@ -46,7 +46,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
 
         self._contexts = sorted([
             'SOP', 'OBJ', 'DOP', 'VOP', 'ROP',
-            'SHOP', 'CHOP', 'COP'
+            'SHOP', 'CHOP', 'COP', 'LOP'
             ])
 
         self._collections = []
@@ -247,7 +247,7 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._currentContext = self._menuToolbar.contextComboBox.currentText()
         self._collectionsDir = os.path.join(self._rootpath, 'menus', self._currentContext)
 
-        if self._currentContext in ['SOP', 'VOP', 'DOP', 'COP', 'CHOP', 'OBJ', 'ROP']:
+        if self._currentContext in self._contexts:
             # build completer based on current context
             strlist = []
             jsondict = {}
