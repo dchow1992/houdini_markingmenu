@@ -60,8 +60,9 @@ class MarkingMenuEditor(QtWidgets.QWidget):
             )
 
         self._fullcpath = ''  # full path to the current collection on disk
-        self._menuPrefs = utils.loadMenuPreferences(os.path.join(
-            self._rootpath, 'menus', 'menu_prefs.json'))
+        self._prefs_path = os.path.join(self._rootpath, 'menus', 'menu_prefs.json')
+        self._menuPrefs = utils.loadMenuPreferences(self._prefs_path)
+        self.freezeUpdate = 0
         self._detailIndices = []
         self._loadedCollection = []
         self._virtualCollection = []
@@ -239,7 +240,6 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                 box.setCheckState(self._detailsPane.allWireToggle.checkState())
 
     def __contextAction(self):
-        # self._prevCollection = self._menuToolbar.collectionComboBox.currentText()
         self.__updateLegendHistory()
         if self._unsaved:
             self.__unsavedPrompt(self._menuToolbar.collectionComboBox.currentText())
@@ -294,22 +294,26 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self._menuPrefs = utils.loadMenuPreferences(os.path.join(
             self._rootpath, 'menus', 'menu_prefs.json'))
         try:
+            self.freezeUpdate = 1
             shiftItem = self._menuPrefs[self._currentContext]['Shift']
             self._modifierComboBoxes.shift.comboBox.clear()
             self._modifierComboBoxes.shift.comboBox.insertItems(0, self.collectionsLabels)
             self._modifierComboBoxes.shift.comboBox.setCurrentIndex(self._collections.index(shiftItem))
 
             controlItem = self._menuPrefs[self._currentContext]['Control']
+
             self._modifierComboBoxes.ctrl.comboBox.clear()
             self._modifierComboBoxes.ctrl.comboBox.insertItems(0, self.collectionsLabels)
             self._modifierComboBoxes.ctrl.comboBox.setCurrentIndex(self._collections.index(controlItem))
+            self.freezeUpdate = 0
+
         except ValueError:
             pass
 
     def __collectionAction(self):
         if self._unsaved:
             self.__unsavedPrompt(self._prevCollection)
-        # self._prevCollection = self._menuToolbar.collectionComboBox.currentText()
+
         # if the collection is changed, update the details
         if self._menuToolbar.collectionComboBox.currentText():
             self._fullcpath = os.path.join(
@@ -498,18 +502,12 @@ class MarkingMenuEditor(QtWidgets.QWidget):
                         )
 
     def __updateMenuPrefs(self):
-        prefs = {}
-        path = os.path.join(self._rootpath, 'menus', 'menu_prefs.json')
-        with open(path, 'r') as f:
-            prefs = json.load(f)
-        prefs[self._currentContext]['Shift'] = self._modifierComboBoxes.shift.comboBox.currentText() + '.json'
-        prefs[self._currentContext]['Control'] = self._modifierComboBoxes.ctrl.comboBox.currentText() + '.json'
+        if not self.freezeUpdate:
+            self._menuPrefs[self._currentContext]['Shift'] = self._modifierComboBoxes.shift.comboBox.currentText() + '.json'
+            self._menuPrefs[self._currentContext]['Control'] = self._modifierComboBoxes.ctrl.comboBox.currentText() + '.json'
 
-        self._menuPrefs[self._currentContext]['Shift'] = self._modifierComboBoxes.shift.comboBox.currentText() + '.json'
-        self._menuPrefs[self._currentContext]['Control'] = self._modifierComboBoxes.ctrl.comboBox.currentText() + '.json'
-
-        with open(path, 'w') as f:
-            json.dump(prefs, f, indent=4, sort_keys=True)
+            with open(self._prefs_path, 'w') as f:
+                json.dump(self._menuPrefs, f, indent=4, sort_keys=True)
 
     def __updateTree(self, parentItem):
         self._referenceView.tree.clear()
