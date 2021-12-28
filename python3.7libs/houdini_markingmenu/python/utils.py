@@ -69,7 +69,7 @@ def filterCollections(path, context):
     for obj in os.listdir(path):
         if os.path.splitext(obj)[-1] == '.json':
             if obj.split('_', 1)[0] == context:
-                filteredObj.append(obj.encode('utf8'))
+                filteredObj.append(obj)
     baseC = context + '_baseCollection.json'
     filteredObj = sorted(filteredObj, key=str.lower)
     filteredObj.insert(0, filteredObj.pop(filteredObj.index(baseC)))

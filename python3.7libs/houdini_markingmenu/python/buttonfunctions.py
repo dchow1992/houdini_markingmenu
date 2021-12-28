@@ -6,7 +6,7 @@ import hou
 
 import toolutils
 
-import reservedfunctions as cmdsreserved
+from . import reservedfunctions as cmdsreserved
 
 '''Menu Preferences'''
 MENU_ACTIVATE = True

@@ -22,11 +22,7 @@ class DetailsPane(QtWidgets.QWidget):
                 strlist.append(node_types[node_type].icon())
 
         jsondict = {}
-        jsonfile = os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
-                     'python2.7libs',
-                     'houdini_markingmenu',
-                     'menus',
-                     'icons.json')
+        jsonfile = os.path.join(rootpath, 'menus', 'icons.json')
 
         with open(jsonfile, 'r') as f:
             jsondict = json.load(f)
