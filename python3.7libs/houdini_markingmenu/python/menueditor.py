@@ -8,25 +8,19 @@ import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 
-from editor_widgets import managecollectionstoolbar
+from .editor_widgets import managecollectionstoolbar
 
-from editor_widgets import modifiercomboboxes
+from .editor_widgets import modifiercomboboxes
 
-from editor_widgets import referenceview
+from .editor_widgets import referenceview
 
-from editor_widgets import detailspane
+from .editor_widgets import detailspane
 
-from editor_widgets import editortaskbar
+from .editor_widgets import editortaskbar
 
-import buttonfunctions as cmds
+from . import buttonfunctions as cmds
 
-import utils
-
-reload(detailspane)
-reload(referenceview)
-reload(managecollectionstoolbar)
-reload(modifiercomboboxes)
-reload(detailspane)
+from . import utils
 
 
 class MarkingMenuEditor(QtWidgets.QWidget):
@@ -44,11 +38,11 @@ class MarkingMenuEditor(QtWidgets.QWidget):
         self.setStyleSheet('background-color: rgb(58,58,58);')
         self.setFixedSize(1150 * self.dpifactor, 850 * self.dpifactor)
 
-        self._rootpath = os.path.join(
-                os.path.abspath(hou.getenv('HOUDINI_USER_PREF_DIR')),
-                'python2.7libs',
-                'houdini_markingmenu'
-                )
+        self._rootpath = os.path.abspath(os.path.join(
+            hou.getenv('HOUDINI_MARKINGMENU'),
+            'python3.7libs',
+            'houdini_markingmenu')
+            )
 
         self._contexts = sorted([
             'SOP', 'OBJ', 'DOP', 'VOP', 'ROP',

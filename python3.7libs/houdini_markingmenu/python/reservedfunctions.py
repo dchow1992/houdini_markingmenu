@@ -4,9 +4,9 @@ import hou
 
 import toolutils
 
-import menueditor as editor
+from . import menueditor as editor
 
-import utils
+from . import utils
 
 def createNode(**kwargs):
     """Create a node, place it, and pick input wire if activeWire is set."""
@@ -52,7 +52,7 @@ def createNode(**kwargs):
                 tmp[x] = idx
                 
             {k: v for k, v in sorted(tmp.items(), key=lambda item: item[1])}
-            nodes = tmp.keys()
+            nodes = list(tmp)
 
             network_editor.selectPosition()
 

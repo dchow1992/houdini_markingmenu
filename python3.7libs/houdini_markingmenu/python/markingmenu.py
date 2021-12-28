@@ -10,16 +10,11 @@ import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 
-import utils
+from houdini_markingmenu.python import utils
 
-import buttonfunctions as cmds
+from houdini_markingmenu.python import buttonfunctions as cmds
 
-from menu_widgets import mousepath, menuitembutton
-
-reload(cmds)
-reload(utils)
-reload(mousepath)
-reload(menuitembutton)
+from houdini_markingmenu.python.menu_widgets import mousepath, menuitembutton
 
 
 class NEMarkingMenu(QtWidgets.QWidget):
@@ -64,11 +59,15 @@ class NEMarkingMenu(QtWidgets.QWidget):
     def __init__(self, editor):
         super(NEMarkingMenu, self).__init__()
         
+        self.rootpath = os.path.abspath(os.path.join(
+            hou.getenv('HOUDINI_MARKINGMENU'),
+            'python3.7libs',
+            'houdini_markingmenu')
+            )
+        
         # add python folder to path for nodegraphactivewire context
-        sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
-                                'python2.7libs',
-                                'houdini_markingmenu',
-                                'python'))
+        sys.path.insert(0, os.path.join(self.rootpath, 'python'))
+                                
         # UI fixed sizes
         self.HIGH_DPI = cmds.HIGH_DPI
         self.UISCALE = 2 if self.HIGH_DPI else 1  # scale factor for high DPI monitors, 2 should be enough.
@@ -110,13 +109,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
         # setup initial config file
         self.currentContext = utils.getContext(self.editor)
         self.baseCollection = '{}_baseCollection.json'.format(self.currentContext)
-
-        self.rootpath = os.path.join(
-            os.path.abspath(hou.getenv('HOUDINI_USER_PREF_DIR')),
-            'python2.7libs',
-            'houdini_markingmenu'
-            )
-
+        
         self.inputConfigFile = {}
         self.collectionItemDescriptions = []
 
@@ -185,8 +178,7 @@ class NEMarkingMenu(QtWidgets.QWidget):
 
             self.inputConfigFile = utils.loadCollection(
                 os.path.join(self.rootpath, 'menus', self.currentContext, collectionFile)
-                )
-
+                )            
             for item in self.inputConfigFile:
                 self.collectionItemDescriptions.append(item)
 
