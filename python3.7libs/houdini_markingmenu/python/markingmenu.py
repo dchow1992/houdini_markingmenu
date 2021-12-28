@@ -10,11 +10,11 @@ import hou
 
 from PySide2 import QtWidgets, QtGui, QtCore, QtTest
 
-from houdini_markingmenu.python import utils
+from . import utils
 
-from houdini_markingmenu.python import buttonfunctions as cmds
+from . import buttonfunctions as cmds
 
-from houdini_markingmenu.python.menu_widgets import mousepath, menuitembutton
+from .menu_widgets import mousepath, menuitembutton
 
 
 class NEMarkingMenu(QtWidgets.QWidget):
