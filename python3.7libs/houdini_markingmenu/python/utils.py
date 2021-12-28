@@ -101,22 +101,18 @@ def saveCollection(collection, data):
 def getContext(editor):
     """Return houdini context string."""
     hou_context = editor.pwd().childTypeCategory().name()
-    if hou_context == 'Sop':
-        return 'SOP'
-    elif hou_context == 'Dop':
-        return 'DOP'
-    elif hou_context == 'Object':
-        return 'OBJ'
-    elif hou_context == 'Driver':
-        return 'ROP'
-    elif hou_context == 'Chop':
-        return 'CHOP'
-    elif hou_context == 'Vop':
-        return 'VOP'
-    elif hou_context == 'Shop':
-        return 'SHOP'
-    elif hou_context == 'Cop2':
-        return 'COP'
+    context_mapping = {
+        'Sop': 'SOP',
+        'Dop': 'DOP',
+        'Object': 'OBJ',
+        'Driver': 'ROP',
+        'Chop': 'CHOP',
+        'Vop': 'VOP',
+        'Shop': 'SHOP',
+        'Cop2': 'COP',
+        'Lop': 'LOP',
+        }
+    return context_mapping[hou_context]
 
 
 def buildCompleter(jsonfile):
