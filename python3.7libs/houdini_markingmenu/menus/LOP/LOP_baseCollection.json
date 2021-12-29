@@ -1,0 +1,108 @@
+{
+    "menu": [
+        {
+            "active": 1,
+            "activeWire": false,
+            "command": "createNode",
+            "commandType": "createnode",
+            "context": "LOP",
+            "icon": "LOP_sopimport",
+            "index": 0,
+            "isMenu": false,
+            "label": "Sop Import",
+            "menuCollection": "< Not Linked >.json",
+            "nodetype": "sopimport"
+        },
+        {
+            "active": 1,
+            "activeWire": false,
+            "command": "createNode",
+            "commandType": "createnode",
+            "context": "LOP",
+            "icon": "LOP_sceneimport",
+            "index": 1,
+            "isMenu": false,
+            "label": "Scene Import",
+            "menuCollection": "< Not Linked >.json",
+            "nodetype": "sceneimport"
+        },
+        {
+            "active": 1,
+            "activeWire": false,
+            "command": "launchEditor",
+            "commandType": "customfunction",
+            "context": "LOP",
+            "icon": "SOP_compile_begin",
+            "index": 2,
+            "isMenu": false,
+            "label": "MM EDITOR",
+            "menuCollection": "< Not Linked >.json",
+            "nodetype": "null"
+        },
+        {
+            "active": 0,
+            "activeWire": false,
+            "command": "",
+            "commandType": "createnode",
+            "context": "LOP",
+            "icon": "MISC_python",
+            "index": 3,
+            "isMenu": 0,
+            "label": "",
+            "menuCollection": "",
+            "nodetype": "null"
+        },
+        {
+            "active": 0,
+            "activeWire": false,
+            "command": "",
+            "commandType": "createnode",
+            "context": "LOP",
+            "icon": "MISC_python",
+            "index": 4,
+            "isMenu": 0,
+            "label": "",
+            "menuCollection": "",
+            "nodetype": "null"
+        },
+        {
+            "active": 0,
+            "activeWire": false,
+            "command": "",
+            "commandType": "createnode",
+            "context": "LOP",
+            "icon": "MISC_python",
+            "index": 5,
+            "isMenu": 0,
+            "label": "",
+            "menuCollection": "",
+            "nodetype": "null"
+        },
+        {
+            "active": 0,
+            "activeWire": false,
+            "command": "",
+            "commandType": "createnode",
+            "context": "LOP",
+            "icon": "MISC_python",
+            "index": 6,
+            "isMenu": 0,
+            "label": "",
+            "menuCollection": "",
+            "nodetype": "null"
+        },
+        {
+            "active": 0,
+            "activeWire": false,
+            "command": "",
+            "commandType": "createnode",
+            "context": "LOP",
+            "icon": "MISC_python",
+            "index": 7,
+            "isMenu": 0,
+            "label": "",
+            "menuCollection": "",
+            "nodetype": "null"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 from PySide2 import QtWidgets
 
-from subwidgets import labelcombobox
+from .subwidgets import labelcombobox
 
 
 class ModifierComboBoxes(QtWidgets.QWidget):

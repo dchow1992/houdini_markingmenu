@@ -8,10 +8,6 @@ from canvaseventtypes import *
 
 import nodegraphbase as base
 
-# sys.path.insert(0, os.path.join(hou.getenv('HOUDINI_USER_PREF_DIR'),
-#                 'python2.7libs',
-#                 'houdini_markingmenu'))
-
 from houdini_markingmenu.python import markingmenu as mm
 
 from houdini_markingmenu.python import buttonfunctions as cmds
@@ -21,7 +17,6 @@ def buildHandler(uievent, pending_actions):
     class MarkingMenuMouseHandler(nodegraph.NodeMouseHandler):
         def handleEvent(self, uievent, pending_actions):
             if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedrag':
-                reload(mm)
                 markingMenu = mm.NEMarkingMenu(uievent.editor)
                 # return None if we handled event and launched a marking menu
                 return None
@@ -44,7 +39,6 @@ def buildHandler(uievent, pending_actions):
 
 def createEventHandler(uievent, pending_actions):
     if isinstance(uievent, MouseEvent) and uievent.eventtype == 'mousedown' and uievent.mousestate.rmb:
-        reload(cmds)
         if uievent.selected.item is None:
             if cmds.MENU_ACTIVATE:
                 a = buildHandler(uievent, pending_actions)

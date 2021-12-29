@@ -4,9 +4,9 @@ import hou
 
 import toolutils
 
-import menueditor as editor
+from . import menueditor as editor
 
-import utils
+from . import utils
 
 def createNode(**kwargs):
     """Create a node, place it, and pick input wire if activeWire is set."""
@@ -24,7 +24,7 @@ def createNode(**kwargs):
             'Vop': 'Vop'            
             }
 
-            # Issue #22: make sure latest version of each node is created
+            # BUG 22, 27 - create latest version of node if multiples exist
             version = 0
             categories = hou.nodeTypeCategories()
             nodes = []
@@ -40,19 +40,20 @@ def createNode(**kwargs):
                         matches = set(checklist).intersection(set(components))
                         if matches:                        
                             nodes.append(node_type)
-            # Issue 22: list of node_types not always in correct order
+            
             tmp = {}
-            for x in nodes:
-                tokens = x.split('::')    
-                idx = 0
-                if len(tokens) > 1:
-                    digits = tokens[-1]
-                    to_int = int(float(digits))
-                    idx = to_int        
-                tmp[x] = idx
-                
-            {k: v for k, v in sorted(tmp.items(), key=lambda item: item[1])}
-            nodes = tmp.keys()
+            if len(nodes) > 1:
+                for x in nodes:
+                    tokens = x.split('::')    
+                    idx = 0
+                    if len(tokens) > 1:
+                        digits = tokens[-1]
+                        to_int = int(float(digits))
+                        idx = to_int        
+                    tmp[x] = idx
+                    
+                {k: v for k, v in sorted(tmp.items(), key=lambda item: item[1])}
+                nodes = list(tmp)
 
             network_editor.selectPosition()
 

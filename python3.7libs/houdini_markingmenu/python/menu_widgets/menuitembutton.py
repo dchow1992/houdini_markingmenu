@@ -10,11 +10,10 @@ import os
 
 import re
 
-from houdini_markingmenu.python import buttonfunctions as cmds
+from .. import buttonfunctions as cmds
 
-from houdini_markingmenu.python import reservedfunctions as cmdsreserved
+from .. import reservedfunctions as cmdsreserved
 
-reload(cmdsreserved)
 
 class MenuItemButton(QtWidgets.QPushButton):
     """Subclassed pushbutton for marking menu.

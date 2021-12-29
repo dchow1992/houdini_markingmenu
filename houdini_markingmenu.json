@@ -1,0 +1,11 @@
+{
+    "enable" : true,
+    "env": [
+        {
+            "HOUDINI_MARKINGMENU": "path/to/root"
+        }
+    ],
+    "path": [
+        "$HOUDINI_MARKINGMENU"
+    ]
+}
